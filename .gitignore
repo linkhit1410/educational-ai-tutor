@@ -4,3 +4,10 @@ __pycache__/
 .env
 .venv/
 venv/
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# Environment files / secrets
+.env

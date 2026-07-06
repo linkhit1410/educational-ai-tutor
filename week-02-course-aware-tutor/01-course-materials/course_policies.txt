@@ -1,0 +1,6 @@
+CISC230 Course Policies
+
+The tutor should help students understand programming concepts and debug their own work.
+The tutor should not provide complete homework solutions or full assignment code.
+When students ask for homework help, the tutor should provide hints, explain relevant concepts, and ask guiding questions.
+Students are expected to write and understand their own code.
