@@ -1,0 +1,914 @@
+Source file: Chapter 6.pptx
+
+--- Slide 1 ---
+Chapter 6
+More Conditionals and Loops
+
+--- Slide 2 ---
+More Conditionals and Loops
+Now we can fill in some additional details regarding Java conditional and repetition statements
+Chapter 6 focuses on:
+the switch statement
+the conditional operator
+the do loop
+the for loop
+using conditionals and loops with graphics
+graphic transformations
+3/9/2023
+CISC230 Object Oriented Design and Programming
+2
+
+--- Slide 3 ---
+Outline
+The switch Statement
+The Conditional Operator
+The do Statement
+The for Statement
+Using Loops and Conditionals with Graphics
+Graphic Transformations
+3/9/2023
+CISC230 Object Oriented Design and Programming
+3
+
+--- Slide 4 ---
+The switch Statement
+The switch statement provides another way to decide which statement to execute next
+The switch statement evaluates an expression, then attempts to match the result to one of several possible cases
+Each case contains a value and a list of statements
+The flow of control transfers to statement associated with the first case value that matches
+3/9/2023
+CISC230 Object Oriented Design and Programming
+4
+
+--- Slide 5 ---
+The switch Statement
+The general syntax of a switch statement is:
+3/9/2023
+CISC230 Object Oriented Design and Programming
+5
+switch ( expression )
+{
+   case value1 :
+      statement-list1
+   case value2 :
+      statement-list2
+   case value3 :
+      statement-list3
+   case  ...
+
+}
+
+--- Slide 6 ---
+The switch Statement
+Often a break statement is used as the last statement in each case's statement list
+A break statement causes control to transfer to the end of the switch statement
+If a break statement is not used, the flow of control will continue into the next case
+Sometimes this may be appropriate, but often we want to execute only the statements associated with one case
+3/9/2023
+CISC230 Object Oriented Design and Programming
+6
+
+--- Slide 7 ---
+The switch Statement
+An example of a switch statement:
+3/9/2023
+CISC230 Object Oriented Design and Programming
+7
+switch (option)
+{
+   case 'A':
+      aCount++;
+      break;
+   case 'B':
+      bCount++;
+      break;
+   case 'C':
+      cCount++;
+      break;
+}
+
+--- Slide 8 ---
+The switch Statement
+A switch statement can have an optional default case
+The default case has no associated value and simply uses the reserved word default
+If the default case is present, control will transfer to it if no other case value matches
+If there is no default case, and no other value matches, control falls through to the statement after the switch
+3/9/2023
+CISC230 Object Oriented Design and Programming
+8
+
+--- Slide 9 ---
+The switch Statement
+The type of a switch expression can be integers, characters, enumerated types, or String objects
+You cannot use a switch with floating point values
+The implicit boolean condition in a switch statement is equality
+You cannot perform relational checks with a switch statement
+See GradeReport.java
+3/9/2023
+CISC230 Object Oriented Design and Programming
+9
+
+--- Slide 10 ---
+3/9/2023
+CISC230 Object Oriented Design and Programming
+10
+import java.util.Scanner;
+public class GradeReport
+{ //  Reads a grade from the user and prints comments accordingly.
+  public static void main(String[] args)
+   {
+      int grade, category;
+      Scanner scan = new Scanner(System.in);
+      System.out.print("Enter a numeric grade (0 to 100): ");
+      grade = scan.nextInt();
+      category = grade / 10;
+      System.out.print("That grade is ");
+      switch (category)
+      {
+         case 10:
+            System.out.println("a perfect score. Well done.");break;
+         case 9:
+            System.out.println("well above average. Excellent."); break;
+         case 8:
+            System.out.println("above average. Nice job."); break;
+	    case 7:
+            System.out.println("average."); break;
+	  case 6:
+            System.out.println("below average. You should see the");
+            System.out.println("instructor to clarify the material presented in class."); break;
+	default:
+            System.out.println("not passing.");
+      }
+   }
+}
+Sample Run
+Enter a numeric grade (0 to 100): 91
+That grade is well above average. Excellent.
+
+--- Slide 11 ---
+Example:Nested Switch
+public class Switch_2 {
+    public static void main(String[] args){
+        String Branch = "CSE";
+        int year = 2;
+        switch (year) {
+             case 1:
+                System.out.println("elective courses : Advance english, Algebra"); break;
+             case 2:
+                switch (Branch) {
+                           case "CSE":
+                           case "CCE":
+                              System.out.println("elective courses : Machine Learning, Big Data");      
+                              break;
+                           case "ECE":
+                               System.out.println("elective courses : Antenna Engineering");  
+                               break;
+                           default:
+                               System.out.println("Elective courses : Optimization");
+                  }
+          }
+     }
+}
+3/9/2023
+CISC230 Object Oriented Design and Programming
+11
+
+--- Slide 12 ---
+Outline
+The switch Statement
+The Conditional Operator
+The do Statement
+The for Statement
+Using Loops and Conditionals with Graphics
+Graphic Transformations
+3/9/2023
+CISC230 Object Oriented Design and Programming
+12
+
+--- Slide 13 ---
+The Conditional Operator
+The conditional operator evaluates to one of two expressions based on a boolean condition
+Its syntax is:
+condition ? expression1 : expression2
+If the condition is true, expression1 is evaluated;  if it is false, expression2 is evaluated
+The value of the entire conditional operator is the value of the selected expression
+3/9/2023
+CISC230 Object Oriented Design and Programming
+13
+
+--- Slide 14 ---
+The Conditional Operator
+The conditional operator is similar to an if-else statement, except that it is an expression that returns a value
+For example:
+		larger = ((num1 > num2) ? num1 : num2);
+If num1 is greater than num2, then num1 is assigned to larger;  otherwise, num2 is assigned to larger
+The conditional operator is ternary because it requires three operands
+3/9/2023
+CISC230 Object Oriented Design and Programming
+14
+
+--- Slide 15 ---
+The Conditional Operator
+Another example:
+
+
+If count equals 1, then "Dime" is printed
+If count is anything other than 1, then "Dimes" is printed
+3/9/2023
+CISC230 Object Oriented Design and Programming
+15
+System.out.println("Your change is " + count +
+   ((count == 1) ? "Dime" : "Dimes"));
+
+--- Slide 16 ---
+Quick Check
+3/9/2023
+CISC230 Object Oriented Design and Programming
+16
+Express the following logic in a succinct manner using the conditional operator.
+if (val <= 10)
+   System.out.println("It is not greater than 10.");
+else
+   System.out.println("It is greater than 10.");
+
+--- Slide 17 ---
+Quick Check
+3/9/2023
+CISC230 Object Oriented Design and Programming
+17
+Express the following logic in a succinct manner using the conditional operator.
+if (val <= 10)
+   System.out.println("It is not greater than 10.");
+else
+   System.out.println("It is greater than 10.");
+System.out.println("It is" +
+   ((val <= 10) ? " not" : "") +
+   " greater than 10.");
+
+--- Slide 18 ---
+Outline
+The switch Statement
+The Conditional Operator
+The do Statement
+The for Statement
+Using Loops and Conditionals with Graphics
+Graphic Transformations
+3/9/2023
+CISC230 Object Oriented Design and Programming
+18
+
+--- Slide 19 ---
+Conditional Operator
+public class ConditionalOperator
+{
+   public static void main(String args[]) {
+	int value 	= 	 2 > 3 ? 2 : 3;
+	String aString 	= "	 2 > 3 ? 2 : 3";
+	System.out.println(aString + " = " + value);
+	value 		= 	 ( 1 > 2 ? 3 :( 4 < 5 ? 6 : 7));
+	aString 	= " 	 ( 1 > 2 ? 3 :( 4 < 5 ? 6 : 7))";
+	System.out.println(aString + " = " + value);
+	value 		= 	 1 > 2 ? 3 : 4 > 5 ? 8 : 7;
+	aString 	= " 	 1 > 2 ? 3 : 4 > 5 ? 8 : 7";
+	System.out.println(aString + " = " + value);
+   }
+}
+3/13/2023
+CISC230 Object Oriented Design and Programming
+19
+
+--- Slide 20 ---
+The do Statement
+A do statement has the following syntax:
+				do
+				{
+				   statement-list;
+				}
+				while (condition); 
+The statement-list is executed once initially, and then the condition is evaluated
+The statement is executed repeatedly until the condition becomes false
+3/9/2023
+CISC230 Object Oriented Design and Programming
+20
+
+--- Slide 21 ---
+Logic of a do Loop
+3/9/2023
+CISC230 Object Oriented Design and Programming
+21
+
+--- Slide 22 ---
+The do Statement
+An example of a do loop:
+
+
+
+The body of a do loop executes at least once
+See ReverseNumber.java
+3/9/2023
+CISC230 Object Oriented Design and Programming
+22
+int count = 0;
+do
+{
+   count++;
+   System.out.println(count);
+} while (count < 5);
+
+--- Slide 23 ---
+3/9/2023
+CISC230 Object Oriented Design and Programming
+23
+//  Demonstrates the use of a do loop.
+import java.util.Scanner;
+public class ReverseNumber
+{
+   //  Reverses the digits of an integer mathematically.
+   public static void main(String[] args)
+   {
+      int number, lastDigit, reverse = 0;
+      Scanner scan = new Scanner(System.in);
+      System.out.print("Enter a positive integer: ");
+      number = scan.nextInt();
+      do
+      {
+         lastDigit = number % 10;
+         reverse = (reverse * 10) + lastDigit;
+         number = number / 10;
+      }
+      while (number > 0);
+      System.out.println("That number reversed is " + reverse);
+   }
+}
+Sample Run
+Enter a positive integer: 2896
+That number reversed is 6982
+
+--- Slide 24 ---
+Comparing while and do
+3/9/2023
+CISC230 Object Oriented Design and Programming
+24
+
+--- Slide 25 ---
+Outline
+The switch Statement
+The Conditional Operator
+The do Statement
+The for Statement
+Using Loops and Conditionals with Graphics
+Graphic Transformations
+3/9/2023
+CISC230 Object Oriented Design and Programming
+25
+
+--- Slide 26 ---
+The for Statement
+A for statement has the following syntax:
+3/9/2023
+CISC230 Object Oriented Design and Programming
+26
+for ( initialization ; condition ; increment )
+   statement;
+
+--- Slide 27 ---
+Logic of a for loop
+3/9/2023
+CISC230 Object Oriented Design and Programming
+27
+
+--- Slide 28 ---
+The for Statement
+A for loop is functionally equivalent to the following while loop structure:
+3/9/2023
+CISC230 Object Oriented Design and Programming
+28
+initialization;
+while ( condition )
+{
+   statement;
+   increment;
+}
+
+--- Slide 29 ---
+The for Statement
+An example of a for loop:
+		for (int count=1; count <= 5; count++)
+		   System.out.println(count);
+The initialization section can be used to declare a variable
+Like a while loop, the condition of a for loop is tested prior to executing the loop body
+Therefore, the body of a for loop will execute zero or more times
+3/9/2023
+CISC230 Object Oriented Design and Programming
+29
+
+--- Slide 30 ---
+The for Statement
+The increment section can perform any calculation:
+		for (int num=100; num > 0; num -= 5)
+		   System.out.println(num);
+A for loop is well suited for executing statements a specific number of times that can be calculated or determined in advance
+See Multiples.java
+See Stars.java
+3/9/2023
+CISC230 Object Oriented Design and Programming
+30
+
+--- Slide 31 ---
+3/9/2023
+CISC230 Object Oriented Design and Programming
+31
+//  Demonstrates the use of a for loop.
+import java.util.Scanner;
+public class Multiples
+{
+   //  Prints multiples of a user-specified number up to a user-specified limit.
+   public static void main(String[] args)
+   {
+      final int PER_LINE = 5;
+      int value, limit, mult, count = 0;
+      Scanner scan = new Scanner(System.in);
+      System.out.print("Enter a positive value: ");
+      value = scan.nextInt();
+      System.out.print("Enter an upper limit: ");
+      limit = scan.nextInt();
+      System.out.println();
+      System.out.println("The multiples of " + value + " between " +
+                       value + " and " + limit + " (inclusive) are:");
+      for (mult = value; mult <= limit; mult += value)
+      {
+         System.out.print(mult + "\t");
+         // Print a specific number of values per line of output
+         count++;
+         if (count % PER_LINE == 0)
+            System.out.println();
+      }
+   }
+}
+
+--- Slide 32 ---
+3/9/2023
+CISC230 Object Oriented Design and Programming
+32
+continue
+
+      System.out.print("Enter an upper limit: ");
+      limit = scan.nextInt();
+
+      System.out.println();
+      System.out.println("The multiples of " + value + " between " +
+                       value + " and " + limit + " (inclusive) are:");
+
+      for (mult = value; mult <= limit; mult += value)
+      {
+         System.out.print(mult + "\t");
+
+         // Print a specific number of values per line of output
+         count++;
+         if (count % PER_LINE == 0)
+            System.out.println();
+      }
+   }
+}
+Sample Run
+Enter a positive value: 7
+Enter an upper limit: 400
+
+The multiples of 7 between 7 and 400 (inclusive) are:
+7	14	21	28	35	
+42	49	56	63	70	
+77	84	91	98	105	
+112	119	126	133	140	
+147	154	161	168	175	
+182	189	196	203	210	
+217	224	231	238	245	
+252	259	266	273	280	
+287	294	301	308	315	
+322	329	336	343	350	
+357	364	371	378	385	
+392	399
+
+--- Slide 33 ---
+3/9/2023
+CISC230 Object Oriented Design and Programming
+33
+//  Demonstrates the use of nested for loops.
+public class Stars
+{
+   //  Prints a triangle shape using asterisk (star) characters.
+   public static void main(String[] args)
+   {
+      final int MAX_ROWS = 10;
+      for (int row = 1; row <= MAX_ROWS; row++)
+      {
+         for (int star = 1; star <= row; star++)
+            System.out.print("*");
+         System.out.println();
+      }
+   }
+}
+Output
+*
+**
+***
+****
+*****
+******
+*******
+********
+*********
+**********
+
+--- Slide 34 ---
+Quick Check
+3/9/2023
+CISC230 Object Oriented Design and Programming
+34
+Write a code fragment that rolls a die 100 times and counts the number of times a 3 comes up.
+
+--- Slide 35 ---
+Quick Check
+3/9/2023
+CISC230 Object Oriented Design and Programming
+35
+Write a code fragment that rolls a die 100 times and counts the number of times a 3 comes up.
+Die die = new Die();
+int count = 0;
+for (int num=1; num <= 100; num++)
+   if (die.roll() == 3)
+      count++;
+Sytem.out.println(count);
+
+--- Slide 36 ---
+The for Statement
+Each expression in the header of a for loop is optional
+If the initialization is left out, no initialization is performed
+If the condition is left out, it is always considered to be true, and therefore creates an infinite loop
+If the increment is left out, no increment operation is performed
+3/9/2023
+CISC230 Object Oriented Design and Programming
+36
+
+--- Slide 37 ---
+For-each Loops
+A variant of the for loop simplifies the repetitive processing of items in an iterator
+For example, suppose bookList is an ArrayList<Book> object
+The following loop will print each book:
+		for (Book myBook : bookList)
+		   System.out.println(myBook);
+This version of a for loop is often called a for-each loop
+3/9/2023
+CISC230 Object Oriented Design and Programming
+37
+
+--- Slide 38 ---
+123
+ArrayList <Integer> data = new ArrayList<Integer>();
+for (Integer a: data)      //hasNext()  a=next()
+System.out.println(“The first value= “ + a) 
+System.out.println(“The first value= “ + a.toString()) 
+
+For(int a=0; i<data.size();i++)
+     data.get(a)
+   
+
+
+1
+2
+3
+3/13/2023
+CISC230 Object Oriented Design and Programming
+38
+
+--- Slide 39 ---
+For-each Loops
+A for-each loop can be used on any object that implements the Iterable interface
+It eliminates the need to retrieve an iterator and call the hasNext and next methods explicitly
+It also will be helpful when processing arrays, which are discussed in Chapter 8
+3/9/2023
+CISC230 Object Oriented Design and Programming
+39
+
+--- Slide 40 ---
+Quick Check
+3/9/2023
+CISC230 Object Oriented Design and Programming
+40
+Write a for-each loop that prints all of the Student objects in an ArrayList<Student> object called roster.
+
+--- Slide 41 ---
+Quick Check
+3/9/2023
+CISC230 Object Oriented Design and Programming
+41
+Write a for-each loop that prints all of the Student objects in an ArrayList<Student> object called roster.
+for (Student student : roster)
+   System.out.println(student);
+
+--- Slide 42 ---
+Outline
+The switch Statement
+The Conditional Operator
+The do Statement
+The for Statement
+Using Loops and Conditionals with Graphics
+Graphic Transformations
+3/9/2023
+CISC230 Object Oriented Design and Programming
+42
+
+--- Slide 43 ---
+More Graphics
+Conditionals and loops enhance our ability to generate interesting graphics
+See Bullseye.java 
+See Boxes.java
+3/9/2023
+CISC230 Object Oriented Design and Programming
+43
+
+--- Slide 44 ---
+3/9/2023
+CISC230 Object Oriented Design and Programming
+44
+import javafx.application.Application;
+import javafx.scene.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+//  Demonstrates the use of loops and conditionals to draw.
+public class Bullseye extends Application
+{   //  Displays a target using concentric black and white circles and a red center.
+    public void start(Stage primaryStage){
+        Group root = new Group();
+        Color ringColor = Color.BLACK;
+        Circle ring = null;
+        int radius = 150;
+        for (int count = 1; count <= 8; count++){
+            ring = new Circle(160, 160, radius);
+            ring.setFill(ringColor);
+            root.getChildren().add(ring);            
+            if (ringColor.equals(Color.BLACK))
+                ringColor = Color.WHITE;
+            else
+                ringColor = Color.BLACK;
+            radius = radius - 20;
+        }
+        ring.setFill(Color.RED);
+        Scene scene = new Scene(root, 320, 320, Color.CYAN);
+        primaryStage.setTitle("Bullseye");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+}
+
+--- Slide 45 ---
+3/9/2023
+CISC230 Object Oriented Design and Programming
+45
+
+--- Slide 46 ---
+3/9/2023
+CISC230 Object Oriented Design and Programming
+46
+import java.util.Random;
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage
+//  Demonstrates the use of loops and conditionals to draw.
+public class Boxes extends Application {
+    //  Displays multiple rectangles with random width and height in
+    //  random locations. Narrow and short boxes are highlighted with
+    //  a fill color.
+    public void start(Stage primaryStage){
+        Group root = new Group();
+        Random gen = new Random();
+        for (int count = 1; count <= 50; count++){
+            int x = gen.nextInt(350) + 1;
+            int y = gen.nextInt(350) + 1;
+            int width = gen.nextInt(50) + 1;
+            int height = gen.nextInt(50) + 1;
+            Color fill = null;
+            if (width < 10)
+                fill = Color.YELLOW;
+            else if (height < 10)
+                fill = Color.GREEN;
+            Rectangle box = new Rectangle(x, y, width, height);
+            box.setStroke(Color.WHITE);
+            box.setFill(fill);
+            root.getChildren().add(box);            
+        }
+
+--- Slide 47 ---
+3/9/2023
+CISC230 Object Oriented Design and Programming
+47
+continue
+
+        Scene scene = new Scene(root, 400, 400, Color.BLACK);
+        primaryStage.setTitle("Boxes");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+}
+
+--- Slide 48 ---
+Outline
+The switch Statement
+The Conditional Operator
+The do Statement
+The for Statement
+Using Loops and Conditionals with Graphics
+Graphic Transformations
+3/9/2023
+CISC230 Object Oriented Design and Programming
+48
+
+--- Slide 49 ---
+Graphic Transformations
+A JavaFX transformation changes the way a node is presented visually
+translation – shifts the position along the x or y axis
+scaling – causes the node to appear larger or smaller
+rotation – rotates the node around its center point
+shearing – rotates one axis so that the x and y axes are no longer perpendicular
+3/9/2023
+CISC230 Object Oriented Design and Programming
+49
+
+--- Slide 50 ---
+Translation
+The following code creates two rectangles in the same position, then shifts the second one:
+3/9/2023
+CISC230 Object Oriented Design and Programming
+50
+Rectangle rec1 = new Rectangle(100, 100, 200, 50);
+rec1.setFill(Color.STEELBLUE);
+
+Rectangle rec2 = new Rectangle(100, 100, 200, 50);
+rec2.setFill(Color.ORANGE);rec2.setTranslateX(70);rec2.setTranslateY(10);
+
+--- Slide 51 ---
+Scaling
+The following displays two ImageView objects, the second scaled to 70%:
+3/9/2023
+CISC230 Object Oriented Design and Programming
+51
+Image img = new Image("water lily.jpg");
+ImageView imgView1 = new ImageView(img);
+ImageView imgView2 = new ImageView(img);
+imgView2.setX(300);
+imgView2.setScaleX(0.7);
+imgView2.setScaleY(0.7);
+
+--- Slide 52 ---
+Rotation
+The parameter to setRotate determines how many degrees the node is rotated
+If the parameter positive, the node is rotated clockwise
+If the parameter is negative, the node is rotated counterclockwise
+3/9/2023
+CISC230 Object Oriented Design and Programming
+52
+
+--- Slide 53 ---
+Rotation
+3/9/2023
+CISC230 Object Oriented Design and Programming
+53
+Rectangle rec = new Rectangle(50, 100, 200, 50);
+rec.setFill(Color.STEELBLUE);rec.setRotate(40);
+Text text = new Text(270, 125, "Tilted Text!");
+text.setFont(new Font("Courier", 24));
+text.setRotate(-15);
+
+--- Slide 54 ---
+Rotation
+To rotate a node around a point other than its center point, create a Rotate object and add it to the node's list of transformations
+The following rotates a node 45 degrees around the point (70, 150):
+3/9/2023
+CISC230 Object Oriented Design and Programming
+54
+node.getTransforms().add(new Rotate(45, 70, 150));
+
+--- Slide 55 ---
+Shearing
+Shearing is accomplished by creating a Shear object and adding it to this list of transformations
+The following applies a shear of 40% on the x axis and 20% on the y axis to an ImageView object:
+3/9/2023
+CISC230 Object Oriented Design and Programming
+55
+Image img = new Image("duck.jpg");ImageView imgView = new ImageView(img);
+imgView.getTransforms().add(new Shear(0.4, 0.2));
+
+--- Slide 56 ---
+Transformations on Groups
+Transformations can be applied to any JavaFX nodes
+shapes, images, controls
+groups and panes
+When applied to a group or pane, the transformation is applied to each node it contains
+See RobotFace.java
+See Robots.java
+3/9/2023
+CISC230 Object Oriented Design and Programming
+56
+
+--- Slide 57 ---
+3/9/2023
+CISC230 Object Oriented Design and Programming
+57
+import javafx.scene.Group;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+//  Presents the face of a robot.
+public class RobotFace extends Group
+{
+    //  Sets up the elements that make up the robots face, positioned
+    //  in the upper left corner of the coordinate system.
+  public RobotFace()
+    {
+        Rectangle head = new Rectangle(5, 0, 100, 70);
+        head.setFill(Color.SILVER);
+        head.setArcHeight(10);
+        head.setArcWidth(10);
+        Rectangle ears = new Rectangle(0, 20, 110, 30);
+        ears.setFill(Color.DARKBLUE);
+        ears.setArcHeight(10);
+        ears.setArcWidth(10);
+        Rectangle eye1 = new Rectangle(25, 15, 20, 10);
+        eye1.setFill(Color.GOLD);
+        Rectangle eye2 = new Rectangle(65, 15, 20, 10);
+        eye2.setFill(Color.GOLD);
+        Rectangle nose = new Rectangle(52, 25, 6, 15);
+        nose.setFill(Color.BLACK);
+        Rectangle mouth = new Rectangle(35, 45, 40, 10);
+        mouth.setFill(Color.RED);
+        getChildren().addAll(ears, head, eye1, eye2, nose, mouth);        
+    }    
+}
+
+--- Slide 58 ---
+Transformations on Groups
+If presented as defined, the robot face would be displayed in the upper left corner:
+3/9/2023
+CISC230 Object Oriented Design and Programming
+58
+
+--- Slide 59 ---
+3/9/2023
+CISC230 Object Oriented Design and Programming
+59
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+//  Demonstrates graphical transformations.
+public class Robots extends Application
+{
+    //  Displays three robot faces, applying various transformations.
+    public void start(Stage primaryStage)
+    {
+        RobotFace robot1 = new RobotFace();
+        robot1.setTranslateX(70);
+        robot1.setTranslateY(40);
+        RobotFace robot2 = new RobotFace();
+        robot2.setTranslateX(300);
+        robot2.setTranslateY(40);
+        robot2.setRotate(20);
+        RobotFace robot3 = new RobotFace();
+        robot3.setTranslateX(200);
+        robot3.setTranslateY(200);
+        robot3.setScaleX(2.5);
+        robot3.setScaleY(2.5);
+        Group root = new Group(robot1, robot2, robot3);
+        Scene scene = new Scene(root, 500, 380, Color.WHITE);
+        primaryStage.setTitle("Robots");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+}
+
+--- Slide 60 ---
+3/9/2023
+CISC230 Object Oriented Design and Programming
+60
+
+--- Slide 61 ---
+Summary
+Chapter 6 focused on:
+the switch statement
+the conditional operator
+the do loop
+the for loop
+using conditionals and loops with graphics
+graphic transformations
+3/9/2023
+CISC230 Object Oriented Design and Programming
+61
+
+--- Slide 62 ---
+Copyright
+This work is protected by United States copyright laws and is provided solely for the use of instructors in teaching their courses and assessing student learning. Dissemination or sale of any part of this work (including on the World Wide Web) will destroy the integrity of the work and is not permitted. The work and materials from it should never be made available to students except by instructors using the accompanying text in their classes. All recipients of this work are expected to abide by these restrictions and to honor the intended pedagogical purposes and the needs of other instructors who rely on these materials.
+3/9/2023
+CISC230 Object Oriented Design and Programming
+62

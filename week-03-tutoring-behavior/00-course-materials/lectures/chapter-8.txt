@@ -1,0 +1,1764 @@
+Source file: Chapter 8.pptx
+
+--- Slide 1 ---
+Chapter 8
+Arrays
+
+--- Slide 2 ---
+Arrays (1 of 7)
+Arrays are objects that help us organize large amounts of information
+Chapter 8 focuses on:
+array declaration and use
+bounds checking and capacity
+arrays that store object references
+variable length parameter lists
+multidimensional arrays
+polygons and polylines
+choice boxes
+4/19/2023
+CISC230 Object Oriented Design and Programming
+2
+
+--- Slide 3 ---
+Outline (1 of 7)
+Declaring and Using Arrays
+Arrays of Objects
+Variable Length Parameter Lists
+Two-Dimensional Arrays
+Polygons and Polylines
+Array of Color Objects
+Choice Boxes
+4/19/2023
+CISC230 Object Oriented Design and Programming
+3
+
+--- Slide 4 ---
+Arrays (2 of 7)
+The ArrayList class, introduced in Chapter 5, is used to organize a list of objects
+It is a class in the Java A P I
+An array is a programming language construct used to organize a list of objects
+It has special syntax to access elements
+As its name implies, the ArrayList class uses an array internally to manage the list of objects
+4/19/2023
+CISC230 Object Oriented Design and Programming
+4
+
+--- Slide 5 ---
+Arrays (3 of 7)
+An array is an ordered list of values:
+4/19/2023
+CISC230 Object Oriented Design and Programming
+5
+
+--- Slide 6 ---
+Arrays (4 of 7)
+A particular value in an array is referenced using the array name followed by the index in brackets
+For example, the expression
+
+
+
+refers to the value 94 (the 3rd value in the array)
+That expression represents a place to store a single integer and can be used wherever an integer variable can be used
+4/19/2023
+CISC230 Object Oriented Design and Programming
+6
+
+--- Slide 7 ---
+Arrays (5 of 7)
+For example, an array element can be assigned a value, printed, or used in a calculation:
+4/19/2023
+CISC230 Object Oriented Design and Programming
+7
+
+--- Slide 8 ---
+Arrays (6 of 7)
+The values held in an array are called array elements
+An array stores multiple values of the same type - the element type
+The element type can be a primitive type or an object reference
+Therefore, we can create an array of integers, an array of characters, an array of String objects, an array of Coin objects, etc.
+4/19/2023
+CISC230 Object Oriented Design and Programming
+8
+
+--- Slide 9 ---
+Arrays (7 of 7)
+In Java, the array itself is an object that must be instantiated
+Another way to depict the scores array:
+4/19/2023
+CISC230 Object Oriented Design and Programming
+9
+
+--- Slide 10 ---
+Declaring Arrays (1 of 2)
+The scores array could be declared as follows:
+
+
+
+The type of the variable scores is int[] (an array of integers)
+Note that the array type does not specify its size, but each object of that type has a specific size
+The reference variable scores is set to a new array object that can hold 10 integers
+4/19/2023
+CISC230 Object Oriented Design and Programming
+10
+
+--- Slide 11 ---
+Declaring Arrays (2 of 2)
+Some other examples of array declarations:
+4/19/2023
+CISC230 Object Oriented Design and Programming
+11
+
+--- Slide 12 ---
+Using Arrays
+The for-each version of the for loop can be used when processing array elements:
+
+
+This is only appropriate when processing all array elements starting at index 0
+It can’t be used to set the array values
+See BasicArray.java
+4/19/2023
+CISC230 Object Oriented Design and Programming
+12
+
+--- Slide 13 ---
+Outline (1 of 7)
+Declaring and Using Arrays
+Arrays of Objects
+Variable Length Parameter Lists
+Two-Dimensional Arrays
+Polygons and Polylines
+Array of Color Objects
+Choice Boxes
+4/19/2023
+CISC230 Object Oriented Design and Programming
+13
+
+--- Slide 14 ---
+Listing 8.1 (1 of 2)
+// Demonstrates basic array declaration and use. 
+public class BasicArray { 
+// Creates an array, fills it with various integer values, modifies one value, then prints them out. 
+     public static void main(String[] args) { 
+          final int LIMIT = 15, MULTIPLE = 10; 
+          int[] list = new int[LIMIT]; 
+          // Initialize the array values 
+          for (int index = 0; index < LIMIT; index++)
+               list[index] = index * MULTIPLE;
+          list[5] = 999; // change one array value 
+          // Print the array values 
+          for (int value : list) 
+            System.out.print(value + " "); 
+     } 
+}
+4/19/2023
+CISC230 Object Oriented Design and Programming
+14
+
+--- Slide 15 ---
+Listing 8.1 (2 of 2)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+15
+
+--- Slide 16 ---
+Quick Check 1 (1 of 2)
+Write an array declaration to represent the ages of 100 children.
+4/19/2023
+CISC230 Object Oriented Design and Programming
+16
+Write code that prints each value in an array of integers named values.
+
+--- Slide 17 ---
+Quick Check 1 (2 of 2)
+Write an array declaration to represent the ages of 100 children.
+4/19/2023
+CISC230 Object Oriented Design and Programming
+17
+Write code that prints each value in an array of integers named values.
+
+--- Slide 18 ---
+Bounds Checking (1 of 3)
+Once an array is created, it has a fixed size
+An index used in an array reference must specify a valid element
+That is, the index value must be in range 0 to N−1
+The Java interpreter throws an ArrayIndexOutOfBoundsException if an array index is out of bounds
+This is called automatic bounds checking
+4/19/2023
+CISC230 Object Oriented Design and Programming
+18
+
+--- Slide 19 ---
+Bounds Checking (2 of 3)
+For example, if the array codes can hold 100 values, it can be indexed from 0 to 99
+If the value of count is 100, then the following reference will cause an exception to be thrown:
+
+
+It’s common to introduce off-by-one errors when using arrays:
+4/19/2023
+CISC230 Object Oriented Design and Programming
+19
+
+--- Slide 20 ---
+Bounds Checking (3 of 3)
+Each array object has a public constant called length that stores the size of the array
+It is referenced using the array name:
+
+
+
+Note that length holds the number of elements, not the largest index
+See ReverseOrder.java
+See LetterCount.java
+4/19/2023
+CISC230 Object Oriented Design and Programming
+20
+
+--- Slide 21 ---
+CISC230 Object Oriented Design and Programming
+//********************************************************************
+//  Demonstrates array index processing.
+//********************************************************************
+import java.util.Scanner;
+public class ReverseOrder
+{
+   //-----------------------------------------------------------------
+   //  Reads a list of numbers from the user, storing them in an
+   //  array, then prints them in the opposite order.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      Scanner scan = new Scanner(System.in);
+      double[] numbers = new double[10];
+      System.out.println("The size of the array: " + numbers.length);
+      for (int index = 0; index < numbers.length; index++)
+      {
+         System.out.print("Enter number " + (index+1) + ": ");
+         numbers[index] = scan.nextDouble();
+      }
+      System.out.println("The numbers in reverse order:");
+      for (int index = numbers.length-1; index >= 0; index--)
+         System.out.print(numbers[index] + "  ");
+   }
+}
+4/19/2023
+21
+
+--- Slide 22 ---
+Listing 8.2 (3 of 3)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+22
+
+--- Slide 23 ---
+CISC230 Object Oriented Design and Programming
+//********************************************************************
+//Demonstrates the relationship between arrays and strings.
+//********************************************************************
+import java.util.Scanner;
+public class LetterCount
+{
+   public static void main(String[] args)
+   {
+      final int NUMCHARS = 26;
+      Scanner scan = new Scanner(System.in);
+      int[] upper = new int[NUMCHARS];
+      int[] lower = new int[NUMCHARS];
+      char current;   // the current character being processed
+      int other = 0;  // counter for non-alphabetics
+      System.out.println("Enter a sentence:");
+      String line = scan.nextLine();
+      //  Count the number of each letter occurence
+      for (int ch = 0; ch < line.length(); ch++)
+      {
+         current = line.charAt(ch);
+         if (current >= 'A' && current <= 'Z')
+            upper[current-'A']++;
+         else
+            if (current >= 'a' && current <= 'z')
+               lower[current-'a']++;
+            else
+               other++;
+      }
+ 
+continue
+Listing 8.3
+4/19/2023
+23
+
+--- Slide 24 ---
+4/19/2023
+CISC230 Object Oriented Design and Programming
+24
+continue
+
+      //  Print the results
+      System.out.println();
+      for (int letter = 0; letter < upper.length; letter++)
+      {
+         System.out.print( (char) (letter + 'A') );
+         System.out.print(": " + upper[letter]);
+         System.out.print("\t\t" + (char) (letter + 'a') );
+         System.out.println(": " + lower[letter]);
+      }
+      System.out.println();
+      System.out.println("Non-alphabetic characters: " + other);
+   }
+}
+
+--- Slide 25 ---
+Listing 8.3 (4 of 4)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+25
+
+--- Slide 26 ---
+Alternate Array Syntax
+The brackets of the array type can be associated with the element type or with the name of the array
+Therefore the following two declarations are equivalent:
+
+
+
+
+The first format generally is more readable and should be used
+4/19/2023
+CISC230 Object Oriented Design and Programming
+26
+
+--- Slide 27 ---
+Initializer Lists (1 of 2)
+An initializer list can be used to instantiate and fill an array in one step
+The values are delimited by braces and separated by commas
+Examples:
+4/19/2023
+CISC230 Object Oriented Design and Programming
+27
+
+--- Slide 28 ---
+Initializer Lists (2 of 2)
+Note that when an initializer list is used:
+the new operator is not used
+no size value is specified
+The size of the array is determined by the number of items in the list
+An initializer list can be used only in the array declaration
+See Primes.java
+4/19/2023
+CISC230 Object Oriented Design and Programming
+28
+
+--- Slide 29 ---
+Listing 8.4 (1 of 2)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+29
+//********************************************************************
+//  Primes.java       Author: Lewis/Loftus
+//  Demonstrates the use of an initializer list for an array.
+//********************************************************************
+public class Primes
+{
+   //-----------------------------------------------------------------
+   //  Stores some prime numbers in an array and prints them.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      int[] primeNums = {2, 3, 5, 7, 11, 13, 17, 19};
+      
+      System.out.println("Array length: " + primeNums.length);
+      System.out.println("The first few prime numbers are:");
+      for (int prime : primeNums)
+         System.out.print(prime + "  ");
+   }
+}
+
+--- Slide 30 ---
+Listing 8.4 (2 of 2)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+30
+Output
+Array length: 8
+The first few prime numbers are:
+2  3  5  7  11  13  17  19
+
+--- Slide 31 ---
+Arrays as Parameters
+An entire array can be passed as a parameter to a method
+Like any other object, the reference to the array is passed, making the formal and actual parameters aliases of each other
+Therefore, changing an array element within the method changes the original
+An individual array element can be passed to a method as well, in which case the type of the formal parameter is the same as the element type
+4/19/2023
+CISC230 Object Oriented Design and Programming
+31
+
+--- Slide 32 ---
+Example
+public class  Args{
+	int    anInt   = -1;
+	String aString = "a";
+	int[]  anArray = { 4, 2 };
+    public void testString(String arg ) {
+		arg = "b";
+ 	}
+    public void testArray(int[] arg ){
+		arg[1] = 3;
+ 	}
+    public void testInt(int arg ) {
+		arg = 42;
+ 	}
+	public void testString()	{
+		System.out.println("1.	" + aString);
+		testString(aString);
+		System.out.println("2.	" + aString);
+	}
+4/19/2023
+CISC230 Object Oriented Design and Programming
+32
+public void testArray()	{
+		System.out.println("3.	" + anArray[0] + ", " + anArray[1]);
+		testArray(anArray);
+		System.out.println("4.	" + anArray[0] + ", " + anArray[1]);
+	}
+	public void testInt()	{
+		System.out.println("5.	" + anInt );
+		testInt(anInt);
+		System.out.println("6.	" + anInt );
+	}
+	public void testIntArray()	{
+		System.out.println("7.	" + anArray[1] );
+		testInt(anArray[1]);
+		System.out.println("8.	" + anArray[1]);
+	}
+        public static void main(String args[] ) {
+		Args a = new Args();
+                                a.testString();
+		a.testArray();
+		a.testInt();
+		a.testIntArray();
+    }
+}
+
+--- Slide 33 ---
+Outline (2 of 7)
+Declaring and Using Arrays
+Arrays of Objects
+Variable Length Parameter Lists
+Two-Dimensional Arrays
+Polygons and Polylines
+Array of Color Objects
+Choice Boxes
+4/19/2023
+CISC230 Object Oriented Design and Programming
+33
+
+--- Slide 34 ---
+Arrays of Objects (1 of 7)
+The elements of an array can be object references
+The following declaration reserves space to store 5 references to String objects
+
+
+
+It does NOT create the String objects themselves
+Initially an array of objects holds null references
+Each object stored in an array must be instantiated separately
+4/19/2023
+CISC230 Object Oriented Design and Programming
+34
+
+--- Slide 35 ---
+Arrays of Objects (2 of 7)
+The words array when initially declared:
+4/19/2023
+CISC230 Object Oriented Design and Programming
+35
+At this point, the following line of code would throw a NullPointerException:
+
+--- Slide 36 ---
+Arrays of Objects (3 of 7)
+After some String objects are created and stored in the array:
+4/19/2023
+CISC230 Object Oriented Design and Programming
+36
+
+--- Slide 37 ---
+Arrays of Objects (4 of 7)
+Keep in mind that String objects can be created using literals
+The following declaration creates an array object called verbs and fills it with five String objects created using string literals
+4/19/2023
+CISC230 Object Oriented Design and Programming
+37
+
+--- Slide 38 ---
+Arrays of Objects (5 of 7)
+The following example creates an array of Grade objects, each with a string representation and a numeric lower bound
+The letter grades include plus and minus designations, so must be stored as strings instead of char
+See GradeRange.java
+See Grade.java
+4/19/2023
+CISC230 Object Oriented Design and Programming
+38
+
+--- Slide 39 ---
+4/19/2023
+CISC230 Object Oriented Design and Programming
+39
+//********************************************************************
+//  GradeRange.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of an array of objects.
+//********************************************************************
+public class GradeRange
+{
+   //-----------------------------------------------------------------
+   //  Creates an array of Grade objects and prints them.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      Grade[] grades =
+      {
+         new Grade("A", 95), new Grade("A-", 90),
+         new Grade("B+", 87), new Grade("B", 85), new Grade("B-", 80),
+         new Grade("C+", 77), new Grade("C", 75), new Grade("C-", 70),
+         new Grade("D+", 67), new Grade("D", 65), new Grade("D-", 60),
+         new Grade("F", 0)
+      };
+      for (Grade letterGrade : grades)
+         System.out.println(letterGrade);
+   }
+}
+Listing 8.5 (1 of 2)
+
+--- Slide 40 ---
+Listing 8.5 (2 of 2)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+40
+Output
+A	95
+A-	90
+B+	87
+B	85
+B-	80
+C+	77
+C	75
+C-	70
+D+	67
+D	65
+D-	60
+F	0
+
+--- Slide 41 ---
+Listing 8.6 (1 of 3)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+41
+//********************************************************************
+//  Represents a school grade.
+//********************************************************************
+public class Grade
+{
+   private String name;
+   private int lowerBound;
+   //-----------------------------------------------------------------
+   //  Constructor: Sets up this Grade object with the specified
+   //  grade name and numeric lower bound.
+   //-----------------------------------------------------------------
+   public Grade(String grade, int cutoff)
+   {
+      name = grade;
+      lowerBound = cutoff;
+   }
+   //-----------------------------------------------------------------
+   //  Returns a string representation of this grade.
+   //-----------------------------------------------------------------
+   public String toString()
+   {
+      return name + "\t" + lowerBound;
+   }
+
+continue
+
+--- Slide 42 ---
+Listing 8.6 (2 of 3)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+42
+continue
+
+   //  Name mutator.
+   public void setName(String grade)
+   {
+      name = grade;
+   }
+   //  Lower bound mutator.
+   public void setLowerBound(int cutoff)
+   {
+      lowerBound = cutoff;
+   }
+   //  Name accessor.
+   public String getName()
+   {
+      return name;
+   }
+   //  Lower bound accessor.
+   public int getLowerBound()
+   {
+      return lowerBound;
+   }
+}
+
+--- Slide 43 ---
+Arrays of Objects (6 of 7)
+Now let’s look at an example that manages a collection of D V D objects
+An initial capacity of 100 is created for the collection
+If more room is needed, a private method is used to create a larger array and transfer the current D V Ds
+See Movies.java
+See D V D Collection.java
+See D V D.java
+4/19/2023
+CISC230 Object Oriented Design and Programming
+43
+
+--- Slide 44 ---
+Arrays of Objects (7 of 7)
+A U M L diagram for the Movies program:
+4/19/2023
+CISC230 Object Oriented Design and Programming
+44
+
+--- Slide 45 ---
+Listing 8.7 (1 of 3)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+45
+//********************************************************************
+//  Movies.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of an array of objects.
+//********************************************************************
+public class Movies
+{
+   //-----------------------------------------------------------------
+   //  Creates a DVDCollection object and adds some DVDs to it. Prints
+   //  reports on the status of the collection.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      DVDCollection movies = new DVDCollection();
+      movies.addDVD("The Godfather", "Francis Ford Coppala", 1972, 24.95, true);
+      movies.addDVD("District 9", "Neill Blomkamp", 2009, 19.95, false);
+      movies.addDVD("Iron Man", "Jon Favreau", 2008, 15.95, false);
+      movies.addDVD("All About Eve", "Joseph Mankiewicz", 1950, 17.50, false);
+      movies.addDVD("The Matrix", "Andy & Lana Wachowski", 1999, 19.95, true);
+      System.out.println(movies);
+      movies.addDVD("Iron Man 2", "Jon Favreau", 2010, 22.99, false);
+      movies.addDVD("Casablanca", "Michael Curtiz", 1942, 19.95, false);
+      System.out.println(movies);
+   }
+}
+
+--- Slide 46 ---
+Listing 8.7 (2 of 3)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+46
+
+--- Slide 47 ---
+Listing 8.7 (3 of 3)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+47
+
+--- Slide 48 ---
+Listing 8.8 (1 of 4)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+48
+//********************************************************************
+//  Represents a collection of DVD movies.
+//********************************************************************
+import java.text.NumberFormat;
+public class DVDCollection
+{
+   private DVD[] collection;
+   private int count;
+   private double totalCost;
+   public DVDCollection()
+   {
+      collection = new DVD[100];
+      count = 0;
+      totalCost = 0.0;
+   }
+   public void addDVD(String title, String director, int year,
+      double cost, boolean bluRay)
+   {
+      if (count == collection.length)
+         increaseSize();
+      collection[count] = new DVD(title, director, year, cost, bluRay);
+      totalCost += cost;
+      count++;
+   }
+
+continue
+
+--- Slide 49 ---
+Listing 8.8 (3 of 4)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+49
+continue
+   public String toString()
+   {
+      NumberFormat fmt = NumberFormat.getCurrencyInstance();
+      String report = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+      report += "My DVD Collection\n\n";
+      report += "Number of DVDs: " + count + "\n";
+      report += "Total cost: " + fmt.format(totalCost) + "\n";
+      report += "Average cost: " + fmt.format(totalCost/count);
+      report += "\n\nDVD List:\n\n";
+      for (int dvd = 0; dvd < count; dvd++)
+         report += collection[dvd].toString() + "\n";
+      return report;
+   }
+   private void increaseSize()
+   {
+      DVD[] temp = new DVD[collection.length * 2];
+      for (int dvd = 0; dvd < collection.length; dvd++)
+         temp[dvd] = collection[dvd];
+      collection = temp;
+   }
+}
+
+continue
+
+--- Slide 50 ---
+Listing 8.9 (1 of 2)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+50
+//********************************************************************
+//  Represents a DVD video disc.
+//********************************************************************
+import java.text.NumberFormat;
+public class DVD
+{
+   private String title, director;
+   private int year;
+   private double cost;
+   private boolean bluRay;
+   //-----------------------------------------------------------------
+   //  Creates a new DVD with the specified information.
+   //-----------------------------------------------------------------
+   public DVD(String title, String director, int year, double cost,
+      boolean bluRay)
+   {
+      this.title = title;
+      this.director = director;
+      this.year = year;
+      this.cost = cost;
+      this.bluRay = bluRay;
+   }
+
+continue
+
+--- Slide 51 ---
+Listing 8.9 (2 of 2)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+51
+continue
+
+   //-----------------------------------------------------------------
+   //  Returns a string description of this DVD.
+   //-----------------------------------------------------------------
+   public String toString()
+   {
+      NumberFormat fmt = NumberFormat.getCurrencyInstance();
+      String description;
+      description = fmt.format(cost) + "\t" + year + "\t";
+      description += title + "\t" + director;
+      if (bluRay)
+         description += "\t" + "Blu-Ray";
+      return description;
+   }
+}
+
+--- Slide 52 ---
+Arrays of Objects
+A UML diagram for the Movies program:
+CISC230 Object Oriented Design and Programming
+4/19/2023
+52
+
+--- Slide 53 ---
+Command-Line Arguments
+The signature of the main method indicates that it takes an array of String objects as a parameter
+These values come from command-line arguments that are provided when the interpreter is invoked
+For example, the following invocation of the interpreter passes three String objects into the main method of the StateEval program:
+
+
+See NameTag.java
+4/19/2023
+CISC230 Object Oriented Design and Programming
+53
+
+--- Slide 54 ---
+Listing 8.10 (1 of 2)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+54
+//********************************************************************
+//  NameTag.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of command line arguments.
+//********************************************************************
+public class NameTag
+{
+   //-----------------------------------------------------------------
+   //  Prints a simple name tag using a greeting and a name that is
+   //  specified by the user.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      System.out.println();
+      System.out.println("     " + args[0]);
+      System.out.println("My name is " + args[1]);
+   }
+}
+
+--- Slide 55 ---
+Listing 8.10 (2 of 2)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+55
+
+--- Slide 56 ---
+Using Command-line Arguments
+Command-line arguments
+Pass arguments from the command line
+String args[]
+Appear after the class name in the java command
+java MyClass a b
+Number of arguments passed in from command line
+args.length
+First command-line argument
+args[ 0 ]
+56
+4/19/2023
+CISC230 Object Oriented Design and Programming
+
+--- Slide 57 ---
+Example
+public class InitArray {
+	public static void main(String[] args) {
+		if (args.length != 3)
+			 System.out.println("Error please reenter the entire command,” +
+                                                                                        “including any array size, initial value and increment");
+		else
+		{
+			int arraylength = Integer.parseInt(args[0]);
+			int array[] = new int[arraylength];
+			int initialValue= Integer.parseInt(args[1]);
+			int increment= Integer.parseInt(args[2]);
+			for (int counter= 0; counter<array.length; counter++)
+				array[counter]=initialValue + increment *counter;
+			System.out.println("Index \t Value");
+			for (int counter= 0; counter< array.length; counter++)
+				System.out.println(counter + " \t " +array[counter]);
+		}
+	}
+}
+4/19/2023
+CISC230 Object Oriented Design and Programming
+57
+
+--- Slide 58 ---
+58
+
+--- Slide 59 ---
+59
+
+--- Slide 60 ---
+Outline (3 of 7)
+Declaring and Using Arrays
+Arrays of Objects
+Variable Length Parameter Lists
+Two-Dimensional Arrays
+Polygons and Polylines
+Array of Color Objects
+Choice Boxes
+4/19/2023
+CISC230 Object Oriented Design and Programming
+60
+
+--- Slide 61 ---
+Variable Length Parameter Lists (1 of 7)
+Suppose we wanted to create a method that processed a different amount of data from one invocation to the next
+For example, let’s define a method called average that returns the average of a set of integer parameters
+4/19/2023
+CISC230 Object Oriented Design and Programming
+61
+
+--- Slide 62 ---
+Variable Length Parameter Lists (2 of 7)
+We could define overloaded versions of the average method
+Downside: we’d need a separate version of the method for each additional parameter
+We could define the method to accept an array of integers
+Downside: we’d have to create the array and store the integers prior to calling the method each time
+Instead, Java provides a convenient way to create variable length parameter lists
+4/19/2023
+CISC230 Object Oriented Design and Programming
+62
+
+--- Slide 63 ---
+Variable Length Parameter Lists (3 of 7)
+Using special syntax in the formal parameter list, we can define a method to accept any number of parameters of the same type
+For each call, the parameters are automatically put into an array for easy processing in the method
+4/19/2023
+CISC230 Object Oriented Design and Programming
+63
+
+--- Slide 64 ---
+Variable Length Parameter Lists (4 of 7)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+64
+
+--- Slide 65 ---
+Variable Length Parameter Lists (5 of 7)
+The type of the parameter can be any primitive or object type:
+4/19/2023
+CISC230 Object Oriented Design and Programming
+65
+
+--- Slide 66 ---
+Quick Check 2 (1 of 2)
+Write method called distance that accepts a variable number of integers (which each represent the distance of one leg of a trip) and returns the total distance of the trip.
+4/19/2023
+CISC230 Object Oriented Design and Programming
+66
+
+--- Slide 67 ---
+Quick Check 2 (2 of 2)
+Write method called distance that accepts a variable number of integers (which each represent the distance of one leg of a trip) and returns the total distance of the trip.
+4/19/2023
+CISC230 Object Oriented Design and Programming
+67
+
+--- Slide 68 ---
+Variable Length Parameter Lists (6 of 7)
+A method that accepts a variable number of parameters can also accept other parameters
+The following method accepts an int, a String object, and a variable number of double values into an array called nums
+4/19/2023
+CISC230 Object Oriented Design and Programming
+68
+
+--- Slide 69 ---
+Variable Length Arguments
+Variable-length argument lists
+New feature since J2SE 5.0
+Unspecified number of arguments
+Use ellipsis (…) in method’s parameter list
+Can occur only once in parameter list
+Must be placed at the end of parameter list
+Array whose elements are all the same type
+69
+4/19/2023
+CISC230 Object Oriented Design and Programming
+
+--- Slide 70 ---
+Variable Length Parameter Lists (7 of 7)
+The varying number of parameters must come last in the formal arguments
+A method cannot accept two sets of varying parameters
+Constructors can also be set up to accept a variable number of parameters
+See VariableParameters.java
+See Family.java
+4/19/2023
+CISC230 Object Oriented Design and Programming
+70
+
+--- Slide 71 ---
+Listing 8.11 (1 of 2)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+71
+//********************************************************************
+//  VariableParameters.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of a variable length parameter list.
+//********************************************************************
+public class VariableParameters
+{
+   //-----------------------------------------------------------------
+   //  Creates two Family objects using a constructor that accepts
+   //  a variable number of String objects as parameters.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      Family lewis = new Family("John", "Sharon", "Justin", "Kayla",
+         "Nathan", "Samantha");
+      Family camden = new Family("Stephen", "Annie", "Matt", "Mary",
+         "Simon", "Lucy", "Ruthie", "Sam", "David");
+      System.out.println(lewis);
+      System.out.println();
+      System.out.println(camden);
+   }
+}
+Output
+John
+Sharon
+Justin
+Kayla
+Nathan
+Samantha
+
+Stephen
+Annie
+Matt
+Mary
+Simon
+Lucy
+Ruthie
+Sam
+David
+
+--- Slide 72 ---
+4/19/2023
+CISC230 Object Oriented Design and Programming
+72
+//********************************************************************
+//  Family.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of variable length parameter lists.
+//********************************************************************
+public class Family
+{
+   private String[] members;
+   //-----------------------------------------------------------------
+   //  Constructor: Sets up this family by storing the (possibly
+   //  multiple) names that are passed in as parameters.
+   //-----------------------------------------------------------------
+   public Family(String ... names)
+   {
+      members = names;
+   }
+ //-----------------------------------------------------------------
+   //  Returns a string representation of this family.
+   //-----------------------------------------------------------------
+   public String toString()
+   {
+      String result = "";
+      for (String name : members)
+         result += name + "\n";
+      return result;
+   }
+}
+
+continue
+
+--- Slide 73 ---
+Listing 8.11 (2 of 2)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+73
+
+--- Slide 74 ---
+Listing 8.12 (1 of 2)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+74
+//********************************************************************
+//  Family.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of variable length parameter lists.
+//********************************************************************
+public class Family
+{
+   private String[] members;
+   //-----------------------------------------------------------------
+   //  Constructor: Sets up this family by storing the (possibly
+   //  multiple) names that are passed in as parameters.
+   //-----------------------------------------------------------------
+   public Family(String ... names)
+   {
+      members = names;
+   }
+   //-----------------------------------------------------------------
+   //  Returns a string representation of this family.
+   //-----------------------------------------------------------------
+   public String toString()
+   {
+      String result = "";
+      for (String name : members)
+         result += name + "\n";
+      return result;
+   }
+}
+
+--- Slide 75 ---
+Variable Length Arguments
+75
+4/19/2023
+CISC230 Object Oriented Design and Programming
+
+--- Slide 76 ---
+76
+Invoke method average with two arguments
+Invoke method average with three arguments
+Invoke method average with four arguments
+Variable Length Arguments
+
+--- Slide 77 ---
+Common Programming Error
+Placing an ellipsis in the middle of a method parameter list is a syntax error. An ellipsis may be placed only at the end of the parameter list.
+4/19/2023
+CISC230 Object Oriented Design and Programming
+77
+
+--- Slide 78 ---
+Outline (4 of 7)
+Declaring and Using Arrays
+Arrays of Objects
+Variable Length Parameter Lists
+Two-Dimensional Arrays
+Polygons and Polylines
+Array of Color Objects
+Choice Boxes
+4/19/2023
+CISC230 Object Oriented Design and Programming
+78
+
+--- Slide 79 ---
+Two-Dimensional Arrays (1 of 3)
+A one-dimensional array stores a list of elements
+A two-dimensional array can be thought of as a table of elements, with rows and columns
+4/19/2023
+CISC230 Object Oriented Design and Programming
+79
+
+--- Slide 80 ---
+Multidimensional Arrays
+Tables with rows and columns
+Two-dimensional array
+m-by-n array
+4/19/2023
+CISC230 Object Oriented Design and Programming
+80
+
+--- Slide 81 ---
+Two-Dimensional Arrays (2 of 3)
+To be precise, in Java a two-dimensional array is an array of arrays
+A two-dimensional array is declared by specifying the size of each dimension separately:
+
+
+
+A array element is referenced using two index values:
+
+
+The array stored in one row can be specified using one index
+4/19/2023
+CISC230 Object Oriented Design and Programming
+81
+
+--- Slide 82 ---
+Multidimensional Arrays
+Arrays of one-dimensional array
+Intializing two-dimensional array b[2][2]
+	int b[][] = { { 1, 2 }, { 3, 4 } };
+1 and 2 initialize b[0][0] and b[0][1]
+3 and 4 initialize b[1][0] and b[1][1]
+	int b[][] = { { 1, 2 }, { 3, 4, 5 } };
+row 0 contains elements 1 and 2
+row 1 contains elements 3, 4 and 5
+Lengths of rows in array are not required to be the same!
+4/19/2023
+CISC230 Object Oriented Design and Programming
+82
+
+--- Slide 83 ---
+Multidimensional Arrays
+Creating two-dimensional arrays with array-creation expressions
+ Can be created dynamically
+3-by-4 array
+	 int b[][]; b = new int[ 3 ][ 4 ];
+Rows can have different number of columns
+ int b[][];
+ b = new int[ 2 ][ ];   // create 2 rowsb[ 0 ] = new int[ 5 ]; // create 5 cols for row 0 b[ 1 ] = new int[ 3 ]; // create 3 cols for row 1
+4/19/2023
+CISC230 Object Oriented Design and Programming
+83
+
+--- Slide 84 ---
+Two-Dimensional Arrays (3 of 3)
+See TwoDArray.java
+See SodaSurvey.java
+4/19/2023
+CISC230 Object Oriented Design and Programming
+84
+Expression | Type | Description
+table | Computer code reads, i n t left bracket right bracket left bracket right bracket | 2D array of integers, or
+array of integer arrays
+table[5] | Computer code reads, i n t left bracket right bracket | array of integers
+table[5][12] | Computer code reads, i n t | Integer
+
+--- Slide 85 ---
+Listing 8.13 (1 of 2)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+85
+//********************************************************************
+//  TwoDArray.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of a two-dimensional array.
+//********************************************************************
+public class TwoDArray
+{
+   //-----------------------------------------------------------------
+   //  Creates a 2D array of integers, fills it with increasing
+   //  integer values, then prints them out.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      int[][] table = new int[5][10];
+      // Load the table with values
+      for (int row = 0; row < table.length; row++)
+         for (int col = 0; col < table[row].length; col++)
+            table[row][col] = row * 10 + col;
+      // Print the table
+      for (int row = 0; row < table.length; row++)
+      {
+         for (int col = 0; col < table[row].length; col++)
+            System.out.print(table[row][col] + "\t");
+         System.out.println();
+      }
+   }
+}
+
+--- Slide 86 ---
+Listing 8.13 (2 of 2)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+86
+
+--- Slide 87 ---
+Listing 8.14 (1 of 3)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+87
+//********************************************************************
+//  Demonstrates the use of a two-dimensional array.
+//********************************************************************
+import java.text.DecimalFormat;
+public class SodaSurvey
+{
+   //-----------------------------------------------------------------
+   //  Determines and prints the average of each row (soda) and each
+   //  column (respondent) of the survey scores.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      int[][] scores = { {3, 4, 5, 2, 1, 4, 3, 2, 4, 4},
+                         {2, 4, 3, 4, 3, 3, 2, 1, 2, 2},
+                         {3, 5, 4, 5, 5, 3, 2, 5, 5, 5},
+                         {1, 1, 1, 3, 1, 2, 1, 3, 2, 4} };
+      final int SODAS = scores.length;
+      final int PEOPLE = scores[0].length;
+      int[] sodaSum = new int[SODAS];
+      int[] personSum = new int[PEOPLE];
+
+continue
+
+--- Slide 88 ---
+Listing 8.14 (2 of 3)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+88
+continue
+
+      for (int soda = 0; soda < SODAS; soda++)
+         for (int person = 0; person < PEOPLE; person++)
+         {
+            sodaSum[soda] += scores[soda][person];
+            personSum[person] += scores[soda][person];
+         }
+      DecimalFormat fmt = new DecimalFormat("0.#");
+      System.out.println("Averages:\n");
+      for (int soda = 0; soda < SODAS; soda++)
+         System.out.println("Soda #" + (soda+1) + ": " + 
+                    fmt.format((float)sodaSum[soda]/PEOPLE));
+      System.out.println ();
+      for (int person = 0; person < PEOPLE; person++)
+         System.out.println("Person #" + (person+1) + ": " + 
+                    fmt.format((float)personSum[person]/SODAS));
+   }
+}
+
+--- Slide 89 ---
+Listing 8.14 (3 of 3)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+89
+
+--- Slide 90 ---
+Multidimensional Arrays
+An array can have many dimensions - if it has more than one dimension, it is called a multidimensional array
+Each dimension subdivides the previous one into the specified number of elements
+Each dimension has its own length constant
+Because each dimension is an array of array references, the arrays within one dimension can be of different lengths
+these are sometimes called ragged arrays
+4/19/2023
+CISC230 Object Oriented Design and Programming
+90
+
+--- Slide 91 ---
+Three Dimensional Array
+Declaration – Syntax:
+data_type[][][] array_name = new data_type[x][y][z];
+        For example: int[][][] arr = new int[10][20][30];
+
+Initialization – Syntax:
+array_name[array_index][row_index][column_index] = value;
+        For example: arr[0][0][0] = 1;
+4/19/2023
+CISC230 Object Oriented Design and Programming
+91
+
+--- Slide 92 ---
+Direct Declaration
+data_type[][][] array_name = {
+                              {
+                               {valueA1R1C1, valueA1R1C2, ....}, 
+                               {valueA1R2C1, valueA1R2C2, ....}
+                              },
+                              {
+                               {valueA2R1C1, valueA2R1C2, ....}, 
+                               {valueA2R2C1, valueA2R2C2, ....}
+                              }
+                             };
+
+For example: int[][][] arr = { {{1, 2}, {3, 4}}, {{5, 6}, {7, 8}} };
+4/19/2023
+CISC230 Object Oriented Design and Programming
+92
+
+--- Slide 93 ---
+class GFG {
+    public static void main(String[] args)
+    {
+         int[][][] arr = { { { 1, 2 }, { 3, 4 } }, { { 5, 6 }, { 7, 8 } } };
+         for (int i = 0; i < 2; i++)
+            for (int j = 0; j < 2; j++)
+                for (int z = 0; z < 2; z++)
+                    System.out.println("arr[" + i
+                                    + "]["
+                                    + j + "]["
+                                    + z + "] = "
+                                    + arr[i][j][z]);
+    }
+}
+4/19/2023
+CISC230 Object Oriented Design and Programming
+93
+
+--- Slide 94 ---
+Outline (5 of 7)
+Declaring and Using Arrays
+Arrays of Objects
+Variable Length Parameter Lists
+Two-Dimensional Arrays
+Polygons and Polylines
+Array of Color Objects
+Choice Boxes
+4/19/2023
+CISC230 Object Oriented Design and Programming
+94
+
+--- Slide 95 ---
+Polygons and Polylines
+Arrays can be helpful in graphics processing
+For example, they can be used to store a list of coordinates
+A polygon is a multisided, closed shape
+A polyline is similar to a polygon except that its endpoints do not meet, and it cannot be filled
+See Rocket.java
+4/19/2023
+CISC230 Object Oriented Design and Programming
+95
+
+--- Slide 96 ---
+Listing 8.15 (1 of 3)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+96
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Polyline;
+import javafx.stage.Stage;
+
+//************************************************************************
+//  Rocket.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of polygons and polylines.
+//************************************************************************
+
+public class Rocket extends Application
+{
+    //--------------------------------------------------------------------
+    //  Displays a rocket lifting off. The rocket and hatch are polygons
+    //  and the flame is a polyline.
+    //--------------------------------------------------------------------
+    public void start(Stage primaryStage)
+    {
+        double[] hullPoints = {200, 25, 240, 60, 240, 230, 270, 260,
+            270, 300, 140, 300, 140, 260, 160, 230, 160, 60};
+        Polygon rocket = new Polygon(hullPoints);
+        rocket.setFill(Color.BEIGE);
+
+continue
+
+--- Slide 97 ---
+Listing 8.15 (2 of 3)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+97
+continue
+        
+        double[] hatchPoints = {185, 70, 215, 70, 220, 120, 180, 120};
+
+        Polygon hatch = new Polygon(hatchPoints);
+        hatch.setFill(Color.MAROON);
+        
+        double[] flamePoints = {142, 310, 142, 330, 150, 325, 155, 380,
+            165, 340, 175, 360, 190, 350, 200, 375, 215, 330, 220, 360,
+            225, 355, 230, 370, 240, 340, 255, 370, 260, 335, 268, 340,
+            268, 310};
+
+        Polyline flame = new Polyline(flamePoints);
+        flame.setStroke(Color.RED);
+        flame.setStrokeWidth(3);
+        
+        Group root = new Group(rocket, hatch, flame);
+        
+        Scene scene = new Scene(root, 400, 400, Color.BLACK);
+        
+        primaryStage.setTitle("Rocket");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+}
+
+--- Slide 98 ---
+Listing 8.15 (3 of 3)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+98
+
+--- Slide 99 ---
+Outline (6 of 7)
+Declaring and Using Arrays
+Arrays of Objects
+Variable Length Parameter Lists
+Two-Dimensional Arrays
+Polygons and Polylines
+Array of Color Objects
+Choice Boxes
+4/19/2023
+CISC230 Object Oriented Design and Programming
+99
+
+--- Slide 100 ---
+Arrays of Color Objects
+Let’s look at an example that uses an array of Color objects
+When the mouse button is clicked, a colored dot is displayed
+A double-click clears the window
+See Dots.java
+4/19/2023
+CISC230 Object Oriented Design and Programming
+100
+
+--- Slide 101 ---
+Listing 8.16 (1 of 4)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+101
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+
+//************************************************************************
+//  Dots.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of an array of Color objects and the capture of
+//  a double mouse click.
+//************************************************************************
+
+public class Dots extends Application
+{
+    private Color[] colorList = {Color.RED, Color.CYAN, Color.MAGENTA,
+            Color.YELLOW, Color.LIME, Color.WHITE};
+    
+    private int colorIndex = 0;
+    private int count = 0;
+    private Text countText;
+    private Group root;
+
+continue
+
+--- Slide 102 ---
+Listing 8.16 (2 of 4)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+102
+continue
+
+    //--------------------------------------------------------------------
+    //  Displays a scene on which the user can add colored dots with
+    //  mouse clicks.
+    //--------------------------------------------------------------------
+    public void start(Stage primaryStage)
+    {
+        countText = new Text(20, 30, "Count: 0");
+        countText.setFont(new Font(18));
+        countText.setFill(Color.WHITE);
+        
+        root = new Group(countText);
+        
+        Scene scene = new Scene(root, 400, 300, Color.BLACK);
+        scene.setOnMouseClicked(this::processMouseClick);
+        
+        primaryStage.setTitle("Dots");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+continue
+
+--- Slide 103 ---
+Listing 8.16 (3 of 4)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+103
+continue
+    
+    //--------------------------------------------------------------------
+    //  Process a mouse click by adding a circle to that location. Circle
+    //  colors rotate through a set list of colors. A double click clears
+    //  the dots and resets the counter.
+    //--------------------------------------------------------------------
+    public void processMouseClick(MouseEvent event)
+    {
+        if (event.getClickCount() == 2)  // double click
+        {
+            count = 0;
+            colorIndex = 0;
+            root.getChildren().clear();
+            countText.setText("Count: 0");
+            root.getChildren().add(countText);
+        }
+        else
+        {
+            Circle circle = new Circle(event.getX(), event.getY(), 10);
+            circle.setFill(colorList[colorIndex]);
+            root.getChildren().add(circle);
+            
+            colorIndex = (colorIndex + 1) % colorList.length;
+            
+            count++;
+            countText.setText("Count: " + count);            
+        }
+    }
+}
+
+--- Slide 104 ---
+Listing 8.16 (4 of 4)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+104
+
+--- Slide 105 ---
+Outline (7 of 7)
+Declaring and Using Arrays
+Arrays of Objects
+Variable Length Parameter Lists
+Two-Dimensional Arrays
+Polygons and Polylines
+Array of Color Objects
+Choice Boxes
+4/19/2023
+CISC230 Object Oriented Design and Programming
+105
+
+--- Slide 106 ---
+Choice Boxes
+A choice box lets the user select one of several options from a drop down menu
+The JukeBox example allows the user to select a song from a choice box
+Play and Stop buttons control the song playback
+See JukeBox.java
+4/19/2023
+CISC230 Object Oriented Design and Programming
+106
+
+--- Slide 107 ---
+Listing 8.17 (1 of 5)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+107
+import java.io.File;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
+import javafx.stage.Stage;
+//************************************************************************
+//  JukeBox.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of a combo box and audio clips.
+//************************************************************************
+
+public class JukeBox extends Application
+{
+    private ChoiceBox<String> choice;
+    private AudioClip[] tunes;
+    private AudioClip current;
+    private Button playButton, stopButton;
+
+continue
+
+--- Slide 108 ---
+Listing 8.17 (2 of 5)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+108
+continue
+
+    //--------------------------------------------------------------------
+    //  Presents an interface that allows the user to select and play
+    //  a tune from a drop down box.
+    //--------------------------------------------------------------------
+    public void start(Stage primaryStage)
+    {
+        String[] names = {"Western Beat", "Classical Melody",
+            "Jeopardy Theme", "Eighties Jam", "New Age Rythm",
+            "Lullaby", "Alfred Hitchcock's Theme"};
+
+        File[] audioFiles = {new File("westernBeat.wav"),
+            new File("classical.wav"), new File("jeopardy.mp3"),
+            new File("eightiesJam.wav"), new File("newAgeRythm.wav"),
+            new File("lullaby.mp3"), new File("hitchcock.wav")};
+        
+        tunes = new AudioClip[audioFiles.length];
+        for (int i = 0; i < audioFiles.length; i++)
+            tunes[i] = new AudioClip(audioFiles[i].toURI().toString());
+        
+        current = tunes[0];
+        
+        Label label = new Label("Select a tune:");
+
+continue
+
+--- Slide 109 ---
+Listing 8.17 (3 of 5)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+109
+continue
+        
+        choice = new ChoiceBox<String>();
+        choice.getItems().addAll(names);
+        choice.getSelectionModel().selectFirst();
+        choice.setOnAction(this::processChoice);
+        
+        playButton = new Button("Play");
+        stopButton = new Button("Stop");
+        HBox buttons = new HBox(playButton, stopButton);
+        buttons.setSpacing(10);
+        buttons.setPadding(new Insets(15, 0, 0, 0));
+        buttons.setAlignment(Pos.CENTER);
+        
+        playButton.setOnAction(this::processButtonPush);
+        stopButton.setOnAction(this::processButtonPush);
+                    
+        VBox root = new VBox(label, choice, buttons);
+        root.setPadding(new Insets(15, 15, 15, 25));
+        root.setSpacing(10);
+        root.setStyle("-fx-background-color: skyblue");
+        
+        Scene scene = new Scene(root, 300, 150);
+        
+        primaryStage.setTitle("Java Juke Box");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+continue
+
+--- Slide 110 ---
+Listing 8.17 (4 of 5)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+110
+continue
+    
+    //--------------------------------------------------------------------
+    //  When a choice box selection is made, stops the current clip (if
+    //  one was playing) and sets the current tune.
+    //--------------------------------------------------------------------
+    public void processChoice(ActionEvent event)
+    {
+        current.stop();
+        current = tunes[choice.getSelectionModel().getSelectedIndex()];
+    }
+
+    //--------------------------------------------------------------------
+    //  Handles the play and stop buttons. Stops the current clip in
+    //  either case. If the play button was pressed, (re)starts the
+    //  current clip.
+    //--------------------------------------------------------------------
+    public void processButtonPush(ActionEvent event)
+    {
+        current.stop();
+        
+        if (event.getSource() == playButton)
+            current.play();
+    }
+}
+
+--- Slide 111 ---
+Listing 8.17 (5 of 5)
+4/19/2023
+CISC230 Object Oriented Design and Programming
+111
+
+--- Slide 112 ---
+Summary
+Chapter 8 has focused on:
+array declaration and use
+bounds checking and capacity
+arrays that store object references
+variable length parameter lists
+multidimensional arrays
+polygons and polylines
+choice boxes
+4/19/2023
+CISC230 Object Oriented Design and Programming
+112
+
+--- Slide 113 ---
+Copyright
+4/19/2023
+CISC230 Object Oriented Design and Programming
+113
+This work is protected by United States copyright laws and is provided solely for the use of instructors in teaching their courses and assessing student learning. Dissemination or sale of any part of this work (including on the World Wide Web) will destroy the integrity of the work and is not permitted. The work and materials from it should never be made available to students except by instructors using the accompanying text in their classes. All recipients of this work are expected to abide by these restrictions and to honor the intended pedagogical purposes and the needs of other instructors who rely on these materials.

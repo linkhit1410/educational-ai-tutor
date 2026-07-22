@@ -1,0 +1,500 @@
+Source file: Threads.pptx
+
+--- Slide 1 ---
+Threads
+5/10/2023
+CISC230 Object Oriented Design and Programming
+1
+
+--- Slide 2 ---
+Objectives
+To get an overview of multithreading 
+To develop task classes by implementing the Runnable interface
+To create threads to run tasks using the Thread class 
+To control threads using the methods in the Thread class 
+To execute tasks in a thread pool 
+To use synchronized methods or blocks to synchronize threads to avoid race conditions 
+To synchronize threads using locks 
+To facilitate thread communications using conditions on locks
+5/10/2023
+CISC230 Object Oriented Design and Programming
+2
+
+--- Slide 3 ---
+Questions
+Why is multithreading needed? 
+How can multiple threads run simultaneously in a single-processor system?
+5/10/2023
+CISC230 Object Oriented Design and Programming
+3
+
+--- Slide 4 ---
+Introduction
+Multithreading enables multiple tasks in a program to be executed concurrently.
+A program may consist of many tasks that can run concurrently. A thread is the flow of execution, from beginning to end, of a task.
+
+
+
+
+(a) Multiple threads running on multiple CPUs. (b) Multiple threads share a single CPU.
+4
+5/10/2023
+CISC230 Object Oriented Design and Programming
+
+--- Slide 5 ---
+Introduction
+You can create additional threads to run concurrent tasks in the program. 
+In Java, each task is an instance of the Runnable interface, also called a runnable object. 
+A thread is essentially an object that facilitates the execution of a task.
+5/10/2023
+CISC230 Object Oriented Design and Programming
+5
+
+--- Slide 6 ---
+Runnable Interface
+A task class must implement the Runnable interface. A task must be run from a thread.
+5/10/2023
+CISC230 Object Oriented Design and Programming
+6
+
+--- Slide 7 ---
+Example: Task 1
+5/10/2023
+CISC230 Object Oriented Design and Programming
+7
+
+--- Slide 8 ---
+Task 2
+5/10/2023
+CISC230 Object Oriented Design and Programming
+8
+
+--- Slide 9 ---
+Demo
+5/10/2023
+CISC230 Object Oriented Design and Programming
+9
+
+--- Slide 10 ---
+5/10/2023
+CISC230 Object Oriented Design and Programming
+10
+
+--- Slide 11 ---
+Note
+The run()method in a task specifies how to perform the task. This method is automatically invoked by the JVM. You should not invoke it. Invoking run()directly merely executes this method in the same thread; no new thread is started.
+5/10/2023
+CISC230 Object Oriented Design and Programming
+11
+
+--- Slide 12 ---
+Question
+What will happen by replacing the code?
+5/10/2023
+CISC230 Object Oriented Design and Programming
+12
+
+--- Slide 13 ---
+What is wrong with the code?
+5/10/2023
+CISC230 Object Oriented Design and Programming
+13
+
+--- Slide 14 ---
+What is wrong with this code?
+5/10/2023
+CISC230 Object Oriented Design and Programming
+14
+
+--- Slide 15 ---
+The Thread Class
+The Thread class contains the constructors for creating threads for tasks and the methods for controlling threads.
+5/10/2023
+CISC230 Object Oriented Design and Programming
+15
+
+--- Slide 16 ---
+Alternate Design
+5/10/2023
+CISC230 Object Oriented Design and Programming
+16
+
+--- Slide 17 ---
+Depreciated Methods of Thread class
+The Thread class also contains the stop(), suspend(), and resume() methods.
+As of Java 2, these methods were deprecated (or outdated) because they are known to be inherently unsafe.
+Instead of using the stop() method, you should assign null to a Thread variable to indicate that it has stopped.
+5/10/2023
+CISC230 Object Oriented Design and Programming
+17
+
+--- Slide 18 ---
+Thread.yield()
+yield() method to temporarily release time for other threads.
+5/10/2023
+CISC230 Object Oriented Design and Programming
+18
+
+--- Slide 19 ---
+Thread.sleep()
+The sleep(long millis) method puts the thread to sleep for a specified time in milliseconds to allow other threads to execute
+5/10/2023
+CISC230 Object Oriented Design and Programming
+19
+
+--- Slide 20 ---
+Interrupted Exception
+5/10/2023
+CISC230 Object Oriented Design and Programming
+20
+
+--- Slide 21 ---
+Thread.join()
+join() method to force one thread to wait for another thread to finish.
+LastNum = 100
+5/10/2023
+CISC230 Object Oriented Design and Programming
+21
+
+--- Slide 22 ---
+Thread.setPriority()
+Java assigns every thread a priority. 
+By default, a thread inherits the priority of the thread that spawned it. 
+You can increase or decrease the priority of any thread by using the setPriority method and you can get the thread’s priority by using the getPriority method. 
+Priorities are numbers ranging from 1 to 10. The Thread class has the int constants
+MIN_PRIORITY, NORM_PRIORITY, and MAX_PRIORITY, representing 1, 5, and 10, respectively.
+The priority of the main thread is Thread.NORM_PRIORITY.
+The JVM always picks the currently runnable thread with the highest priority. 
+A lower priority thread can run only when no higher priority threads are running. 
+If all runnable threads have equal priorities, each is assigned an equal portion of the CPU time in a circular queue. This is called round-robin scheduling.
+5/10/2023
+CISC230 Object Oriented Design and Programming
+22
+
+--- Slide 23 ---
+Example
+thread3.setPriority(Thread.MAX_PRIORITY);
+5/10/2023
+CISC230 Object Oriented Design and Programming
+23
+
+--- Slide 24 ---
+Starvation
+A thread may never get a chance to run if there is always a higher priority thread running or a same-priority thread that never yields. This situation is known as contention or starvation. 
+To avoid contention, the thread with higher priority must periodically invoke the sleep or yield method to give a thread with a lower or the same priority a chance to run.
+5/10/2023
+CISC230 Object Oriented Design and Programming
+24
+
+--- Slide 25 ---
+Thread States
+5/10/2023
+CISC230 Object Oriented Design and Programming
+25
+
+--- Slide 26 ---
+Thread Pools
+A thread pool can be used to execute tasks efficiently.
+Single thread creation approach is convenient for a single task execution, but it is not efficient for many tasks because you must create a thread for each task. 
+Starting a new thread for each task could limit throughput and cause poor performance.
+Using a thread pool is an ideal way to manage the number of tasks executing concurrently.
+Java provides the Executor interface for executing tasks in a thread pool and the ExecutorService interface for managing and controlling tasks.
+5/10/2023
+CISC230 Object Oriented Design and Programming
+26
+
+--- Slide 27 ---
+Explanation
+5/10/2023
+CISC230 Object Oriented Design and Programming
+27
+
+--- Slide 28 ---
+Executors
+5/10/2023
+CISC230 Object Oriented Design and Programming
+28
+
+--- Slide 29 ---
+Executor Object
+To create an Executor object, use the static methods in the Executors class
+ The newFixedThreadPool(int) method creates a fixed number of threads in a pool. 
+If a thread completes executing a task, it can be reused to execute another task. 
+If a thread terminates due to a failure prior to shutdown, a new thread will be created to replace it if all the threads in the pool are not idle and there are tasks waiting for execution.
+The  newCachedThreadPool() method creates a new thread if all the threads in the pool are not idle and there are tasks waiting for execution. 
+A thread in a cached pool will be terminated if it has not been used for 60 seconds. 
+A cached pool is efficient for many short tasks.
+5/10/2023
+CISC230 Object Oriented Design and Programming
+29
+
+--- Slide 30 ---
+Example
+5/10/2023
+CISC230 Object Oriented Design and Programming
+30
+
+--- Slide 31 ---
+What will happen?
+5/10/2023
+CISC230 Object Oriented Design and Programming
+31
+
+--- Slide 32 ---
+Questions
+How do you create a thread pool with three fixed threads? 
+ExecutorService executor = Executors.newFixedThreadPool(3);
+How do you submit a task to a thread pool? 
+executor.execute(task);
+How do you know that all the tasks are finished?
+isTerminated()
+5/10/2023
+CISC230 Object Oriented Design and Programming
+32
+
+--- Slide 33 ---
+Thread Synchronization
+Thread synchronization is to coordinate the execution of the dependent threads.
+A shared resource may become corrupted if it is accessed simultaneously by multiple threads.
+5/10/2023
+CISC230 Object Oriented Design and Programming
+33
+
+--- Slide 34 ---
+5/10/2023
+CISC230 Object Oriented Design and Programming
+34
+
+--- Slide 35 ---
+What cause the problem?
+5/10/2023
+CISC230 Object Oriented Design and Programming
+35
+
+--- Slide 36 ---
+Thread Safe and race condition
+The effect of this scenario is that Task 1 does nothing because in Step 4, Task 2 overrides Task 1’s result. 
+Obviously, the problem is that Task 1 and Task 2 are accessing a common resource in a way that causes a conflict. 
+This is a common problem, known as a race condition, in multithreaded programs. A class is said to be thread-safe if an object of the class does not cause a race condition in the presence of multiple threads. 
+As demonstrated in the preceding example, the Account class is not thread-safe.
+5/10/2023
+CISC230 Object Oriented Design and Programming
+36
+
+--- Slide 37 ---
+The synchronized Keyword
+To avoid race conditions, it is necessary to prevent more than one thread from simultaneously entering a certain part of the program, known as the critical region. 
+The critical region in previous example is the entire deposit method. 
+You can use the keyword synchronized to synchronize the method so that only one thread can access the method at a time. 
+One approach is to make Account thread-safe by adding the keyword synchronized in the deposit
+5/10/2023
+CISC230 Object Oriented Design and Programming
+37
+
+--- Slide 38 ---
+Explanation
+A synchronized method acquires a lock before it executes.
+ A lock is a mechanism for exclusive use of a resource. 
+In the case of an instance method, the lock is on the object for which the method was invoked. 
+In the case of a static method, the lock is on the class. 
+If one thread invokes a synchronized instance method (respectively, static method) on an object, the lock of that object (respectively, class) is acquired first, then the method is executed, and finally the lock is released. 
+Another thread invoking the same method of that object (respectively, class) is blocked until the lock is released.
+5/10/2023
+CISC230 Object Oriented Design and Programming
+38
+
+--- Slide 39 ---
+Lock and Critical region
+5/10/2023
+CISC230 Object Oriented Design and Programming
+39
+
+--- Slide 40 ---
+Synchronizing Statements
+A synchronized statement can be used to acquire a lock on any object, not just this object, when executing a block of the code in a method. 
+This block is referred to as a synchronized block. The general form of a synchronized statement is as follows:
+
+
+
+
+The expression expr must evaluate to an object reference. If the object is already locked by another thread, the thread is blocked until the lock is released. 
+When a lock is obtained on the object, the statements in the synchronized block are executed and then the lock is released.
+Synchronized statements enable you to synchronize part of the code in a method instead of the entire method. This increases concurrency.
+5/10/2023
+CISC230 Object Oriented Design and Programming
+40
+
+--- Slide 41 ---
+Note
+Any synchronized instance method can be converted into a synchronized statement
+5/10/2023
+CISC230 Object Oriented Design and Programming
+41
+
+--- Slide 42 ---
+Will it work?
+5/10/2023
+CISC230 Object Oriented Design and Programming
+42
+
+--- Slide 43 ---
+Synchronization Using Locks
+Locks and conditions can be explicitly used to synchronize threads.
+public synchronized void deposit(double amount)
+You were having an implicit lock on the deposit method
+Java enables you to acquire locks explicitly as well
+A lock is an instance of the Lock interface, which defines the methods for acquiring and  releasing locks
+5/10/2023
+CISC230 Object Oriented Design and Programming
+43
+
+--- Slide 44 ---
+Interface Lock
+ReentrantLock is a concrete implementation of Lock for creating mutually exclusive locks. 
+You can create a lock with the specified fairness policy.
+5/10/2023
+CISC230 Object Oriented Design and Programming
+44
+
+--- Slide 45 ---
+Example
+5/10/2023
+CISC230 Object Oriented Design and Programming
+45
+
+--- Slide 46 ---
+Cooperation among Threads
+Thread synchronization suffices to avoid race conditions by ensuring the mutual exclusion of multiple threads in the critical region, but sometimes you also need a way for threads to cooperate.
+A thread can specify what to do under a certain condition. 
+Conditions are objects created by invoking the newCondition() method on a Lock object.
+You can use await(), signal(), and signalAll() methods for thread communications.
+The await() method causes the current thread to wait until the condition is signaled. 
+The signal() method wakes up one waiting thread
+The signalAll() method wakes all waiting threads.
+5/10/2023
+CISC230 Object Oriented Design and Programming
+46
+
+--- Slide 47 ---
+Conditions on locks can be used to coordinate thread interactions.
+5/10/2023
+CISC230 Object Oriented Design and Programming
+47
+
+--- Slide 48 ---
+Example
+5/10/2023
+CISC230 Object Oriented Design and Programming
+48
+
+--- Slide 49 ---
+Example Continue
+You create a condition from a Lock object. 
+To use a condition, you must first obtain a lock. 
+The await() method causes the thread to wait and automatically releases the lock on the condition. 
+Once the condition is right, the thread reacquires the lock and continues executing.
+Assume the initial balance is 0 and the amount to deposit and withdraw are randomly generated
+5/10/2023
+CISC230 Object Oriented Design and Programming
+49
+
+--- Slide 50 ---
+5/10/2023
+CISC230 Object Oriented Design and Programming
+50
+
+--- Slide 51 ---
+Example
+5/10/2023
+CISC230 Object Oriented Design and Programming
+51
+
+--- Slide 52 ---
+Common Error
+What if in the previous code I replace while loop with if statement?
+5/10/2023
+CISC230 Object Oriented Design and Programming
+52
+
+--- Slide 53 ---
+ever-waiting threads
+Once a thread invokes await() on a condition, the thread waits for a signal to resume.
+If you forget to call signal() or signalAll() on the condition, the thread will wait forever.
+5/10/2023
+CISC230 Object Oriented Design and Programming
+53
+
+--- Slide 54 ---
+Illegal Monitor State Exception
+A condition is created from a Lock object. 
+To invoke its method (e.g., await(), signal(), and signalAll()), you must first own the lock. 
+If you invoke these methods without acquiring the lock, an IllegalMonitorStateException will be thrown.
+5/10/2023
+CISC230 Object Oriented Design and Programming
+54
+
+--- Slide 55 ---
+Can the wait(), notify(), and notifyAll() be invoked from any object? What is the purpose of these methods?
+5/10/2023
+CISC230 Object Oriented Design and Programming
+55
+Question
+
+--- Slide 56 ---
+What is wrong with this code?
+5/10/2023
+CISC230 Object Oriented Design and Programming
+56
+
+--- Slide 57 ---
+Daemon Thread
+A daemon thread is a thread that does not prevent the JVM from exiting when the program finishes but the thread is still running. 
+An example for a daemon thread is the garbage collection. 
+You can use the setDaemon(boolean) method to change the Thread daemon properties before the thread starts.
+5/10/2023
+CISC230 Object Oriented Design and Programming
+57
+
+--- Slide 58 ---
+5/10/2023
+CISC230 Object Oriented Design and Programming
+58
+
+--- Slide 59 ---
+Thread coordination (Producer-Consumer Problem)
+Explanation
+Methods used
+buffer
+Write(int)
+read
+To synchronize the operations, use a lock with two conditions: 
+notEmpty (i.e., the buffer is not empty) 
+notFull (i.e., the bufferis not full). 
+When a task adds an int to the buffer, if the buffer is full, the task will wait for the notFull condition. 
+When a task reads an int from the buffer, if the buffer is empty, the task will wait for the notEmpty condition.
+5/10/2023
+CISC230 Object Oriented Design and Programming
+59
+
+--- Slide 60 ---
+Example
+5/10/2023
+CISC230 Object Oriented Design and Programming
+60
+
+--- Slide 61 ---
+5/10/2023
+CISC230 Object Oriented Design and Programming
+61
+
+--- Slide 62 ---
+5/10/2023
+CISC230 Object Oriented Design and Programming
+62
+
+--- Slide 63 ---
+Consent
+Data for this course is taken from several books, slides of already similar course taught in other universities and is the sole property of the respective owner. The copyright infringement is not intended, and this material is solely used for the academic purpose or as a teaching material
+5/10/2023
+CISC230 Object Oriented Design and Programming
+63

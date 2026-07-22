@@ -1,0 +1,15 @@
+Lecture 1: Classes and Objects
+
+A class is a blueprint for creating objects.
+An object is an instance of a class.
+
+A class can contain:
+- fields
+- constructors
+- methods
+
+Fields store information about an object.
+Methods define the behavior of an object.
+Constructors are used to initialize new objects.
+
+In Java, objects are created from classes using the new keyword.

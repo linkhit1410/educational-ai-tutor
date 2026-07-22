@@ -1,0 +1,438 @@
+Source file: GuestLecture-Hays.pptx
+
+--- Slide 1 ---
+Polymorphism byPakeeza Akram
+Guest Lecture
+
+--- Slide 2 ---
+Outline
+Introduction
+Polymorphism
+Types of polymorphism
+Review
+12/3/2021
+Computer Science II
+2
+
+--- Slide 3 ---
+Who am I?
+Alumnus of University of Delaware MS and Ph.D. 
+Instructor Computer Science courses
+Researcher in the area Machine Learning and Data Science
+Currently working at Rochester Institute of Technology
+12/3/2021
+Computer Science II
+3
+
+--- Slide 4 ---
+Assumptions
+Stop me if any concept is unknown
+Object, Class, method and variable
+Super class and sub class (Inheritance)
+Constructor
+Casting
+instanceOf
+12/3/2021
+Computer Science II
+4
+
+--- Slide 5 ---
+Four Pillars of Object-oriented Programming
+12/3/2021
+5
+Computer Science II
+
+--- Slide 6 ---
+POLYMORPHISM
+Polymorphism is the ability of an entity to morph or adapt itself according to the environment that it is in without affecting its performance.
+12/3/2021
+6
+Computer Science II
+
+--- Slide 7 ---
+Forms of Polymorphism
+Polymorphic variables (Assignment polymorphism)
+Overloading (ad hoc polymorphism)
+Overriding (Inclusion polymorphism)
+Pure polymorphism (functions with polymorphic parameters) 
+Deferred (abstract) methods 
+Generics or templates
+12/3/2021
+7
+Computer Science II
+
+--- Slide 8 ---
+Polymorphic variables (Assignment polymorphism)
+12/3/2021
+Computer Science II
+8
+
+--- Slide 9 ---
+Variable assignments
+Widening is legal
+Narrowing is illegal (unless you cast)
+9
+12/3/2021
+Computer Science II
+byte → char → short → int → long → float → double
+
+--- Slide 10 ---
+10
+Method call (1)
+Legal because parameter transmission is equivalent to assignment
+myPrint(5) is like double d = 5; System.out.println(d);
+Output: 5.0
+12/3/2021
+Computer Science II
+
+--- Slide 11 ---
+11
+Method call (2)
+Illegal because parameter transmission is equivalent to assignment
+myPrint(5.0) is like int i = 5.0; System.out.println(i);
+myPrint(int) in Test cannot be applied to (double)
+12/3/2021
+Computer Science II
+
+--- Slide 12 ---
+12
+Java uses the most specific method
+class Test {     public static void main(String args[]) {        myPrint(5);        myPrint(5.0);    }
+    static void myPrint(double d) {        System.out.println("double: " + d);    }
+    static void myPrint(int i) {        System.out.println("int: " + i);    }}
+int:5double: 5.0
+12/3/2021
+Computer Science II
+
+--- Slide 13 ---
+Polymorphic Variables
+Variable declared as one class can hold values from subclass 
+Dynamic (run-time) type must be subclass of static (declared) type 
+
+
+
+
+
+
+
+We will cover more later during the lecture
+12/3/2021
+13
+Computer Science II
+
+--- Slide 14 ---
+Overloading(ad hoc polymorphism)
+12/3/2021
+Computer Science II
+14
+
+--- Slide 15 ---
+15
+Signatures
+In any programming language, a signature is what distinguishes one function or method from another
+In C, every function must have a different name
+In Java, two methods must differ in their names or in the number or types of their parameters
+foo(int i) and foo(int i, int j) 
+are different
+foo(int i) and foo(int k) 
+are the same
+foo(int i, double d) and foo(double d, int i) 
+are different
+In C++, the signature also includes the return type
+But not in Java!
+12/3/2021
+Computer Science II
+
+--- Slide 16 ---
+Overloading
+16
+int i = 5double d = 5.0
+myPrint(5.0)
+myPrint(5)
+12/3/2021
+Computer Science II
+
+--- Slide 17 ---
+Why overload a method?
+So, you can use the same names for methods that do essentially the same thing
+Example: println(int), println(double), println(boolean), println(String), etc.
+So,  you can supply defaults for the parameters:
+int increment(int amount) {    count = count + amount;    return count;}
+int increment() {    return increment(1);}
+Notice that one method can call another of the same name
+So, you can supply additional information:
+void printResults() {    System.out.println("total = " + total + ", average = " + average);}
+void printResult(String message) {    System.out.println(message + ": ");    printResults();}
+17
+12/3/2021
+Computer Science II
+
+--- Slide 18 ---
+18
+DRY (Don’t Repeat Yourself)
+When you overload a method with another, very similar method, only one of them should do most of the work:
+void debug() {    System.out.println("first = " + first + ", last = " + last);    for (int i = first; i <= last; i++) {        System.out.print(dictionary[i] + "  ");    }    System.out.println();}
+void debug(String s) {    System.out.println("At checkpoint " + s + ":");    debug();}
+12/3/2021
+Computer Science II
+
+--- Slide 19 ---
+Inheritance and overload methods
+You may want to do “the same thing” with different kinds of data:
+class Student extends Person {   ...   void printInformation() {        printPersonalInformation();        printGrades();    }}
+class Professor extends Person() {    ...    void printInformation() {        printPersonalInformation();        printResearchInterests();    }}
+Java’s print and println methods are heavily overloaded
+19
+12/3/2021
+Computer Science II
+
+--- Slide 20 ---
+Multiple constructors I
+You can “overload” constructors as well as methods:
+Counter() {    count = 0;}Counter(int start) {    count = start;}
+20
+12/3/2021
+Computer Science II
+
+--- Slide 21 ---
+Multiple constructors II
+One constructor can “call” another constructor in the same class, but there are special rules
+You call the other constructor with the keyword this
+The call must be the very first thing the constructor does
+Point(int x, int y) {     this.x = x;    this.y = y;    sum = x + y;}
+
+Point() {    this(0, 0);}
+A common reason for overloading constructors is (as above) to provide default values for missing parameters
+21
+12/3/2021
+Computer Science II
+
+--- Slide 22 ---
+Superclass construction I
+The very first thing any constructor does, automatically, is call the default constructor for its superclass
+class Foo extends Bar {    Foo() { // constructor        super(); // invisible call to superclass constructor        ...
+You can replace this with a call to a specific superclass constructor
+Use the keyword super
+This must be the very first thing the constructor does
+class Foo extends Bar {    Foo(String name) { // constructor        super(name, 5); // explicit call to superclass constructor        ...
+22
+12/3/2021
+Computer Science II
+
+--- Slide 23 ---
+Superclass construction II
+Unless you specify otherwise, every constructor calls the default constructor for its superclass
+class Foo extends Bar {    Foo() { // constructor        super(); // invisible call to superclass constructor        ...
+You can use this(...) to call another constructor in the same class:
+class Foo extends Bar {    Foo(String message) { // constructor        this(message, 0, 0); // your explicit call to another constructor        ...
+You can use super(...) to call a specific superclass constructor
+class Foo extends Bar {    Foo(String name) { // constructor        super(name, 5); // your explicit call to some superclass constructor        ...
+Since the call to another constructor must be the very first thing you do in the constructor, you can only do one of the above
+23
+12/3/2021
+Computer Science II
+
+--- Slide 24 ---
+24
+Shadowing
+This is called shadowing—name in class Dog shadows name in class Animal
+Animal Dog
+12/3/2021
+Computer Science II
+
+--- Slide 25 ---
+Overriding(Inclusion polymorphism)
+12/3/2021
+Computer Science II
+25
+
+--- Slide 26 ---
+Overriding
+Same signature and different implementation in the subclass
+Method print in Dog overrides method print in Animal
+A subclass variable can shadow a superclass variable, but a subclass method can override a superclass method
+26
+Superclass AnimalSubclass Dog
+12/3/2021
+Computer Science II
+
+--- Slide 27 ---
+27
+How to override a method
+Create a method in a subclass having the same signature as a method in a superclass
+That is, create a method in a subclass having the same name and the same number and types of parameters
+Parameter names don’t matter, just their types
+Restrictions:
+The return type must be the same
+The overriding method cannot be more private than the method it overrides
+12/3/2021
+Computer Science II
+
+--- Slide 28 ---
+"Polymorphism mystery"
+12/3/2021
+Computer Science II
+28
+
+--- Slide 29 ---
+Technique 1: diagram
+Diagram the classes from top (superclass) to bottom.
+12/3/2021
+Computer Science II
+29
+
+--- Slide 30 ---
+Technique 2: table
+method | Snow | Rain | Sleet | Fog
+method1
+method2
+method3
+Italic	- inherited behavior
+Bold	- dynamic method call
+method | Snow | Rain | Sleet | Fog
+method1 | Rain 1 | Fog 1
+method2 | Snow 2 | Rain 2 | Sleet 2
+Snow 2
+method3() | Sleet 2
+Snow 2
+method3()
+method3 | Snow 3 | Snow 3 | Sleet 3 | Fog 3
+12/3/2021
+Computer Science II
+30
+
+--- Slide 31 ---
+Mystery problem, no cast
+Snow var3 = new Rain();
+    var3.method2();          // What's the output?
+
+If the problem does not  have any casting, then:
+Look at the variable's type.If that type does not have the method: ERROR.
+
+Execute the method, behaving like the object's type.(The variable type no longer matters in this step.)
+12/3/2021
+Computer Science II
+31
+
+--- Slide 32 ---
+Example 1
+What is the output of the following call?
+
+  Snow var1 = new Sleet();
+  var1.method2();
+
+Answer:
+
+  Sleet 2
+  Snow 2
+  Sleet 3
+object
+variable
+12/3/2021
+Computer Science II
+32
+
+--- Slide 33 ---
+Example 2
+What is the output of the following call?
+
+  Snow var2 = new Rain();
+  var2.method1();
+
+Answer:
+
+	ERROR
+	(because Snow does not
+	have a method1)
+variable
+object
+12/3/2021
+Computer Science II
+33
+
+--- Slide 34 ---
+Mystery problem with cast
+Snow var2 = new Rain();
+    ((Sleet) var2).method2();   // What's the output?
+
+If the problem does  have a type cast, then:
+Look at the cast type.If that type does not have the method: ERROR.
+
+Make sure the object's type is the cast type or is a subclass of the cast type.  If not: ERROR.  (No sideways casts!)
+
+Execute the method, behaving like the object's type.(The variable / cast types no longer matter in this step.)
+12/3/2021
+Computer Science II
+34
+
+--- Slide 35 ---
+Example 3
+What is the output of the following call?
+
+  Snow var2 = new Rain();
+  ((Rain) var2).method1();
+
+Answer:
+
+	Rain 1
+variable
+object
+cast
+12/3/2021
+Computer Science II
+35
+
+--- Slide 36 ---
+Example 4
+What is the output of the following call?
+
+  Snow var2 = new Rain();
+  ((Sleet) var2).method2();
+
+Answer:
+
+	ERROR
+	(because the object'stype, Rain, cannot
+	be cast into Sleet)
+object
+cast
+variable
+12/3/2021
+Computer Science II
+36
+
+--- Slide 37 ---
+Question
+12/3/2021
+Computer Science II
+37
+
+--- Slide 38 ---
+Question 2
+12/3/2021
+Computer Science II
+38
+
+--- Slide 39 ---
+Review of Polymorphism
+Overloading
+Overriding
+
+The Story does not end here but our time is limited
+12/3/2021
+Computer Science II
+39
+
+--- Slide 40 ---
+Where to find more resources
+Look up Javadoc's
+12/3/2021
+Computer Science II
+40
+
+--- Slide 41 ---
+Consent
+Data for this course is taken from several books, slides of already similar course taught in other universities and is the sole property of the respective owner. The copyright infringement is not intended, and this material is solely used for the academic purpose or as a teaching material
+12/3/2021
+Computer Science II
+41

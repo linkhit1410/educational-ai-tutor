@@ -1,0 +1,140 @@
+Source file: Polymorphism Case Study.pptx
+
+--- Slide 1 ---
+Polymorphism Case Study
+5/7/2025
+CISC230 Object Oriented Design
+1
+
+--- Slide 2 ---
+"Polymorphism mystery"
+5/7/2025
+CISC230 Object Oriented Design
+2
+
+--- Slide 3 ---
+Technique 1: diagram
+Diagram the classes from top (superclass) to bottom.
+5/7/2025
+CISC230 Object Oriented Design
+3
+
+--- Slide 4 ---
+Technique 2: table
+method | Snow | Rain | Sleet | Fog
+method1
+method2
+method3
+Italic	- inherited behavior
+Bold	- dynamic method call
+method | Snow | Rain | Sleet | Fog
+method1 | Rain 1 | Fog 1
+method2 | Snow 2 | Rain 2 | Sleet 2
+Snow 2
+method3() | Sleet 2
+Snow 2
+method3()
+method3 | Snow 3 | Snow 3 | Sleet 3 | Fog 3
+5/7/2025
+CISC230 Object Oriented Design
+4
+
+--- Slide 5 ---
+Mystery problem, no cast
+Snow var3 = new Rain();
+    var3.method2();          // What's the output?
+
+If the problem does not  have any casting, then:
+Look at the variable's type.If that type does not have the method: ERROR.
+
+Execute the method, behaving like the object's type.(The variable type no longer matters in this step.)
+5/7/2025
+CISC230 Object Oriented Design
+5
+
+--- Slide 6 ---
+Example 1
+What is the output of the following call?
+
+  Snow var1 = new Sleet();
+  var1.method2();
+
+Answer:
+
+  Sleet 2
+  Snow 2
+  Sleet 3
+object
+variable
+5/7/2025
+CISC230 Object Oriented Design
+6
+
+--- Slide 7 ---
+Example 2
+What is the output of the following call?
+
+  Snow var2 = new Rain();
+  var2.method1();
+
+Answer:
+
+	ERROR
+	(because Snow does not
+	have a method1)
+variable
+object
+5/7/2025
+CISC230 Object Oriented Design and Programming
+7
+
+--- Slide 8 ---
+Mystery problem with cast
+Snow var2 = new Rain();
+    ((Sleet) var2).method2();   // What's the output?
+
+If the problem does  have a type cast, then:
+Look at the cast type.If that type does not have the method: ERROR.
+
+Make sure the object's type is the cast type or is a subclass of the cast type.  If not: ERROR.  (No sideways casts!)
+
+Execute the method, behaving like the object's type.(The variable / cast types no longer matter in this step.)
+5/7/2025
+CISC230 Object Oriented Design
+8
+
+--- Slide 9 ---
+Example 3
+What is the output of the following call?
+
+  Snow var2 = new Rain();
+  ((Rain) var2).method1();
+
+Answer:
+
+	Rain 1
+variable
+object
+cast
+5/7/2025
+CISC230 Object Oriented Design
+9
+
+--- Slide 10 ---
+Example 4
+What is the output of the following call?
+
+  Snow var2 = new Rain();
+  ((Sleet) var2).method2();
+
+Answer:
+
+	ERROR
+	(because the object'stype, Rain, cannot
+	be cast into Sleet)
+object
+cast
+variable
+5/7/2025
+CISC230 Object Oriented Design
+10

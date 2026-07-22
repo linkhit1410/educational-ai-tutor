@@ -1,0 +1,2142 @@
+Source file: Chapter 7.pptx
+
+--- Slide 1 ---
+Chapter 7
+Object-Oriented Design
+
+--- Slide 2 ---
+Object-Oriented Design
+Now we can extend our discussion of the design of classes and objects
+Chapter 7 focuses on:
+software development activities
+the relationships that can exist among classes
+the static modifier
+writing interfaces
+the design of enumerated type classes
+method design and method overloading
+GUI design
+mouse and keyboard events
+3/25/2026
+CISC230 Object Oriented Design and Programming
+2
+
+--- Slide 3 ---
+Outline
+Software Development Activities
+Static Variables and Methods
+Class Relationships
+Interfaces
+Enumerated Types Revisited
+Method Design and Overloading
+Testing
+GUI Design
+Mouse and Keyboard Events
+3/25/2026
+CISC230 Object Oriented Design and Programming
+3
+
+--- Slide 4 ---
+Program Development
+The creation of software involves four basic activities:
+establishing the requirements
+creating a design
+implementing the code
+testing the implementation
+These activities are not strictly linear – they overlap and interact
+3/25/2026
+CISC230 Object Oriented Design and Programming
+4
+
+--- Slide 5 ---
+Requirements
+Software requirements specify the tasks that a program must accomplish
+what to do, not how to do it
+Often an initial set of requirements is provided, but they should be critiqued and expanded
+It is difficult to establish detailed, unambiguous, and complete requirements
+Careful attention to the requirements can save significant time and expense in the overall project
+3/25/2026
+CISC230 Object Oriented Design and Programming
+5
+
+--- Slide 6 ---
+Design
+A software design specifies how a program will accomplish its requirements
+A software design specifies how the solution can be broken down into manageable pieces and what each piece will do
+An object-oriented design determines which classes  and objects are needed, and specifies how they will interact
+Low level design details include how individual methods will accomplish their tasks
+3/25/2026
+CISC230 Object Oriented Design and Programming
+6
+
+--- Slide 7 ---
+Implementation
+Implementation is the process of translating a design into source code
+Novice programmers often think that writing code is the heart of software development, but actually it should be the least creative step
+Almost all important decisions are made during requirements and design stages
+Implementation should focus on coding details, including style guidelines and documentation
+3/25/2026
+CISC230 Object Oriented Design and Programming
+7
+
+--- Slide 8 ---
+Testing
+Testing attempts to ensure that the program will solve the intended problem under all the constraints specified in the requirements
+A program should be thoroughly tested with the goal of finding errors
+Debugging is the process of determining the cause of a problem and fixing it
+We revisit the details of the testing process later in this chapter
+3/25/2026
+CISC230 Object Oriented Design and Programming
+8
+
+--- Slide 9 ---
+Identifying Classes and Objects
+The core activity of object-oriented design is determining the classes and objects that will make up the solution
+The classes may be part of a class library, reused from a previous project, or newly written
+One way to identify potential classes is to identify the objects discussed in the requirements
+Objects are generally nouns, and the services that an object provides are generally verbs
+3/25/2026
+CISC230 Object Oriented Design and Programming
+9
+
+--- Slide 10 ---
+Identifying Classes and Objects
+A partial requirements document:
+
+
+
+
+
+
+
+
+Of course, not all nouns will correspond to a class or object in the final solution
+3/25/2026
+CISC230 Object Oriented Design and Programming
+10
+The user must be allowed to specify each product by
+its primary characteristics, including its name and
+product number. If the bar code does not match the
+product, then an error should be generated to the
+message window and entered into the error log. The
+summary report of all transactions must be structured
+as specified in section 7.A.
+
+--- Slide 11 ---
+Identifying Classes and Objects
+Remember that a class represents a group (classification) of objects with the same behaviors
+Generally, classes that represent objects should be given names that are singular nouns
+Examples:  Coin, Student, Message
+A class represents the concept of one such object
+We are free to instantiate as many of each object as needed
+3/25/2026
+CISC230 Object Oriented Design and Programming
+11
+
+--- Slide 12 ---
+Identifying Classes and Objects
+Sometimes it is challenging to decide whether something should be represented as a class
+For example, should an employee's address be represented as a set of instance variables or as an Address object
+The more you examine the problem and its details the clearer these issues become
+When a class becomes too complex, it often should be decomposed into multiple smaller classes to distribute the responsibilities
+3/25/2026
+CISC230 Object Oriented Design and Programming
+12
+
+--- Slide 13 ---
+Identifying Classes and Objects
+We want to define classes with the proper amount of detail
+For example, it may be unnecessary to create separate classes for each type of appliance in a house
+It may be sufficient to define a more general Appliance class with appropriate instance data
+It all depends on the details of the problem being solved
+3/25/2026
+CISC230 Object Oriented Design and Programming
+13
+
+--- Slide 14 ---
+Identifying Classes and Objects
+Part of identifying the classes we need is the process of assigning responsibilities to each class
+Every activity that a program must accomplish must be represented by one or more methods in one or more classes
+We generally use verbs for the names of methods
+In early stages it is not necessary to determine every method of every class – begin with primary responsibilities and evolve the design
+3/25/2026
+CISC230 Object Oriented Design and Programming
+14
+
+--- Slide 15 ---
+Outline
+Software Development Activities
+Static Variables and Methods
+Class Relationships
+Interfaces
+Enumerated Types Revisited
+Method Design and Overloading
+Testing
+GUI Design
+Mouse and Keyboard Events
+3/25/2026
+CISC230 Object Oriented Design and Programming
+15
+
+--- Slide 16 ---
+Static Class
+public class OuterClass {
+  private static String msg1 = "Static Variable";
+  private String msg2="Non Static Variable";
+  // Static nested class
+  public static class NestedStaticClass {
+  public void printMessage(){
+    System.out.println("Message from nested static class:" + msg1);
+    //System.out.println("Message from nested static class:" + msg2);
+  }
+  }
+  // Static nested class
+  public class InnerClass {
+  public void display(){
+     System.out.println("Message from non-static nested class: " + msg1);
+     System.out.println("Message from non-static nested class: " + msg2);
+  }
+  }
+}
+3/25/2026
+CISC230 Object Oriented Design and Programming
+16
+
+--- Slide 17 ---
+Driver Class
+public class DriverStaticClass {
+public static void main(String args[])
+    {
+       OuterClass.NestedStaticClass printer = new OuterClass.NestedStaticClass();
+       System.out.println("Inner Static class");
+        printer.printMessage();
+        System.out.println();
+        System.out.println("Inner Non-Static class(Method 1)");
+        OuterClass outer = new OuterClass();
+        OuterClass.InnerClass inner = outer.new InnerClass();
+        inner.display();
+        System.out.println();
+        OuterClass.InnerClass innerObject = new OuterClass().new InnerClass();
+        System.out.println("Inner Non-Static class(Method 2)");
+        innerObject.display();
+    }
+}
+3/25/2026
+CISC230 Object Oriented Design and Programming
+17
+
+--- Slide 18 ---
+Static Class Members
+Recall that a static method is one that can be invoked through its class name
+For example, the methods of the Math class are static:
+result = Math.sqrt(25)
+Variables can be static as well
+Determining if a method or variable should be static is an important design decision
+3/25/2026
+CISC230 Object Oriented Design and Programming
+18
+
+--- Slide 19 ---
+The static Modifier
+We declare static methods and variables using the static modifier
+It associates the method or variable with the class rather than with an object of that class
+Static methods are sometimes called class methods and static variables are sometimes called class variables
+Let's carefully consider the implications of each
+3/25/2026
+CISC230 Object Oriented Design and Programming
+19
+
+--- Slide 20 ---
+Static Variables
+Normally, each object has its own data space, but if a variable is declared as static, only one copy of the variable exists
+          private static float price;
+Memory space for a static variable is created when the class is first referenced
+All objects instantiated from the class share its static variables
+Changing the value of a static variable in one object changes it for all others
+3/25/2026
+CISC230 Object Oriented Design and Programming
+20
+
+--- Slide 21 ---
+Static Methods
+Because it is declared as static, the cube method can be invoked through the class name:
+value = Helper.cube(4);
+3/25/2026
+CISC230 Object Oriented Design and Programming
+21
+public class Helper
+{
+   public static int cube(int num)
+   {
+      return num * num * num;
+   }
+}
+
+--- Slide 22 ---
+Type of variables
+Local variable
+Instance variable
+Class variable  static
+3/25/2026
+CISC230 Object Oriented Design and Programming
+22
+
+--- Slide 23 ---
+Static Class Members
+The order of the modifiers can be interchanged, but by convention visibility modifiers come first 
+Recall that the main method is static – it is invoked by the Java interpreter without creating an object
+Static methods cannot reference instance variables because instance variables don't exist until an object exists
+However, a static method can reference static variables or local variables
+3/25/2026
+CISC230 Object Oriented Design and Programming
+23
+
+--- Slide 24 ---
+Static Class Members
+Static methods and static variables often work together
+The following example keeps track of how many Slogan objects have been created using a static variable, and makes that information available using a static method
+See SloganCounter.java 
+See Slogan.java
+3/25/2026
+CISC230 Object Oriented Design and Programming
+24
+
+--- Slide 25 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+25
+public class SloganCounter
+{
+   public static void main(String[] args)
+   {
+      Slogan obj;
+      obj = new Slogan("Remember the Alamo.");
+      System.out.println(obj);
+      obj = new Slogan("Don't Worry. Be Happy.");
+      System.out.println(obj);
+      obj = new Slogan("Live Free or Die.");
+      System.out.println(obj);
+      obj = new Slogan("Talk is Cheap.");
+      System.out.println(obj);
+      obj = new Slogan("Write Once, Run Anywhere.");
+      System.out.println(obj);
+      System.out.println();
+      System.out.println("Slogans created: " + Slogan.getCount());
+   }
+}
+Output
+Remember the Alamo.
+Don't Worry. Be Happy.
+Live Free or Die.
+Talk is Cheap.
+Write Once, Run Anywhere.
+
+Slogans created: 5
+
+--- Slide 26 ---
+Slogan s= new Slogan(“hi”);
+Slogan s1= new Slogan(“hello”);
+3/25/2026
+CISC230 Object Oriented Design and Programming
+26
+public class Slogan
+{
+   private String phrase;
+   private static int count = 0;
+   public Slogan(String str)
+   {
+      phrase = str;
+      count++;
+   }
+   public String toString()
+   {
+      return phrase;
+   }
+   public static int getCount()
+   {
+      return count;
+   }
+}
+
+--- Slide 27 ---
+Quick Check
+3/25/2026
+CISC230 Object Oriented Design and Programming
+27
+Why can't a static method refer to an instance variable?
+
+--- Slide 28 ---
+Quick Check
+3/25/2026
+CISC230 Object Oriented Design and Programming
+28
+Why can't a static method refer to an instance variable?
+Because instance data is created only when an
+object is created.
+You don't need an object to execute a static method.
+And even if you had an object, which object's instance
+data would be referenced? (remember, the method is
+invoked through the class name)
+
+--- Slide 29 ---
+Example
+public class  Overview{
+  int instanceVariable;
+  static    int classVariable;
+  final     int finalVariable; // static?
+  public Overview(){
+     finalVariable = 42;
+  }
+  public Overview(int aLocalVariable){
+     finalVariable = 43;
+  }
+  void instanceMethod(){
+       //finalVariable = 43;
+       instanceVariable = 22;
+       classVariable = 33;
+  }
+  static void classMethod(){
+      classVariable = 3;
+  }
+  public String toString() {
+     return ("Instance Variable= " 
+                + instanceVariable + "\n" +
+             "Class Variable= " 
+                + classVariable + "\n" +
+              "Final Variable= " 
+                  + finalVariable
+             );
+  }
+3/25/2026
+CISC230 Object Oriented Design and Programming
+29
+public static void main(String args[] ){
+     Overview aOverview = new Overview();
+     Overview bOverview = new Overview();
+     Overview cOverview = new Overview(1);
+     cOverview = bOverview;
+     aOverview.instanceMethod();
+     //instanceMethod();
+     bOverview.classMethod();
+     Overview.classMethod();
+     // values of aOverview.? bOverview.?
+     System.out.println("aOverview:\n" + aOverview);
+     System.out.println();
+     System.out.println("bOverview:\n" + bOverview);
+     System.out.println();
+     System.out.println("cOverview:\n" + cOverview);
+     //aOverview.finalVariable??
+  }
+}
+
+--- Slide 30 ---
+Example
+public class  Overview{
+  int instanceVariable;
+  static    int classVariable;
+  final     int finalVariable; // static?
+  public Overview(){
+finalVariable = 42;
+  }
+  public Overview(int aLocalVariable){
+finalVariable = 43;
+  }
+  void instanceMethod(){
+//finalVariable = 43;
+instanceVariable = 22;
+classVariable = 33;
+  }
+  static void classMethod(){
+classVariable = 3;
+  }
+3/25/2026
+CISC230 Object Oriented Design and Programming
+30
+public static void main(String args[] ){
+                    Overview aOverview = new Overview();
+                   Overview bOverview = new Overview();
+                   Overview cOverview = new Overview(1);
+                  cOverview = bOverview;
+                  aOverview.instanceMethod();
+                 //instanceMethod();
+                bOverview.classMethod();
+               Overview.classMethod();
+               // values of aOverview.? bOverview.?
+              //aOverview.finalVariable??
+  }
+}
+
+--- Slide 31 ---
+Outline
+Software Development Activities
+Static Variables and Methods
+Class Relationships
+Interfaces
+Enumerated Types Revisited
+Method Design and Overloading
+Testing
+GUI Design
+Mouse and Keyboard Events
+3/25/2026
+CISC230 Object Oriented Design and Programming
+31
+
+--- Slide 32 ---
+Class Relationships
+Classes in a software system can have various types of relationships to each other
+Three of the most common relationships:
+Dependency: A uses B
+Aggregation: A has-a B
+Inheritance: A is-a B
+Let's discuss dependency and aggregation further
+Inheritance is discussed in detail in Chapter 9
+3/25/2026
+CISC230 Object Oriented Design and Programming
+32
+
+--- Slide 33 ---
+Dependency
+A dependency exists when one class relies on another in some way, usually by invoking the methods of the other
+We've seen dependencies in many previous examples
+We don't want numerous or complex dependencies among classes
+Nor do we want complex classes that don't depend on others
+A good design strikes the right balance
+3/25/2026
+CISC230 Object Oriented Design and Programming
+33
+
+--- Slide 34 ---
+Dependency
+Some dependencies occur between objects of the same class
+A method of the class may accept an object of the same class as a parameter
+For example, the concat method of the String class takes as a parameter another String object
+str3 = str1.concat(str2);
+3/25/2026
+CISC230 Object Oriented Design and Programming
+34
+
+--- Slide 35 ---
+Dependency
+The following example defines a class called RationalNumber
+A rational number is a value that can be represented as the ratio of two integers
+Several methods of the RationalNumber class accept another RationalNumber object as a parameter
+See RationalTester.java 
+See RationalNumber.java
+3/25/2026
+CISC230 Object Oriented Design and Programming
+35
+
+--- Slide 36 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+36
+public class RationalTester
+{
+   public static void main(String[] args)
+   {
+      RationalNumber r1 = new RationalNumber(6, 8);
+      RationalNumber r2 = new RationalNumber(1, 3);
+      RationalNumber r3, r4, r5, r6, r7;
+      System.out.println("First rational number: " + r1);
+      System.out.println("Second rational number: " + r2);
+      if (r1.isLike(r2))
+         System.out.println("r1 and r2 are equal.");
+      else
+         System.out.println("r1 and r2 are NOT equal.");
+      r3 = r1.reciprocal();
+      System.out.println("The reciprocal of r1 is: " + r3);
+      r4 = r1.add(r2);
+      r5 = r1.subtract(r2);
+      r6 = r1.multiply(r2);
+      r7 = r1.divide(r2);
+      System.out.println("r1 + r2: " + r4);
+      System.out.println("r1 - r2: " + r5);
+      System.out.println("r1 * r2: " + r6);
+      System.out.println("r1 / r2: " + r7);
+   }
+}
+
+--- Slide 37 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+37
+Output
+First rational number: 3/4
+Second rational number: 1/3
+r1 and r2 are NOT equal.
+The reciprocal of r1 is: 4/3
+r1 + r2: 13/12
+r1 - r2: 5/12
+r1 * r2: 1/4
+r1 / r2: 9/4
+
+--- Slide 38 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+38
+public class RationalNumber
+{
+   private int numerator, denominator;
+   public RationalNumber(int numer, int denom)
+   {
+      if (denom == 0)
+         denom = 1;
+      if (denom < 0)
+      {
+         numer = numer * -1;
+         denom = denom * -1;
+      }
+      numerator = numer;
+      denominator = denom;
+      reduce();
+   }
+   public int getNumerator()
+   {
+      return numerator;
+   }
+   public int getDenominator()
+   {
+      return denominator;
+   }
+
+continue
+
+--- Slide 39 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+39
+continue
+   public RationalNumber reciprocal()
+   {
+      return new RationalNumber(denominator, numerator);
+   }
+   public RationalNumber add(RationalNumber op2)
+   {
+      int commonDenominator = denominator * op2.getDenominator();
+      int numerator1 = numerator * op2.getDenominator();
+      int numerator2 = op2.getNumerator() * denominator;
+      int sum = numerator1 + numerator2;
+      return new RationalNumber(sum, commonDenominator);
+   }
+   public RationalNumber subtract(RationalNumber op2)
+   {
+      int commonDenominator = denominator * op2.getDenominator();
+      int numerator1 = numerator * op2.getDenominator();
+      int numerator2 = op2.getNumerator() * denominator;
+      int difference = numerator1 - numerator2;
+      return new RationalNumber(difference, commonDenominator);
+   }
+   public RationalNumber multiply(RationalNumber op2)
+   {
+      int numer = numerator * op2.getNumerator();
+      int denom = denominator * op2.getDenominator();
+      return new RationalNumber(numer, denom);
+   }
+continue
+
+--- Slide 40 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+40
+continue
+  public RationalNumber divide(RationalNumber op2)
+   {
+      return multiply(op2.reciprocal());
+   }
+   public boolean isLike(RationalNumber op2)
+   {
+      return ( numerator == op2.getNumerator() &&
+               denominator == op2.getDenominator() );
+   }
+   public String toString()
+   {
+      String result;
+      if (numerator == 0)
+         result = "0";
+      else
+         if (denominator == 1)
+            result = numerator + "";
+         else
+            result = numerator + "/" + denominator;
+      return result;
+   }
+continue
+
+--- Slide 41 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+41
+continue
+private void reduce()
+   {
+      if (numerator != 0)
+      {
+         int common = gcd(Math.abs(numerator), denominator);
+         numerator = numerator / common;
+         denominator = denominator / common;
+      }
+   }
+ private int gcd(int num1, int num2)
+   {
+      while (num1 != num2)
+         if (num1 > num2)
+            num1 = num1 - num2;
+         else
+            num2 = num2 - num1;
+      return num1;
+   }
+}
+
+--- Slide 42 ---
+Aggregation
+An aggregate is an object that is made up of other objects
+Therefore aggregation is a has-a relationship
+A car has a chassis
+A student has an address
+An aggregate object contains references to other objects as instance data
+This is a special kind of dependency; the aggregate relies on the objects that compose it
+3/25/2026
+CISC230 Object Oriented Design and Programming
+42
+
+--- Slide 43 ---
+Aggregation
+In the following example, a Student object is composed, in part, of Address objects
+A student has an address (in fact each student has two addresses)
+See StudentBody.java 
+See Student.java 
+See Address.java
+3/25/2026
+CISC230 Object Oriented Design and Programming
+43
+
+--- Slide 44 ---
+Aggregation in UML
+3/25/2026
+CISC230 Object Oriented Design and Programming
+44
+
+--- Slide 45 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+45
+public class Student
+{
+   private String firstName, lastName;
+   private Address homeAddress, schoolAddress;
+   public Student(String first, String last, Address home, Address school)
+   {
+      firstName = first;
+      lastName = last;
+      homeAddress = home;
+      schoolAddress = school;
+   }
+   public String toString()
+   {
+      String result;
+      result = firstName + " " + lastName + "\n";
+      result += "Home Address:\n" + homeAddress + "\n";
+      result += "School Address:\n" + schoolAddress;
+      return result;
+   }
+}
+
+continue
+
+--- Slide 46 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+46
+public class Address
+{
+   private String streetAddress, city, state;
+   private long zipCode;
+   public Address(String street, String town, String st, long zip)
+   {
+      streetAddress = street;
+      city = town;
+      state = st;
+      zipCode = zip;
+   }
+   public String toString()
+   {
+      String result;
+      result = streetAddress + "\n";
+      result += city + ", " + state + "  " + zipCode;
+      return result;
+   }
+}
+
+--- Slide 47 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+47
+public class StudentBody 
+{
+  public static void main(String[] args)
+   {
+      Address school = new Address("800 Lancaster Ave.", "Villanova",
+                                   "PA", 19085);
+      Address jHome = new Address("21 Jump Street", "Lynchburg",
+                                  "VA", 24551);
+      Student john = new Student("John", "Smith", jHome, school);
+      Address mHome = new Address("123 Main Street", "Euclid", "OH",
+                                  44132);
+      Student marsha = new Student("Marsha", "Jones", mHome, school);
+      System.out.println(john);
+      System.out.println();
+      System.out.println(marsha);
+   }
+}
+Output
+John Smith
+Home Address:
+21 Jump Street
+Lynchburg, VA  24551
+School Address:
+800 Lancaster Ave.
+Villanova, PA  19085
+
+Marsha Jones
+Home Address:
+123 Main Street
+Euclid, OH  44132
+School Address:
+800 Lancaster Ave.
+Villanova, PA  19085
+
+--- Slide 48 ---
+Outline
+Software Development Activities
+Static Variables and Methods
+Class Relationships
+Interfaces
+Enumerated Types Revisited
+Method Design and Overloading
+Testing
+GUI Design
+Mouse and Keyboard Events
+3/25/2026
+CISC230 Object Oriented Design and Programming
+48
+
+--- Slide 49 ---
+The this Reference
+The this reference allows an object to refer to itself
+That is, the this reference, used inside a method, refers to the object through which the method is being executed
+Suppose the this reference is used inside a method called tryMe, which is invoked as follows:
+obj1.tryMe();
+obj2.tryMe();
+In the first invocation, the this reference refers to obj1; in the second it refers to obj2
+3/25/2026
+CISC230 Object Oriented Design and Programming
+49
+
+--- Slide 50 ---
+The this reference
+The this reference can be used to distinguish the instance variables of a class from corresponding method parameters with the same names
+The constructor of the Account class from Chapter 4 could have been written as follows:
+3/25/2026
+CISC230 Object Oriented Design and Programming
+50
+public Account(String name, long acctNumber, 
+               double balance)
+{
+   this.name = name;
+   this.acctNumber = acctNumber;
+   this.balance = balance;
+}
+
+--- Slide 51 ---
+Example
+public class  ExampleClass {
+	private static int aLocalVariable = 3;
+	//int aLocalVariable = 3;
+	public ExampleClass(){
+		aLocalVariable = 2;
+	}
+	public ExampleClass(int aLocalVariable){
+		this.aLocalVariable = 6;
+		aLocalVariable = 12;
+		//System.out.println(aLocalVariable);
+	}
+    public String toString(){
+    	return "" + aLocalVariable;
+    }
+3/25/2026
+CISC230 Object Oriented Design and Programming
+51
+public static void main(String args[] )	{
+    	ExampleClass aExampleClass = new ExampleClass();
+    	System.out.println(aExampleClass);
+    	ExampleClass aExampleClass2 = new ExampleClass(1);
+    	System.out.println(aExampleClass2);
+    	ExampleClass aExampleClass3 = new ExampleClass(2);
+    	int intArgument = 3;
+    	aExampleClass = new ExampleClass(intArgument);
+    	System.out.println(intArgument);
+    	System.out.println("the value is: " +
+                                         aExampleClass.aLocalVariable);
+    	System.out.println(aExampleClass);
+    	System.out.println(aLocalVariable);
+    	System.out.println(ExampleClass.aLocalVariable);
+    }
+}
+
+--- Slide 52 ---
+Outline
+Software Development Activities
+Static Variables and Methods
+Class Relationships
+Interfaces
+Enumerated Types Revisited
+Method Design and Overloading
+Testing
+GUI Design
+Mouse and Keyboard Events
+3/25/2026
+CISC230 Object Oriented Design and Programming
+52
+
+--- Slide 53 ---
+Interfaces
+A Java interface is a collection of abstract methods and constants
+The constants are public, static and final regardless of whether these modifiers have been specified.
+An abstract method is a method header without a method body
+An abstract method can be declared using the modifier abstract, but because all methods in an interface are abstract, usually it is left off
+An interface is used to establish a set of methods that a class will implement
+3/25/2026
+CISC230 Object Oriented Design and Programming
+53
+
+--- Slide 54 ---
+Interfaces
+3/25/2026
+CISC230 Object Oriented Design and Programming
+54
+public interface Doable
+{
+   public abstract void doThis();
+   public abstract int doThat();
+   public abstract void doThis2(double value, char ch);
+   public abstract boolean doTheOther(int num);
+}
+None of the methods in
+an interface are given
+a definition (body)
+
+--- Slide 55 ---
+Interfaces
+An interface cannot be instantiated
+Methods in an interface have public visibility by default
+A class formally implements an interface by:
+stating so in the class header
+providing implementations for every abstract method in the interface
+If a class declares that it implements an interface, it must define all methods in the interface
+3/25/2026
+CISC230 Object Oriented Design and Programming
+55
+
+--- Slide 56 ---
+Interfaces
+3/25/2026
+CISC230 Object Oriented Design and Programming
+56
+public class CanDo implements Doable
+{
+   public void doThis()
+   {
+      // whatever
+   }
+
+   public void doThat()
+   {
+      // whatever
+   }
+
+   // etc.
+}
+
+--- Slide 57 ---
+Example
+// Interface
+interface Animal {
+        public void sound(); // interface method
+        public void eat(); // interface method
+}
+// Lion "implements" the Animal interface
+public class Lion implements Animal {
+  public void sound() {
+    // The body of sound()
+    System.out.println("The Lion says: Roar");
+  }
+3/25/2026
+CISC230 Object Oriented Design and Programming
+57
+public void eat() {
+    // The body of eat() is provided here
+    System.out.println(“Meat”);
+  }
+}
+public class Main {
+  public static void main(String[] args) {
+    Lion l1 = new Lion();  
+    l1.sound();
+    l1.eat();
+  }
+}
+
+--- Slide 58 ---
+Interfaces
+In addition to (or instead of) abstract methods, an interface can contain constants
+When a class implements an interface, it gains access to all its constants
+A class that implements an interface can implement other methods as well
+See Complexity.java 
+See Question.java 
+See MiniQuiz.java
+3/25/2026
+CISC230 Object Oriented Design and Programming
+58
+
+--- Slide 59 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+59
+public interface Complexity
+{
+   public void setComplexity(int complexity);
+   public int getComplexity();
+}
+
+--- Slide 60 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+60
+public class Question implements Complexity
+{
+   private String question, answer;
+   private int complexityLevel;
+   public Question(String query, String result)
+   {
+      question = query;
+      answer = result;
+      complexityLevel = 1;
+   }
+   public void setComplexity(int level)
+   {
+      complexityLevel = level;
+   }
+   public int getComplexity()
+   {
+      return complexityLevel;
+   }
+   public String getQuestion()
+   {
+      return question;
+   }
+
+continue
+
+--- Slide 61 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+61
+continue
+
+   public String getAnswer()
+   {
+      return answer;
+   }
+   public boolean answerCorrect(String candidateAnswer)
+   {
+      return answer.equals(candidateAnswer);
+   }
+   public String toString()
+   {
+      return question + "\n" + answer;
+   }
+}
+
+--- Slide 62 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+62
+import java.util.Scanner;
+public class MiniQuiz
+{
+   public static void main(String[] args)
+   {
+      Question q1, q2;
+      String possible;
+      Scanner scan = new Scanner(System.in);
+      q1 = new Question("What is the capital of Jamaica?", "Kingston");
+      q1.setComplexity(4);
+      q2 = new Question("Which is worse, ignorance or apathy?",
+                         "I don't know and I don't care");
+      q2.setComplexity(10);
+      System.out.print(q1.getQuestion());
+      System.out.println(" (Level: " + q1.getComplexity() + ")");
+      possible = scan.nextLine();
+      if (q1.answerCorrect(possible))
+         System.out.println("Correct");
+      else
+         System.out.println("No, the answer is " + q1.getAnswer());
+      System.out.println();
+      System.out.print(q2.getQuestion());
+      System.out.println(" (Level: " + q2.getComplexity() + ")");
+      possible = scan.nextLine();
+      if (q2.answerCorrect(possible))
+         System.out.println("Correct");
+      else
+         System.out.println("No, the answer is " + q2.getAnswer());
+   }
+}
+
+--- Slide 63 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+63
+Sample Run
+What is the capital of Jamaica? (Level: 4)
+Kingston
+Correct
+
+Which is worse, ignorance or apathy? (Level: 10)
+apathy
+No, the answer is I don't know and I don't care
+
+--- Slide 64 ---
+Interfaces
+A class can implement multiple interfaces
+The interfaces are listed in the implements clause
+The class must implement all methods in all interfaces listed in the header
+3/25/2026
+CISC230 Object Oriented Design and Programming
+64
+class ManyThings implements interface1, interface2
+{
+   // all methods of both interfaces
+}
+
+--- Slide 65 ---
+Interfaces
+The Java API contains many helpful interfaces
+The Comparable interface contains one abstract method called compareTo, which is used to compare two objects
+We discussed the compareTo method of the String class in Chapter 5
+The String class implements Comparable, giving us the ability to put strings in lexicographic order
+3/25/2026
+CISC230 Object Oriented Design and Programming
+65
+
+--- Slide 66 ---
+The Comparable Interface
+Any class can implement Comparable to provide a mechanism for comparing objects of that type
+	if (obj1.compareTo(obj2) < 0)
+	   System.out.println ("obj1 is less than obj2");
+The value returned from compareTo should be:
+negative ifobj1 is less that obj2, 
+0 if they are equal, 
+positive if obj1 is greater than obj2
+It's up to the programmer to determine what makes one object less than another
+3/25/2026
+CISC230 Object Oriented Design and Programming
+66
+
+--- Slide 67 ---
+The Iterator Interface
+As we discussed in Chapter 5, an iterator is an object that provides a means of processing a collection of objects one at a time
+An iterator is created formally by implementing the Iterator interface, which contains three methods
+The hasNext method returns a boolean result – true if there are items left to process
+The next method returns the next object in the iteration
+The remove method removes the object most recently returned by the next method
+3/25/2026
+CISC230 Object Oriented Design and Programming
+67
+
+--- Slide 68 ---
+The Iterable Interface
+Another interface, Iterable, establishes that an object provides an iterator
+The Iterable interface has one method, iterator, that returns an Iterator object
+Any Iterable object can be processed using the for-each version of the for loop
+Note the difference: 
+an Iterator has methods that perform an iteration
+an Iterable object provides an iterator on request
+3/25/2026
+CISC230 Object Oriented Design and Programming
+68
+
+--- Slide 69 ---
+Interfaces
+You could write a class that implements certain methods (such as compareTo) without formally implementing the interface (Comparable)
+However, formally establishing the relationship between a class and an interface allows Java to deal with an object in certain ways
+Interfaces are a key aspect of object-oriented design in Java
+We discuss this idea further in Chapter 10
+3/25/2026
+CISC230 Object Oriented Design and Programming
+69
+
+--- Slide 70 ---
+Example
+// Interface
+interface Animal {
+        public void sound(); // interface method
+        public void eat(); // interface method
+}
+// Lion "implements" the Animal interface
+public class Lion implements Animal {
+  public void sound() {
+    // The body of sound()
+    System.out.println("The Lion says: Roar");
+  }
+3/25/2026
+CISC230 Object Oriented Design and Programming
+70
+public void eat() {
+    // The body of eat() is provided here
+    System.out.println(“Meat”);
+  }
+}
+public class Main {
+  public static void main(String[] args) {
+    Lion l1 = new Lion();  
+    l1.sound();
+    l2.eat();
+  }
+}
+
+--- Slide 71 ---
+Outline
+Software Development Activities
+Static Variables and Methods
+Class Relationships
+Interfaces
+Enumerated Types Revisited
+Method Design and Overloading
+Testing
+GUI Design
+Mouse and Keyboard Events
+3/25/2026
+CISC230 Object Oriented Design and Programming
+71
+
+--- Slide 72 ---
+Enumerated Types
+In Chapter 3 we introduced enumerated types, which define a new data type and list all possible values of that type:
+enum Season {winter, spring, summer, fall}
+Once established, the new type can be used to declare variables
+Season time;
+The only values this variable can be assigned are the ones established in the enum definition
+3/25/2026
+CISC230 Object Oriented Design and Programming
+72
+
+--- Slide 73 ---
+Enumerated Types
+An enumerated type definition is a special kind of class
+The values of the enumerated type are objects of that type
+For example, fall is an object of type Season
+That's why the following assignment is valid:
+time = Season.fall;
+3/25/2026
+CISC230 Object Oriented Design and Programming
+73
+
+--- Slide 74 ---
+Enumerated Types
+An enumerated type definition can be more interesting than a simple list of values
+Because they are like classes, we can add additional instance data and methods
+We can define an enum constructor as well
+Each value listed for the enumerated type calls the constructor
+See Season.java 
+See SeasonTester.java
+3/25/2026
+CISC230 Object Oriented Design and Programming
+74
+
+--- Slide 75 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+75
+public enum Season
+{
+   winter ("December through February"),
+   spring ("March through May"),
+   summer ("June through August"),
+   fall ("September through November");
+   private String span;
+   Season(String months)
+   {
+      span = months;
+   }
+   public String getSpan()
+   {
+      return span;
+   }
+}
+public class SeasonTester
+{
+   public static void main(String[] args)
+   {
+      for (Season time : Season.values())
+         System.out.println(time + "\t" + time.getSpan());
+   }
+}
+Output
+winter	December through February
+spring	March through May
+summer	June through August
+fall	September through November
+
+--- Slide 76 ---
+Enumerated Types
+Every enumerated type contains a static method called values that returns a list of all possible values for that type
+The list returned from values can be processed using a for-each loop
+An enumerated type cannot be instantiated outside of its own definition
+A carefully designed enumerated type provides a versatile and type-safe mechanism for managing data
+3/25/2026
+CISC230 Object Oriented Design and Programming
+76
+
+--- Slide 77 ---
+Outline
+Software Development Activities
+Static Variables and Methods
+Class Relationships
+Interfaces
+Enumerated Types Revisited
+Method Design and Overloading
+Testing
+GUI Design
+Mouse and Keyboard Events
+3/25/2026
+CISC230 Object Oriented Design and Programming
+77
+
+--- Slide 78 ---
+Method Design
+As we've discussed, high-level design issues include:
+identifying primary classes and objects
+assigning primary responsibilities
+After establishing high-level design issues, its important to address low-level issues such as the design of key methods
+For some methods, careful planning is needed to make sure they contribute to an efficient and elegant system design
+3/25/2026
+CISC230 Object Oriented Design and Programming
+78
+
+--- Slide 79 ---
+Method Decomposition
+A method should be relatively small, so that it can be understood as a single entity
+A potentially large method should be decomposed into several smaller methods as needed for clarity
+A public service method of an object may call one or more private support methods to help it accomplish its goal
+Support methods might call other support methods if appropriate
+3/25/2026
+CISC230 Object Oriented Design and Programming
+79
+
+--- Slide 80 ---
+Method Decomposition
+Let's look at an example that requires method decomposition 
+translating English into Pig Latin
+Pig Latin is a language in which each word is modified by moving the initial sound of the word to the end and adding "ay"
+Words that begin with vowels have the "yay" sound added on the end
+3/25/2026
+CISC230 Object Oriented Design and Programming
+80
+
+--- Slide 81 ---
+Method Decomposition
+The primary objective (translating a sentence) is too complicated for one method to accomplish
+Therefore, we look for natural ways to decompose the solution into pieces
+Translating a sentence can be decomposed into the process of translating each word
+The process of translating a word can be separated into translating words that:
+begin with vowels
+begin with consonant blends (sh, cr, th, etc.)
+begin with single consonants
+3/25/2026
+CISC230 Object Oriented Design and Programming
+81
+
+--- Slide 82 ---
+Method Decomposition
+In a UML class diagram, the visibility of a variable or method can be shown using special characters
+Public members are preceded by a plus sign
+Private members are preceded by a minus sign
+See PigLatin.java
+See PigLatinTranslator.java
+3/25/2026
+CISC230 Object Oriented Design and Programming
+82
+
+--- Slide 83 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+83
+import java.util.Scanner;
+public class PigLatin
+{
+   public static void main(String[] args)
+   {
+      String sentence, result, another;
+      Scanner scan = new Scanner(System.in);
+      do
+      {
+         System.out.println();
+         System.out.println("Enter a sentence (no punctuation):");
+         sentence = scan.nextLine();
+         System.out.println();
+         result = PigLatinTranslator.translate(sentence);
+         System.out.println("That sentence in Pig Latin is:");
+         System.out.println(result);
+         System.out.println();
+         System.out.print("Translate another sentence (y/n)? ");
+         another = scan.nextLine();
+      }
+      while (another.equalsIgnoreCase("y"));
+   }
+}
+
+--- Slide 84 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+84
+Sample Run
+Enter a sentence (no punctuation):
+Do you speak Pig Latin
+
+That sentence in Pig Latin is:
+oday ouyay eakspay igpay atinlay 
+
+Translate another sentence (y/n)? y
+
+Enter a sentence (no punctuation):
+Play it again Sam
+
+That sentence in Pig Latin is:
+ayplay ityay againyay amsay 
+
+Translate another sentence (y/n)? n
+
+--- Slide 85 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+85
+import java.util.Scanner;
+public class PigLatinTranslator
+{
+   public static String translate(String sentence)
+   {
+      String result = "";
+      sentence = sentence.toLowerCase();
+      Scanner scan = new Scanner(sentence);
+      while (scan.hasNext())
+      {
+         result += translateWord(scan.next());
+         result += " ";
+      }
+      return result;
+   }
+   private static String translateWord(String word)
+   {
+      String result = "";
+      if (beginsWithVowel(word))
+         result = word + "yay";
+      else
+         if (beginsWithBlend(word))
+            result = word.substring(2) + word.substring(0,2) + "ay";
+         else
+            result = word.substring(1) + word.charAt(0) + "ay";
+      return result;
+   }
+
+continue
+
+--- Slide 86 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+86
+continue
+
+   private static boolean beginsWithVowel(String word)
+   {
+      String vowels = "aeiou";
+      char letter = word.charAt(0);
+      return (vowels.indexOf(letter) != -1);
+   }
+   private static boolean beginsWithBlend(String word)
+   {
+      return ( word.startsWith("bl") || word.startsWith("sc") ||
+               word.startsWith("br") || word.startsWith("sh") ||
+               word.startsWith("ch") || word.startsWith("sk") ||
+               word.startsWith("cl") || word.startsWith("sl") ||
+               word.startsWith("cr") || word.startsWith("sn") ||
+               word.startsWith("dr") || word.startsWith("sm") ||
+               word.startsWith("dw") || word.startsWith("sp") ||
+               word.startsWith("fl") || word.startsWith("sq") ||
+               word.startsWith("fr") || word.startsWith("st") ||
+               word.startsWith("gl") || word.startsWith("sw") ||
+               word.startsWith("gr") || word.startsWith("th") ||
+               word.startsWith("kl") || word.startsWith("tr") ||
+               word.startsWith("ph") || word.startsWith("tw") ||
+               word.startsWith("pl") || word.startsWith("wh") ||
+               word.startsWith("pr") || word.startsWith("wr") ); 
+   }
+}
+
+--- Slide 87 ---
+Class Diagram for Pig Latin
+3/25/2026
+CISC230 Object Oriented Design and Programming
+87
+
+--- Slide 88 ---
+Objects as Parameters
+Another important issue related to method design involves parameter passing
+Parameters in a Java method are passed by value
+A copy of the actual parameter (the value passed in) is stored into the formal parameter (in the method header)
+When an object is passed to a method, the actual parameter and the formal parameter become aliases of each other
+3/25/2026
+CISC230 Object Oriented Design and Programming
+88
+
+--- Slide 89 ---
+Passing Objects to Methods
+What a method does with a parameter may or may not have a permanent effect (outside the method)
+Note the difference between changing the internal state of an object versus changing which object a reference points to
+See ParameterTester.java 
+See ParameterModifier.java 
+See Num.java
+3/25/2026
+CISC230 Object Oriented Design and Programming
+89
+
+--- Slide 90 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+90
+public class ParameterTester
+{
+   public static void main(String[] args)
+   {
+      ParameterModifier modifier = new ParameterModifier();
+      int a1 = 111;
+      Num a2 = new Num(222);
+      Num a3 = new Num(333);
+      System.out.println("Before calling changeValues:");
+      System.out.println("a1\ta2\ta3");
+      System.out.println(a1 + "\t" + a2 + "\t" + a3 + "\n");
+      modifier.changeValues(a1, a2, a3);
+      System.out.println("After calling changeValues:");
+      System.out.println("a1\ta2\ta3");
+      System.out.println(a1 + "\t" + a2 + "\t" + a3 + "\n");
+   }
+}
+
+continue
+
+--- Slide 91 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+91
+Output
+Before calling changeValues:
+a1	a2	a3
+111	222	333
+
+Before changing the values:
+f1	f2	f3
+111	222	333
+
+After changing the values:
+f1	f2	f3
+999	888	777
+
+After calling changeValues:
+a1	a2	a3
+111	888	333
+
+--- Slide 92 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+92
+public class ParameterModifier
+{
+   public void changeValues(int f1, Num f2, Num f3)
+   {
+      System.out.println("Before changing the values:");
+      System.out.println("f1\tf2\tf3");
+      System.out.println(f1 + "\t" + f2 + "\t" + f3 + "\n");
+      f1 = 999;
+      f2.setValue(888);
+      f3 = new Num(777);
+      System.out.println("After changing the values:");
+      System.out.println("f1\tf2\tf3");
+      System.out.println(f1 + "\t" + f2 + "\t" + f3 + "\n");
+   }
+}
+
+--- Slide 93 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+93
+public class Num
+{
+   private int value;
+   public Num(int update)
+   {
+      value = update;
+   }
+   public void setValue(int update)
+   {
+      value = update;
+   }
+   public String toString()
+   {
+      return value + "";
+   }
+}
+
+--- Slide 94 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+94
+
+--- Slide 95 ---
+Example
+public class  Car {
+	 int speed = 0;
+	 public void setSpeed(int speed){
+		this.speed = speed;
+	 }
+	 public String toString(){
+		return "speed = "  + speed;
+	 }
+	 static public void changeStateOf(Car thisCar ){
+		thisCar.setSpeed(42);
+	 }
+	 public static void main(String args[] ){
+	        	Car aCar = new Car();
+		System.out.println("1:	" + aCar);
+		changeStateOf(aCar);
+		System.out.println("2:	" + aCar);
+	 }
+}
+3/25/2026
+CISC230 Object Oriented Design and Programming
+95
+
+--- Slide 96 ---
+Method Overloading
+Let's look at one more important method design issue: method overloading
+Method overloading is the process of giving a single method name multiple definitions in a class
+If a method is overloaded, the method name is not sufficient to determine which method is being called
+The signature of each overloaded method must be unique
+The signature includes the number, type, and order of the parameters
+The signature have nothing to do with return type
+3/25/2026
+CISC230 Object Oriented Design and Programming
+96
+
+--- Slide 97 ---
+Method Overloading
+The compiler determines which method is being invoked by analyzing the parameters
+3/25/2026
+CISC230 Object Oriented Design and Programming
+97
+float tryMe(int x)
+{
+   return x + .375;
+}
+float tryMe(int x, float y)
+{
+   return x*y;
+}
+
+--- Slide 98 ---
+Method Overloading
+The println method is overloaded:
+            println(String s)
+            println(int i)
+            println(double d)
+		and so on...
+The following lines invoke different versions of the println method:
+     System.out.println("The total is:");
+     System.out.println(total);
+3/25/2026
+CISC230 Object Oriented Design and Programming
+98
+
+--- Slide 99 ---
+Overloading Methods
+The return type of the method is not part of the signature
+That is, overloaded methods cannot differ only by their return type
+Constructors can be overloaded
+Overloaded constructors provide multiple ways to initialize a new object
+3/25/2026
+CISC230 Object Oriented Design and Programming
+99
+
+--- Slide 100 ---
+What is wrong in the following program?
+public class Test {
+  public static void method(int x) {
+  }
+   public static int method(int y) {
+    return y;
+  }
+}
+3/25/2026
+CISC230 Object Oriented Design and Programming
+100
+
+--- Slide 101 ---
+Question
+Given two method definitions,
+public static double m(double x, double y)
+public static double m(int x, double y)
+tell which of the two methods is invoked for:
+double z = m(4, 5);
+double z = m(4, 5.4);
+double z = m(4.5, 5.4);
+double z = m(4.5, 5);
+3/25/2026
+CISC230 Object Oriented Design and Programming
+101
+
+--- Slide 102 ---
+Outline
+Software Development Activities
+Static Variables and Methods
+Class Relationships
+Interfaces
+Enumerated Types Revisited
+Method Design and Overloading
+Testing
+GUI Design
+Mouse and Keyboard Events
+3/25/2026
+CISC230 Object Oriented Design and Programming
+102
+
+--- Slide 103 ---
+Testing
+Testing can mean many different things
+It certainly includes running a completed program with various inputs
+It also includes any evaluation performed by human or computer to assess quality
+Some evaluations should occur before coding even begins
+The earlier we find an problem, the easier and cheaper it is to fix
+3/25/2026
+CISC230 Object Oriented Design and Programming
+103
+
+--- Slide 104 ---
+Testing
+The goal of testing is to find errors
+As we find and fix errors, we raise our confidence that a program will perform as intended
+We can never really be sure that all errors have been eliminated
+So when do we stop testing?
+Conceptual answer:  Never
+Cynical answer:  When we run out of time
+Better answer:  When we are willing to risk that an undiscovered error still exists
+3/25/2026
+CISC230 Object Oriented Design and Programming
+104
+
+--- Slide 105 ---
+Reviews
+A review is a meeting in which several people examine a design document or section of code
+It is a common and effective form of human-based testing
+Presenting a design or code to others:
+makes us think more carefully about it
+provides an outside perspective
+Reviews are sometimes called inspections or walkthroughs
+3/25/2026
+CISC230 Object Oriented Design and Programming
+105
+
+--- Slide 106 ---
+Test Cases
+A test case is a set of input and user actions, coupled with the expected results
+Often test cases are organized formally into test suites which are stored and reused as needed
+For medium and large systems, testing must be a carefully managed process
+Many organizations have a separate Quality Assurance (QA) department to lead testing efforts
+3/25/2026
+CISC230 Object Oriented Design and Programming
+106
+
+--- Slide 107 ---
+Defect and Regression Testing
+Defect testing is the execution of test cases to uncover errors 
+The act of fixing an error may introduce new errors
+After fixing a set of errors we should perform regression testing – running previous test suites to ensure new errors haven't been introduced
+It is not possible to create test cases for all possible input and user actions
+Therefore we should design tests to maximize their ability to find problems
+3/25/2026
+CISC230 Object Oriented Design and Programming
+107
+
+--- Slide 108 ---
+Black-Box Testing
+In black-box testing, test cases are developed without considering the internal logic
+They are based on the input and expected output
+Input can be organized into equivalence categories
+Two input values in the same equivalence category would produce similar results
+Therefore a good test suite will cover all equivalence categories and focus on the boundaries between categories
+3/25/2026
+CISC230 Object Oriented Design and Programming
+108
+
+--- Slide 109 ---
+White-Box Testing
+White-box testing focuses on the internal structure of the code
+The goal is to ensure that every path through the code is tested
+Paths through the code are governed by any conditional or looping statements in a program
+A good testing effort will include both black-box and white-box tests
+3/25/2026
+CISC230 Object Oriented Design and Programming
+109
+
+--- Slide 110 ---
+Outline
+Software Development Activities
+Static Variables and Methods
+Class Relationships
+Interfaces
+Enumerated Types Revisited
+Method Design and Overloading
+Testing
+GUI Design
+Mouse and Keyboard Events
+3/25/2026
+CISC230 Object Oriented Design and Programming
+110
+
+--- Slide 111 ---
+GUI Design
+We must remember that the goal of software is to help the user solve the problem
+To that end, the GUI designer should:
+Know the user
+Prevent user errors
+Optimize user abilities
+Be consistent
+Let's discuss each of these in more detail
+3/25/2026
+CISC230 Object Oriented Design and Programming
+111
+
+--- Slide 112 ---
+Know the User
+Knowing the user implies an understanding of:
+the user's true needs
+the user's common activities
+the user's level of expertise in the problem domain and in computer processing
+We should also realize these issues may differ for different users
+Remember, to the user, the interface is the program
+3/25/2026
+CISC230 Object Oriented Design and Programming
+112
+
+--- Slide 113 ---
+Prevent User Errors
+Whenever possible, we should design user interfaces that minimize possible user mistakes
+We should choose the best GUI components for each task
+For example, in a situation where there are only a few valid options, using a menu or radio buttons would be better than an open text field
+Error messages should guide the user appropriately
+3/25/2026
+CISC230 Object Oriented Design and Programming
+113
+
+--- Slide 114 ---
+Optimize User Abilities
+Not all users are alike – some may be more familiar with the system than others
+Knowledgeable users are sometimes called power users
+We should provide multiple ways to accomplish a task whenever reasonable
+"wizards" to walk a user through a process
+short cuts for power users
+Help facilities should be available but not intrusive
+3/25/2026
+CISC230 Object Oriented Design and Programming
+114
+
+--- Slide 115 ---
+Be Consistent
+Consistency is important – users get used to things appearing and working in certain ways
+Colors should be used consistently to indicate similar types of information or processing
+Screen layout should be consistent from one part of a system to another
+For example, error messages should appear in consistent locations
+3/25/2026
+CISC230 Object Oriented Design and Programming
+115
+
+--- Slide 116 ---
+Outline
+Software Development Activities
+Static Variables and Methods
+Class Relationships
+Interfaces
+Enumerated Types Revisited
+Method Design and Overloading
+Testing
+GUI Design
+Mouse and Keyboard Events
+3/25/2026
+CISC230 Object Oriented Design and Programming
+116
+
+--- Slide 117 ---
+Mouse Events
+JavaFX nodes can generate several types of mouse-based events:
+3/25/2026
+CISC230 Object Oriented Design and Programming
+117
+Event | Description
+mouse pressed | mouse button is pressed
+mouse released | mouse button is released
+mouse clicked | mouse button is pressed and released
+mouse entered | mouse pointer is moved onto a node
+mouse exited | mouse is moved off of a node
+mouse moved | mouse is moved
+mouse dragged | mouse is moved while holding the mouse button down
+
+--- Slide 118 ---
+Mouse Events
+The MouseEvent object representing the event can be used to obtain the mouse position
+There are convenience methods for setting the handler for each type of mouse event (such as setOnMousePressed)
+See ClickDistance.java
+3/25/2026
+CISC230 Object Oriented Design and Programming
+118
+
+--- Slide 119 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+119
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+public class ClickDistance extends Application
+{
+    private Line line;
+    private Text distanceText;
+    public void start(Stage primaryStage)
+    {
+        line = new Line(0, 0, 0, 0);
+        distanceText = new Text(150, 30, "Distance:  --");
+        Group root = new Group(distanceText, line);        
+        Scene scene = new Scene(root, 400, 300, Color.LIGHTYELLOW);
+        scene.setOnMouseClicked(this::processMouseClick);
+        primaryStage.setTitle("Click Distance");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+
+continue
+
+--- Slide 120 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+120
+continue
+
+    public void processMouseClick(MouseEvent event)
+    {
+        double clickX = event.getX();
+        double clickY = event.getY();
+        line.setEndX(clickX);
+        line.setEndY(clickY);
+        double distance = Math.sqrt(clickX * clickX + clickY * clickY);
+        String distanceStr = String.format("%.2f", distance);
+        distanceText.setText("Distance:  " + distanceStr);
+    }
+}
+
+--- Slide 121 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+121
+continue
+
+    //--------------------------------------------------------------------
+    //  Resets the end point of the line to the location of the mouse
+    //  click event and updates the distance displayed.
+    //--------------------------------------------------------------------
+    public void processMouseClick(MouseEvent event)
+    {
+        double clickX = event.getX();
+        double clickY = event.getY();
+        
+        line.setEndX(clickX);
+        line.setEndY(clickY);
+        
+        double distance = Math.sqrt(clickX * clickX + clickY * clickY);
+        
+        String distanceStr = String.format("%.2f", distance);
+        distanceText.setText("Distance:  " + distanceStr);
+    }
+}
+
+--- Slide 122 ---
+Mouse Events
+A stream of mouse moved or mouse dragged events occur while the mouse is in motion
+This essentially allows the program to track the movement in real time
+Using the mouse to "draw" a shape into place is called rubberbanding
+See RubberLines.java
+3/25/2026
+CISC230 Object Oriented Design and Programming
+122
+
+--- Slide 123 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+123
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.stage.Stage;
+public class RubberLines extends Application
+{
+    private Line currentLine;
+    private Group root;
+    public void start(Stage primaryStage)
+    {
+        root = new Group();
+        Scene scene = new Scene(root, 500, 300, Color.BLACK);
+        scene.setOnMousePressed(this::processMousePress);
+        scene.setOnMouseDragged(this::processMouseDrag);
+        primaryStage.setTitle("Rubber Lines");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+    public void processMousePress(MouseEvent event)
+    {
+        currentLine = new Line(event.getX(), event.getY(), event.getX(),event.getY());
+        currentLine.setStroke(Color.CYAN);
+        currentLine.setStrokeWidth(3);
+        root.getChildren().add(currentLine);
+    }
+
+continue
+
+--- Slide 124 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+124
+continue
+
+    public void processMouseDrag(MouseEvent event)
+    {
+        currentLine.setEndX(event.getX());
+        currentLine.setEndY(event.getY());
+    }
+}
+
+--- Slide 125 ---
+Key Events
+There are three JavaFX events related to the user typing at the keyboard:
+
+
+
+
+The getCode method of the event object returns a code that represents the key that was pressed
+See AlienDirection.java
+3/25/2026
+CISC230 Object Oriented Design and Programming
+125
+Event | Description
+key pressed | a keyboard key is pressed down
+key released | a keyboard key is released
+key typed | a keyboard key that generates a character is typed (pressed and released)
+
+--- Slide 126 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+126
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+public class AlienDirection extends Application
+{
+    public final static int JUMP = 10;
+    private ImageView imageView;
+    public void start(Stage primaryStage)
+    {
+        Image alien = new Image("alien.png");
+        imageView = new ImageView(alien);
+        imageView.setX(20);
+        imageView.setY(20);    
+        Group root = new Group(imageView);
+        Scene scene = new Scene(root, 400, 200, Color.BLACK);
+        scene.setOnKeyPressed(this::processKeyPress);
+        primaryStage.setTitle("Alien Direction");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+continue
+
+--- Slide 127 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+127
+continue
+
+    public void processKeyPress(KeyEvent event)
+    {
+        switch (event.getCode())
+        {
+            case UP:
+                imageView.setY(imageView.getY() - JUMP);
+                break;
+            case DOWN:
+                imageView.setY(imageView.getY() + JUMP);
+                break;
+            case RIGHT:
+                imageView.setX(imageView.getX() + JUMP);
+                break;
+            case LEFT:
+                imageView.setX(imageView.getX() - JUMP);
+                break;
+            default:
+                break;  // do nothing if it's not an arrow key
+        }
+    }
+}
+
+--- Slide 128 ---
+3/25/2026
+CISC230 Object Oriented Design and Programming
+128
+
+--- Slide 129 ---
+Summary
+Chapter 7 has focused on:
+software development activities
+the relationships that can exist among classes
+the static modifier
+writing interfaces
+the design of enumerated type classes
+method design and method overloading
+GUI design
+mouse and keyboard events
+3/25/2026
+CISC230 Object Oriented Design and Programming
+129
+
+--- Slide 130 ---
+Copyright
+This work is protected by United States copyright laws and is provided solely for the use of instructors in teaching their courses and assessing student learning. Dissemination or sale of any part of this work (including on the World Wide Web) will destroy the integrity of the work and is not permitted. The work and materials from it should never be made available to students except by instructors using the accompanying text in their classes. All recipients of this work are expected to abide by these restrictions and to honor the intended pedagogical purposes and the needs of other instructors who rely on these materials.
+3/25/2026
+CISC230 Object Oriented Design and Programming
+130

@@ -1,0 +1,1761 @@
+Source file: Chapter 10.pptx
+
+--- Slide 1 ---
+Chapter 10
+Polymorphism
+5/4/2023
+CISC230 Object Oriented Design and Programming
+1
+
+--- Slide 2 ---
+Polymorphism
+Polymorphism is an object-oriented concept that allows us to create versatile software designs
+Chapter 10 focuses on:
+defining polymorphism and its benefits
+using inheritance to create polymorphic references
+using interfaces to create polymorphic references
+using polymorphism to implement sorting and searching algorithms
+property binding
+additional GUI components
+5/4/2023
+CISC230 Object Oriented Design and Programming
+2
+
+--- Slide 3 ---
+Outline
+Late Binding
+Polymorphism via Inheritance
+Polymorphism via Interfaces
+Sorting
+Searching
+Properties
+Sliders(Not Included)
+Spinners
+5/4/2023
+CISC230 Object Oriented Design and Programming
+3
+
+--- Slide 4 ---
+Binding
+Consider the following method invocation:
+obj.doIt();
+At some point, this invocation is bound to the definition of the method that it invokes
+If this binding occurred at compile time, then that line of code would call the same method every time
+However, Java defers method binding until run time -- this is called dynamic binding or late binding
+5/4/2023
+CISC230 Object Oriented Design and Programming
+4
+
+--- Slide 5 ---
+Polymorphism
+The term polymorphism literally means "having many forms"
+A polymorphic reference is a variable that can refer to different types of objects at different points in time
+The method called through a polymorphic reference can change from one invocation to the next
+All object references in Java are potentially polymorphic
+5/4/2023
+CISC230 Object Oriented Design and Programming
+5
+
+--- Slide 6 ---
+Polymorphism
+Suppose we create the following reference variable:
+			Occupation job;
+This reference can point to an Occupation object, or to any object of any compatible type
+This compatibility can be established using inheritance or using interfaces
+Careful use of polymorphic references can lead to elegant, robust software designs
+5/4/2023
+CISC230 Object Oriented Design and Programming
+6
+
+--- Slide 7 ---
+Outline
+Late Binding
+Polymorphism via Inheritance
+Polymorphism via Interfaces
+Sorting
+Searching
+Properties
+Sliders
+Spinners
+5/4/2023
+CISC230 Object Oriented Design and Programming
+7
+
+--- Slide 8 ---
+References and Inheritance
+An object reference can refer to an object of any class related to it by inheritance
+For example, if Holiday is the superclass of Christmas, then a Holiday reference could be used to refer to a Christmas object
+5/4/2023
+CISC230 Object Oriented Design and Programming
+8
+Holiday day;
+day = new Christmas();
+
+--- Slide 9 ---
+References and Inheritance
+These type compatibility rules are just an extension of the is-a relationship established by inheritance
+Assigning a Christmas object to a Holiday reference is fine because Christmas is-a holiday
+Assigning a child object to a parent reference can be performed by simple assignment
+Assigning an parent object to a child reference can be done also, but must be done with a cast
+After all, Christmas is a holiday but not all holidays are Christmas
+5/4/2023
+CISC230 Object Oriented Design and Programming
+9
+
+--- Slide 10 ---
+Polymorphism via Inheritance
+Now suppose the Holiday class has a method called celebrate, and Christmas overrides it
+What method is invoked by the following?
+day.celebrate();
+The type of the object being referenced, not the reference type, determines which method is invoked 
+If day refers to a Holiday object, it invokes the Holiday version of celebrate;  if it refers to a Christmas object, it invokes that version
+5/4/2023
+CISC230 Object Oriented Design and Programming
+10
+
+--- Slide 11 ---
+Polymorphism via Inheritance
+Note that the compiler restricts invocations based on the type of the reference
+So if Christmas had a method called getTree that Holiday didn't have, the following would cause a compiler error:
+		day.getTree();  // compiler error
+Remember, the compiler doesn't "know" which type of holiday is being referenced
+A cast can be used to allow the call:
+((Christmas)day).getTree();
+5/4/2023
+CISC230 Object Oriented Design and Programming
+11
+
+--- Slide 12 ---
+Quick Check
+5/4/2023
+CISC230 Object Oriented Design and Programming
+12
+If MusicPlayer is the parent of CDPlayer, are the following assignments valid?
+MusicPlayer mplayer = new CDPlayer();
+
+
+CDPlayer cdplayer = new MusicPlayer();
+
+--- Slide 13 ---
+Quick Check
+5/4/2023
+CISC230 Object Oriented Design and Programming
+13
+If MusicPlayer is the parent of CDPlayer, are the following assignments valid?
+MusicPlayer mplayer = new CDPlayer();
+
+
+CDPlayer cdplayer = new MusicPlayer();
+Yes, because a CDPlayer is-a MusicPlayer
+
+No, you'd have to use a cast (and you shouldn't
+knowingly assign a super class object to a
+subclass reference)
+
+--- Slide 14 ---
+Polymorphism via Inheritance
+Consider the following class hierarchy:
+5/4/2023
+CISC230 Object Oriented Design and Programming
+14
+
+--- Slide 15 ---
+Polymorphism via Inheritance
+Let's look at an example that pays a set of diverse employees using a polymorphic method
+See Firm.java 
+See Staff.java 
+See StaffMember.java 
+See Volunteer.java 
+See Employee.java 
+See Executive.java 
+See Hourly.java
+5/4/2023
+CISC230 Object Oriented Design and Programming
+15
+
+--- Slide 16 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+16
+//********************************************************************
+//  Firm.java       Author: Lewis/Loftus
+//
+//  Demonstrates polymorphism via inheritance.
+//********************************************************************
+public class Firm
+{
+   //-----------------------------------------------------------------
+   //  Creates a staff of employees for a firm and pays them.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      Staff personnel = new Staff();
+      personnel.payday();
+   }
+}
+
+--- Slide 17 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+17
+//********************************************************************
+//  Firm.java       Author: Lewis/Loftus
+//
+//  Demonstrates polymorphism via inheritance.
+//********************************************************************
+
+public class Firm
+{
+   //-----------------------------------------------------------------
+   //  Creates a staff of employees for a firm and pays them.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      Staff personnel = new Staff();
+
+      personnel.payday();
+   }
+}
+Output
+Name: Sam
+Address: 123 Main Line
+Phone: 555-0469
+Social Security Number: 123-45-6789
+Paid: 2923.07
+-----------------------------------
+Name: Carla
+Address: 456 Off Line
+Phone: 555-0101
+Social Security Number: 987-65-4321
+Paid: 1246.15
+-----------------------------------
+Name: Woody
+Address: 789 Off Rocker
+Phone: 555-0000
+Social Security Number: 010-20-3040
+Paid: 1169.23
+-----------------------------------
+Output   (continued)
+Name: Diane
+Address: 678 Fifth Ave.
+Phone: 555-0690
+Social Security Number: 958-47-3625
+Current hours: 40
+Paid: 422.0
+-----------------------------------
+Name: Norm
+Address: 987 Suds Blvd.
+Phone: 555-8374
+Thanks!
+-----------------------------------
+Name: Cliff
+Address: 321 Duds Lane
+Phone: 555-7282
+Thanks!
+-----------------------------------
+
+--- Slide 18 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+18
+//********************************************************************
+//  Staff.java       Author: Lewis/Loftus
+//  Represents the personnel staff of a particular business.
+//********************************************************************
+public class Staff
+{
+   private StaffMember[] staffList;
+   public Staff()
+   {
+      staffList = new StaffMember[6];
+      staffList[0] = new Executive("Sam", "123 Main Line",
+         "555-0469", "123-45-6789", 2423.07);
+      staffList[1] = new Employee("Carla", "456 Off Line",
+         "555-0101", "987-65-4321", 1246.15);
+      staffList[2] = new Employee("Woody", "789 Off Rocker",
+         "555-0000", "010-20-3040", 1169.23);
+      staffList[3] = new Hourly("Diane", "678 Fifth Ave.",
+         "555-0690", "958-47-3625", 10.55);
+      staffList[4] = new Volunteer("Norm", "987 Suds Blvd.",
+         "555-8374");
+      staffList[5] = new Volunteer("Cliff", "321 Duds Lane",
+         "555-7282");
+      ((Executive)staffList[0]).awardBonus(500.00);
+      ((Hourly)staffList[3]).addHours(40);
+   }
+continue
+
+--- Slide 19 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+19
+continue
+
+   //-----------------------------------------------------------------
+   //  Pays all staff members.
+   //-----------------------------------------------------------------
+   public void payday()
+   {
+      double amount;
+      for (int count=0; count < staffList.length; count++)
+      {
+         System.out.println(staffList[count]);
+         amount = staffList[count].pay();  // polymorphic
+         if (amount == 0.0)
+            System.out.println("Thanks!");
+         else
+            System.out.println("Paid: " + amount);
+         System.out.println("-----------------------------------");
+      }
+   }
+}
+
+--- Slide 20 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+20
+//********************************************************************
+//  StaffMember.java       Author: Lewis/Loftus
+//
+//  Represents a generic staff member.
+//********************************************************************
+abstract public class StaffMember
+{
+   protected String name;
+   protected String address;
+   protected String phone;
+   public StaffMember(String eName, String eAddress, String ePhone)
+   {
+      name = eName;
+      address = eAddress;
+      phone = ePhone;
+   }
+   public String toString()
+   {
+      String result = "Name: " + name + "\n";
+      result += "Address: " + address + "\n";
+      result += "Phone: " + phone;
+      return result;
+   }
+ public abstract double pay();
+}
+
+--- Slide 21 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+21
+//********************************************************************
+//  Volunteer.java       Author: Lewis/Loftus
+//
+//  Represents a staff member that works as a volunteer.
+//********************************************************************
+public class Volunteer extends StaffMember
+{
+   //-----------------------------------------------------------------
+   //  Constructor: Sets up this volunteer using the specified
+   //  information.
+   //-----------------------------------------------------------------
+   public Volunteer(String eName, String eAddress, String ePhone)
+   {
+      super(eName, eAddress, ePhone);
+   }
+   //-----------------------------------------------------------------
+   //  Returns a zero pay value for this volunteer.
+   //-----------------------------------------------------------------
+   public double pay()
+   {
+      return 0.0;
+   }
+}
+
+--- Slide 22 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+22
+//********************************************************************
+//  Employee.java       Author: Lewis/Loftus
+//
+//  Represents a general paid employee.
+//********************************************************************
+public class Employee extends StaffMember
+{
+   protected String socialSecurityNumber;
+   protected double payRate;
+   public Employee(String eName, String eAddress, String ePhone,
+                   String socSecNumber, double rate)
+   {
+      super(eName, eAddress, ePhone);
+      socialSecurityNumber = socSecNumber;
+      payRate = rate;
+   }
+   public String toString()
+   {
+      String result = super.toString();
+      result += "\nSocial Security Number: " + socialSecurityNumber;
+      return result;
+   }
+   public double pay()
+   {
+      return payRate;
+   }
+}
+
+--- Slide 23 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+23
+//********************************************************************
+//  Executive.java       Author: Lewis/Loftus
+//
+//  Represents an executive staff member, who can earn a bonus.
+//********************************************************************
+public class Executive extends Employee
+{
+   private double bonus;
+   public Executive(String eName, String eAddress, String ePhone,
+                    String socSecNumber, double rate)
+   {
+      super(eName, eAddress, ePhone, socSecNumber, rate);
+      bonus = 0;  // bonus has yet to be awarded
+   }
+   public void awardBonus(double execBonus)
+   {
+      bonus = execBonus;
+   }
+   public double pay()
+   {
+      double payment = super.pay() + bonus;
+      bonus = 0;
+      return payment;
+   }
+}
+
+--- Slide 24 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+24
+//********************************************************************
+//  Hourly.java       Author: Lewis/Loftus
+public class Hourly extends Employee
+{
+   private int hoursWorked;
+   public Hourly(String eName, String eAddress, String ePhone,
+                 String socSecNumber, double rate)
+   {
+      super(eName, eAddress, ePhone, socSecNumber, rate);
+      hoursWorked = 0;
+   }
+   public void addHours(int moreHours)
+   {
+      hoursWorked += moreHours;
+   }
+   public double pay()
+   {
+      double payment = payRate * hoursWorked;
+      hoursWorked = 0;
+      return payment;
+   }
+   public String toString()
+   {
+      String result = super.toString();
+      result += "\nCurrent hours: " + hoursWorked;
+      return result;
+   }
+}
+
+--- Slide 25 ---
+Outline
+Late Binding
+Polymorphism via Inheritance
+Polymorphism via Interfaces
+Sorting
+Searching
+Properties
+Sliders
+Spinners
+5/4/2023
+CISC230 Object Oriented Design and Programming
+25
+
+--- Slide 26 ---
+Polymorphism via Interfaces
+Interfaces can be used to set up polymorphic references as well
+Suppose we declare an interface called Speaker as follows:
+5/4/2023
+CISC230 Object Oriented Design and Programming
+26
+public interface Speaker
+{
+   public void speak();
+   public void announce(String str);
+}
+
+--- Slide 27 ---
+Polymorphism via Interfaces
+An interface name can be used as the type of an object reference variable:
+Speaker current;
+The current reference can be used to point to any object of any class that implements the Speaker interface
+The version of speak invoked by the following line depends on the type of object that current is referencing:
+current.speak();
+5/4/2023
+CISC230 Object Oriented Design and Programming
+27
+
+--- Slide 28 ---
+Polymorphism via Interfaces
+Now suppose two classes, Philosopher and Dog, both implement the Speaker interface, providing distinct versions of the speak method
+In the following code, the first call to speak invokes one version and the second invokes another:
+		Speaker guest = new Philospher();
+		guest.speak();
+		guest = new Dog();
+		guest.speak();
+5/4/2023
+CISC230 Object Oriented Design and Programming
+28
+
+--- Slide 29 ---
+Polymorphism via Interfaces
+As with class reference types, the compiler will restrict invocations to methods in the interface
+For example, even if Philosopher also had a method called pontificate, the following would still cause a compiler error:
+		Speaker special = new Philospher();
+		special.pontificate();  // compiler error
+Remember, the compiler bases its rulings on the type of the reference
+5/4/2023
+CISC230 Object Oriented Design and Programming
+29
+
+--- Slide 30 ---
+Quick Check
+5/4/2023
+CISC230 Object Oriented Design and Programming
+30
+Would the following statements be valid?
+Speaker first = new Dog();
+Philosopher second = new Philosopher();
+second.pontificate();
+first = second;
+
+--- Slide 31 ---
+Quick Check
+5/4/2023
+CISC230 Object Oriented Design and Programming
+31
+Would the following statements be valid?
+Speaker first = new Dog();
+Philosopher second = new Philosopher();
+second.pontificate();
+first = second;
+Yes, all assignments and method calls are
+valid as written
+
+--- Slide 32 ---
+Example Code 1
+public class Pigeon extends Flock
+{
+  private String name;
+  public Pigeon()
+  {
+  }
+  public Pigeon(String name)
+  {
+	this.name = name;
+  }
+  private static void test()
+  {
+	int soManyBirdsCreated = 0;
+	String name = "Tippler";
+	Pigeon lastOne = null;	// why?
+	while (  soManyBirdsCreated++ < maxNumberOfBirds )	
+          {
+		lastOne = new Pigeon(name += " Pigeon");
+	}
+	System.out.println("Count: " + lastOne.soManyBirds());
+	System.out.println("last name used = " + name );
+  }
+  public static void main(String[] args )	{
+	test();
+  }
+}
+5/4/2023
+CISC230 Object Oriented Design and Programming
+32
+public class Flock {
+  private static int soManyBirds = 0;
+  static final int   maxNumberOfBirds = 3;
+  public Flock()	{
+	soManyBirds ++;
+  }
+  public int soManyBirds()	{
+	return soManyBirds;
+  }
+  public String toString()	{
+	return ""  + soManyBirds;
+  }
+}
+
+--- Slide 33 ---
+Example Code 2
+public class S
+{
+  public int intS;   // what is the value of intS?
+  public S ()
+  {
+	System.out.println("S()");
+  }
+  public S method(int x)
+  {
+	intS = x;
+	System.out.println("S method(int x)");
+	return this;
+  }
+  public String toString()
+  {
+	return "S: " + intS;
+  }
+  public static void main(String args[])
+  {
+	System.out.println("new S():" +  new S());
+  }
+}
+5/4/2023
+CISC230 Object Oriented Design and Programming
+33
+public class SubclassOfS extends S
+{
+  public int intS;
+  public SubclassOfS()
+  {
+	System.out.println("SubclassOfS ()");
+  }
+  public S method(int x)
+  {
+                intS = x;
+	System.out.println("S method(int x)");
+	super.method(9);
+	System.out.println("3. super: " + super.toString() );
+	super.intS = 4;
+	System.out.println("4. super: " + super.toString() );
+	return this;
+  }
+  public String toString()
+  {
+     return "SSubclassOfS: " + intS;
+  }
+  public static void main(String args[])
+  {
+	SubclassOfS aSubclassOfS = new SubclassOfS();
+	S  aS =  aSubclassOfS.method(42);
+	System.out.println(aS);
+	System.out.println(aSubclassOfS);
+	System.out.println("1. SubclassOfS!intS = " + aSubclassOfS.intS);
+	System.out.println("2.((S)SubclassOfS)!intS = " + ((S)aSubclassOfS).intS);
+                //method(3);		// <--- what is the problem here ...
+  }
+}
+
+--- Slide 34 ---
+Example Code 3
+public class DefaultConstructor {
+  final int MINIMUM = 4;
+  int thisNumbershouldAlwyasBeInitializedWithAvalueGreaterThan4;
+  //DefaultConstructor()	{}
+  DefaultConstructor(int aInt)	{
+	aInt = ( aInt <= MINIMUM ) ? MINIMUM : aInt;
+	thisNumbershouldAlwyasBeInitializedWithAvalueGreaterThan4 = aInt;
+  }
+  public static void main(String args[]) {
+	// DefaultConstructor aDefaultConstructor = new DefaultConstructor();
+	DefaultConstructor aDefaultConstructor = new DefaultConstructor(3);
+	System.out.println(aDefaultConstructor.thisNumbershouldAlwaysBeInitializedWithAvalueGreaterThan4);
+  }
+}
+class SubClass extends DefaultConstructor {
+  SubClass()	{
+   	System.out.println(" SubClass()" );
+  }
+  public static void main(String args[]) {
+	SubClass aSubClass = new SubClass();
+  }
+}
+5/4/2023
+CISC230 Object Oriented Design and Programming
+34
+
+--- Slide 35 ---
+Example Code 4-5
+public class Player {
+  private String name;
+  Player(String name)	{
+	this.name = name;
+  }
+  public String getName()    {
+        return name;
+  }
+  public static void main(String args[]) {
+	Player aPlayer = new Player("John");
+	//Player bPlayer = new Player();
+	System.out.println("Name of the PLayer is: " 
+                                            + aPlayer.getName() );
+  }
+}
+5/4/2023
+CISC230 Object Oriented Design and Programming
+35
+public class Game {
+  private String name;
+  Game(String name)	{
+	this.name = name;
+  }
+  public String nameOfTheGame()    {
+        return name;
+  }
+  public static void main(String args[]) {
+	Game aGame = new Game("BackGammon");
+	Player playerOne = new Player("Rose");
+	Player playerTwo = new Player("John");
+	System.out.println(playerOne.getName() + " and “
+                                                  + playerTwo.getName() 
+			    +  " are playing a game of " 
+                                                  + aGame.nameOfTheGame()
+                                                  + ".");
+  }
+}
+
+--- Slide 36 ---
+Example Code 6
+public class Vehicle {
+  String honkSound = "vehicle honk";
+  int wheels       = 4;
+  public void setSound (String honkSound)    {
+        this.honkSound = honkSound;
+  }
+  public String toString ()    {
+        return "v";
+  }
+  public void setSoManyWheels (int wheels)    {
+        this.wheels = wheels;
+  }
+  public int soManyWheels ()	{
+	return wheels;
+  }
+  public void honk()	{
+	System.out.println(honkSound);
+  }
+}
+5/4/2023
+CISC230 Object Oriented Design and Programming
+36
+public class Train extends Vehicle {
+  String honkSound = "choo-choo";
+  int wheels       = 32;
+
+  public void setSound (String honkSound)    {
+        this.honkSound = honkSound;
+  }
+  public int soManyWheels ()    {
+        return wheels;
+  }
+  public void onlyAtrainCanDoThis()	{
+             System.out.println("Train do it");
+  }
+  public void honk()	{
+	System.out.println(honkSound);
+  }
+  public void de()	{
+	System.out.println("de");
+  }
+  public static void main(String[] args )	{
+	new Vehicle().honk();
+	new Train().honk();
+	new Train().de();
+	new Train().onlyAtrainCanDoThis();
+	//((Train) new Vehicle()).onlyAtrainCanDoThis();
+	//new Vehicle().onlyAtrainCanDoThis();
+	int a= new Vehicle().soManyWheels();
+	int b= new Train().soManyWheels();
+	System.out.println ("Vehicle Wheels: "+ a + "\nTrain Wheels: " + b);  }
+}
+
+--- Slide 37 ---
+Example 7
+public class TrainEx {
+  String honkSound = "choo-choo";
+  public void honk()	{
+	System.out.println(honkSound);
+  }
+  public static void main(String[] args ) {
+	new Vehicle().honk();
+	new Train().honk();
+	Train   aTrain   = new Train();
+	Vehicle aVehicle = aTrain; // new Vehicle();
+        Vehicle aVehicleOtherReference = aVehicle;
+		System.out.println(aVehicle + "	" +aTrain);
+		System.out.println(aVehicle + "	" +aVehicle);
+	aVehicle.honk();
+	aTrain.honk();
+	System.out.println("--------------------");
+	aVehicle.setSound("ringADing");
+	aVehicle.honk();
+	aTrain.honk();
+	System.out.println("aVehicle.honkSound: " + aVehicle.honkSound);
+	System.out.println("aTrain.honkSound: " + aTrain.honkSound);
+  
+  }
+}
+5/4/2023
+CISC230 Object Oriented Design and Programming
+37
+
+--- Slide 38 ---
+Outline
+Late Binding
+Polymorphism via Inheritance
+Polymorphism via Interfaces
+Sorting
+Searching
+Properties
+Sliders
+Spinners
+5/4/2023
+CISC230 Object Oriented Design and Programming
+38
+
+--- Slide 39 ---
+Sorting
+Sorting is the process of arranging a list of items in a particular order
+The sorting process is based on specific criteria:
+sort test scores in ascending numeric order
+sort a list of people alphabetically by last name
+There are many algorithms, which vary in efficiency, for sorting a list of items
+We will examine two specific algorithms: 
+Selection Sort
+Insertion Sort
+5/4/2023
+CISC230 Object Oriented Design and Programming
+39
+
+--- Slide 40 ---
+Selection Sort
+The strategy of Selection Sort:
+select a value and put it in its final place in the list
+repeat for all other values
+In more detail:
+find the smallest value in the list
+switch it with the value in the first position
+find the next smallest value in the list
+switch it with the value in the second position
+repeat until all values are in their proper places
+5/4/2023
+CISC230 Object Oriented Design and Programming
+40
+
+--- Slide 41 ---
+Selection Sort
+5/4/2023
+CISC230 Object Oriented Design and Programming
+41
+
+--- Slide 42 ---
+Swapping
+The processing of the selection sort algorithm includes the swapping of two values
+Swapping requires three assignment statements and a temporary storage location
+To swap the values of first and second:
+			temp = first;
+			first = second;
+			second = temp;
+5/4/2023
+CISC230 Object Oriented Design and Programming
+42
+
+--- Slide 43 ---
+Polymorphism in Sorting
+Recall that a class that implements the Comparable interface defines a compareTo method to determine the relative order of its objects
+We can use polymorphism to develop a generic sort for any set of Comparable objects
+The sorting method accepts as a parameter an array of Comparable objects
+That way, one method can be used to sort an array of People, or Books, or whatever
+5/4/2023
+CISC230 Object Oriented Design and Programming
+43
+
+--- Slide 44 ---
+Selection Sort
+This technique allows each class to decide for itself what it means for one object to be less than another
+Let's look at an example that sorts an array of Contact objects
+The selectionSort method is a static method in the Sorting class
+See PhoneList.java 
+See Sorting.java
+See Contact.java
+5/4/2023
+CISC230 Object Oriented Design and Programming
+44
+
+--- Slide 45 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+45
+//********************************************************************
+//  PhoneList.java       Author: Lewis/Loftus
+//  Driver for testing a sorting algorithm.
+//********************************************************************
+public class PhoneList
+{
+   public static void main(String[] args)
+   {
+      Contact[] friends = new Contact[8];
+      friends[0] = new Contact("John", "Smith", "610-555-7384");
+      friends[1] = new Contact("Sarah", "Barnes", "215-555-3827");
+      friends[2] = new Contact("Mark", "Riley", "733-555-2969");
+      friends[3] = new Contact("Laura", "Getz", "663-555-3984");
+      friends[4] = new Contact("Larry", "Smith", "464-555-3489");
+      friends[5] = new Contact("Frank", "Phelps", "322-555-2284");
+      friends[6] = new Contact("Mario", "Guzman", "804-555-9066");
+      friends[7] = new Contact("Marsha", "Grant", "243-555-2837");
+      Sorting.selectionSort(friends);
+      for (Contact friend : friends)
+         System.out.println(friend);
+   }
+
+--- Slide 46 ---
+The selectionSort method in the Sorting<T> class:
+5/4/2023
+CISC230 Object Oriented Design and Programming
+46
+//-----------------------------------------------------------------
+   //  Sorts the specified array of objects using the selection
+   //  sort algorithm.
+   //-----------------------------------------------------------------
+   public void selectionSort(Comparable<T>[] list)
+   {
+      int min;
+      Comparable<T> temp;
+      for (int index = 0; index < list.length - 1; index++)
+      {
+         min = index;
+         for (int scan = index + 1; scan < list.length; scan++)
+            if (list[scan].compareTo((T)list[min]) < 0)
+               min = scan;
+         // Swap the values
+         temp = list[min];
+         list[min] = list[index];
+         list[index] = temp;
+      }
+   }
+
+--- Slide 47 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+47
+continue
+
+      Sorting.selectionSort(friends);
+
+      for (Contact friend : friends)
+         System.out.println(friend);
+   }
+}
+Output
+Barnes, Sarah	215-555-3827
+Getz, Laura	663-555-3984
+Grant, Marsha	243-555-2837
+Guzman, Mario	804-555-9066
+Phelps, Frank	322-555-2284
+Riley, Mark	733-555-2969
+Smith, John	610-555-7384
+Smith, Larry	464-555-3489
+
+--- Slide 48 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+48
+//********************************************************************
+//  Contact.java       Author: Lewis/Loftus
+//  Represents a phone contact.
+//********************************************************************
+public class Contact implements Comparable<Contact>
+{
+   private String firstName, lastName, phone;
+   public Contact(String first, String last, String telephone)
+   {
+      firstName = first;
+      lastName = last;
+      phone = telephone;
+   }
+   public String toString()
+   {
+      return lastName + ", " + firstName + "\t" + phone;
+   }
+   public boolean equals(Object other)
+   {
+      return (lastName.equals(((Contact)other).getLastName()) &&
+              firstName.equals(((Contact)other).getFirstName()));
+   }
+
+continue
+
+--- Slide 49 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+49
+continue
+
+   //-----------------------------------------------------------------
+   //  Uses both last and first names to determine ordering.
+   //-----------------------------------------------------------------
+   public int compareTo(Contact other)
+   {
+      int result;
+      if (lastName.equals(other.getLastName()))
+         result = firstName.compareTo(other.getFirstName());
+      else
+         result = lastName.compareTo(other.getLastName());
+      return result;
+   }
+   //-----------------------------------------------------------------
+   //  First name accessor.
+   //-----------------------------------------------------------------
+   public String getFirstName()
+   {
+      return firstName;
+   }
+   //-----------------------------------------------------------------
+   //  Last name accessor.
+   //-----------------------------------------------------------------
+   public String getLastName()
+   {
+      return lastName;
+   }
+}
+
+--- Slide 50 ---
+Insertion Sort
+The strategy of Insertion Sort:
+pick any item and insert it into its proper place in a sorted sublist
+repeat until all items have been inserted
+In more detail:
+consider the first item to be a sorted sublist (of one item)
+insert the second item into the sorted sublist, shifting the first item as needed to make room to insert the new one
+insert the third item into the sorted sublist (of two items), shifting items as necessary
+repeat until all values are inserted into their proper positions
+5/4/2023
+CISC230 Object Oriented Design and Programming
+50
+
+--- Slide 51 ---
+Insertion Sort
+5/4/2023
+CISC230 Object Oriented Design and Programming
+51
+
+--- Slide 52 ---
+The insertionSort method in the Sorting<T> class:
+5/4/2023
+CISC230 Object Oriented Design and Programming
+52
+//-----------------------------------------------------------------
+   //  Sorts the specified array of objects using the insertion
+   //  sort algorithm.
+   //-----------------------------------------------------------------
+   public void insertionSort(Comparable<T>[] list)
+   {
+      for (int index = 1; index < list.length; index++)
+      {
+         Comparable<T> key = list[index];
+         int position = index;
+         //  Shift larger values to the right
+         while (position > 0 && key.compareTo((T)list[position-1]) < 0)
+         {
+            list[position] = list[position - 1];
+            position--;
+         }
+            
+         list[position] = key;
+      }
+   }
+
+--- Slide 53 ---
+Comparing Sorts
+The Selection and Insertion sort algorithms are similar in efficiency
+They both have outer loops that scan all elements, and inner loops that compare the value of the outer loop with almost all values in the list
+Approximately n2 number of comparisons are made to sort a list of size n
+We therefore say that these sorts are of order n2
+Other sorts are more efficient:  order n log2 n
+5/4/2023
+CISC230 Object Oriented Design and Programming
+53
+
+--- Slide 54 ---
+Outline
+Late Binding
+Polymorphism via Inheritance
+Polymorphism via Interfaces
+Sorting
+Searching
+Properties
+Sliders
+Spinners
+5/4/2023
+CISC230 Object Oriented Design and Programming
+54
+
+--- Slide 55 ---
+Searching
+Searching is the process of finding a target element within a group of items called the search pool
+The target may or may not be in the search pool
+We want to perform the search efficiently, minimizing the number of comparisons
+Let's look at two classic searching approaches: linear search and binary search
+As we did with sorting, we'll implement the searches with polymorphic Comparable parameters
+5/4/2023
+CISC230 Object Oriented Design and Programming
+55
+
+--- Slide 56 ---
+Linear Search
+A linear search begins at one end of a list and examines each element in turn
+Eventually, either the item is found or the end of the list is encountered
+5/4/2023
+CISC230 Object Oriented Design and Programming
+56
+
+--- Slide 57 ---
+Binary Search
+A binary search assumes the list of items in the search pool is sorted
+It eliminates a large part of the search pool with a single comparison
+A binary search first examines the middle element of the list -- if it matches the target, the search is over
+If it doesn't, only one half of the remaining elements need be searched
+Since they are sorted, the target can only be in one half of the other
+5/4/2023
+CISC230 Object Oriented Design and Programming
+57
+
+--- Slide 58 ---
+Binary Search
+The process continues by comparing the middle element of the remaining viable candidates
+Each comparison eliminates approximately half of the remaining data
+Eventually, the target is found or the data is exhausted
+5/4/2023
+CISC230 Object Oriented Design and Programming
+58
+
+--- Slide 59 ---
+Searching
+The search methods are implemented as static methods in the Searching class
+See PhoneList2.java 
+See Searching.java
+5/4/2023
+CISC230 Object Oriented Design and Programming
+59
+
+--- Slide 60 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+60
+//********************************************************************
+//  PhoneList2.java       Author: Lewis/Loftus
+//
+//  Driver for testing searching algorithms.
+//********************************************************************
+public class PhoneList2
+{
+   //-----------------------------------------------------------------
+   //  Creates an array of Contact objects, sorts them, then prints
+   //  them.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      Contact test, found;
+      Contact[] friends = new Contact[8];
+      friends[0] = new Contact("John", "Smith", "610-555-7384");
+      friends[1] = new Contact("Sarah", "Barnes", "215-555-3827");
+      friends[2] = new Contact("Mark", "Riley", "733-555-2969");
+      friends[3] = new Contact("Laura", "Getz", "663-555-3984");
+      friends[4] = new Contact("Larry", "Smith", "464-555-3489");
+      friends[5] = new Contact("Frank", "Phelps", "322-555-2284");
+      friends[6] = new Contact("Mario", "Guzman", "804-555-9066");
+      friends[7] = new Contact("Marsha", "Grant", "243-555-2837");
+
+continue
+
+--- Slide 61 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+61
+continue
+
+      test = new Contact("Frank", "Phelps", "");
+      found = Searching.linearSearch(friends, test);
+      if (found != null)
+         System.out.println("Found: " + found);
+      else
+         System.out.println("The contact was not found.");
+      System.out.println();
+      Sorting<Contact> sorts = new Sorting<Contact>();
+      sorts.selectionSort(friends);
+      test = new Contact("Mario", "Guzman", "");
+      found = (Contact) Searching.binarySearch(friends, test);
+      if (found != null)
+         System.out.println("Found: " + found);
+      else
+         System.out.println("The contact was not found.");
+   }
+}
+
+--- Slide 62 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+62
+continue
+
+      test = new Contact("Frank", "Phelps", "");
+      found = Searching.linearSearch(friends, test);
+      if (found != null)
+         System.out.println("Found: " + found);
+      else
+         System.out.println("The contact was not found.");
+      System.out.println();
+
+      Sorting<Contact> sorts = new Sorting<Contact>();
+      sorts.selectionSort(friends);
+
+      test = new Contact("Mario", "Guzman", "");
+      found = (Contact) Searching.binarySearch(friends, test);
+      if (found != null)
+         System.out.println("Found: " + found);
+      else
+         System.out.println("The contact was not found.");
+   }
+}
+Output
+Found: Phelps, Frank	322-555-2284
+
+Found: Guzman, Mario	804-555-9066
+
+--- Slide 63 ---
+The linearSearch method in the Searching<T> class:
+5/4/2023
+CISC230 Object Oriented Design and Programming
+63
+//-----------------------------------------------------------------
+   //  Searches the specified array of objects for the target using
+   //  a linear search. Returns a reference to the target object from
+   //  the array if found, and null otherwise.
+   //-----------------------------------------------------------------
+   public T linearSearch(T[] list, T target)
+   {
+      int index = 0;
+      boolean found = false;
+      while (!found && index < list.length)
+      {
+         if (list[index].equals(target))
+            found = true;
+         else
+            index++;
+      }
+      if (found)
+         return list[index];
+      else
+         return null;
+   }
+
+--- Slide 64 ---
+The binarySearch method in the Searching<T> class:
+5/4/2023
+CISC230 Object Oriented Design and Programming
+64
+//-----------------------------------------------------------------
+   //  Searches the specified array of objects for the target using
+   //  a binary search. Assumes the array is already sorted in
+   //  ascending order when it is passed in. Returns a reference to
+   //  the target object from the array if found, and null otherwise.
+   //-----------------------------------------------------------------
+   public Comparable<T> binarySearch(Comparable<T>[] list,
+                                     Comparable<T> target)
+   {
+      int min = 0, max = list.length - 1, mid = 0;
+      boolean found = false;
+      while (!found && min <= max)
+      {
+         mid = (min + max) / 2;
+         if (list[mid].equals(target))
+            found = true;
+         else
+            if (target.compareTo((T)list[mid]) < 0)
+               max = mid - 1;
+            else
+               min = mid + 1;
+      }
+      if (found)
+         return list[mid];
+      else
+         return null;
+   }
+
+--- Slide 65 ---
+Outline
+Late Binding
+Polymorphism via Inheritance
+Polymorphism via Interfaces
+Sorting
+Searching
+Properties
+Sliders
+Spinners
+5/4/2023
+CISC230 Object Oriented Design and Programming
+65
+
+--- Slide 66 ---
+Properties
+A JavaFX property is an object that holds a value
+A property is observable – it can be monitored and changed as needed
+So, instead of holding an int primitive or an Integer object, a JavaFX class might store an IntegerProperty object
+Most values of JavaFX classes, such as the width of a Rectangle, are stored as properties
+5/4/2023
+CISC230 Object Oriented Design and Programming
+66
+
+--- Slide 67 ---
+Properties
+A key benefit of properties is property binding
+A property can be bound to another property so that when the value of one changes, the other is automatically updated
+No explicit event handling is needed
+Let's look at an example that binds the center point of a circle, and the text of a Text object, to the size of the scene
+See PropertyBindingDemo.java
+5/4/2023
+CISC230 Object Oriented Design and Programming
+67
+
+--- Slide 68 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+68
+import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+//************************************************************************
+//  PropertyBindingDemo.java       Author: Lewis/Loftus
+//
+//  Demonstrates the ability to bind one property to another.
+//************************************************************************
+public class PropertyBindingDemo extends Application
+{
+    //--------------------------------------------------------------------
+    //  Displays the width and height of the scene, as well as a circle
+    //  in the center of the scene. The scene is updated using property
+    //  bindings as the window is resized.
+    //--------------------------------------------------------------------
+    public void start(Stage primaryStage)
+    {
+        Group root = new Group();
+        Scene scene = new Scene(root, 300, 200, Color.SKYBLUE);
+
+continue
+
+--- Slide 69 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+69
+continue
+
+        Circle center = new Circle(6);
+        center.centerXProperty().bind(scene.widthProperty().divide(2));
+        center.centerYProperty().bind(scene.heightProperty().divide(2));
+        StringProperty width = new SimpleStringProperty("Width: ");
+        StringProperty height = new SimpleStringProperty("Height: ");
+        Text widthText = new Text(20, 30, "");
+        widthText.textProperty().bind(width.concat(scene.widthProperty()));
+        Text heightText = new Text(20, 60, "");
+        heightText.textProperty().bind(height.concat(scene.heightProperty()));
+        root.getChildren().addAll(center, widthText, heightText);
+        primaryStage.setTitle("Property Binding Demo");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+}
+
+--- Slide 70 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+70
+continue
+
+        Circle center = new Circle(6);
+        center.centerXProperty().bind(scene.widthProperty().divide(2));
+        center.centerYProperty().bind(scene.heightProperty().divide(2));
+        
+        StringProperty width = new SimpleStringProperty("Width: ");
+        StringProperty height = new SimpleStringProperty("Height: ");
+                        
+        Text widthText = new Text(20, 30, "");
+        widthText.textProperty().bind(width.concat(scene.widthProperty()));
+        
+        Text heightText = new Text(20, 60, "");
+        heightText.textProperty().bind(height.concat(scene.heightProperty()));
+
+        root.getChildren().addAll(center, widthText, heightText);
+         
+        primaryStage.setTitle("Property Binding Demo");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+}
+
+--- Slide 71 ---
+Change Listeners
+A property can have a change listener, similar to an event handler
+Properties have an addListener method:
+myProperty.addListener(this::processChange);
+A change listener method accepts three parameters:
+the ObservableValue (the property)
+the old value
+the new value
+5/4/2023
+CISC230 Object Oriented Design and Programming
+71
+
+--- Slide 72 ---
+Change Listeners
+The types of the old and new values depend on the type of value the property holds
+
+
+
+
+
+
+See ChangeListenerDemo.java
+5/4/2023
+CISC230 Object Oriented Design and Programming
+72
+public void processChange(ObservableValue<? extends String> val,
+    String oldValue, String newValue){
+    // whatever
+}
+public void processChange(ObservableValue<? extends Integer> val,
+    Integer oldValue, Integer newValue){
+    // whatever
+}
+
+--- Slide 73 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+73
+import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+//************************************************************************
+//  ChangeListenerDemo.java       Author: Lewis/Loftus
+//
+//  Demonstrates the ability to respond to property changes using
+//  change listeners. Functionally equivalent to PropertyBindingDemo.
+//************************************************************************
+public class ChangeListenerDemo extends Application
+{
+    private Scene scene;
+    private Circle center;
+    private Text widthText, heightText;
+
+continue
+
+--- Slide 74 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+74
+continue
+
+    //--------------------------------------------------------------------
+    //  Displays the width and height of the scene, as well as a circle
+    //  in the center of the scene. The scene is updated using a change
+    //  listener as the window is resized.
+    //--------------------------------------------------------------------
+    public void start(Stage primaryStage)
+    {
+        Group root = new Group();
+        
+        scene = new Scene(root, 300, 200, Color.SKYBLUE);
+        scene.widthProperty().addListener(this::processResize);
+        scene.heightProperty().addListener(this::processResize);
+        center = new Circle(6);
+        center.setCenterX(scene.getWidth() / 2);
+        center.setCenterY(scene.getHeight() / 2);
+        widthText = new Text(20, 30, "Width: " + scene.getWidth());
+        heightText = new Text(20, 60, "Height: " + scene.getHeight());
+        
+        root.getChildren().addAll(center, widthText, heightText);
+         
+        primaryStage.setTitle("Change Listener Demo");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+continue
+
+--- Slide 75 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+75
+continue
+
+    //--------------------------------------------------------------------
+    //  Updates the position of the circle and the displayed width and
+    //  height when the window is resized.
+    //--------------------------------------------------------------------
+    public void processResize(ObservableValue<? extends Number> property,
+        Object oldValue, Object newValue)
+    {
+        center.setCenterX(scene.getWidth() / 2);
+        center.setCenterY(scene.getHeight() / 2);
+        widthText.setText("Width: " + scene.getWidth());
+        heightText.setText("Height: " + scene.getHeight());
+    }
+}
+
+--- Slide 76 ---
+Outline
+Late Binding
+Polymorphism via Inheritance
+Polymorphism via Interfaces
+Sorting
+Searching
+Properties
+Sliders
+Spinners
+5/4/2023
+CISC230 Object Oriented Design and Programming
+76
+
+--- Slide 77 ---
+Sliders
+A slider is a GUI control that allows the user to specify a value within a numeric range
+The minimum and maximum values for the slider are set using the Slider constructor
+A slider can be oriented horizontally (default) or vertically
+It can also have optional tick marks and labels
+5/4/2023
+CISC230 Object Oriented Design and Programming
+77
+
+--- Slide 78 ---
+Sliders
+You can use the getValue method of the slider to obtain its current value
+Or you can use property bindings or a change listener to react dynamically to the movement of a slider knob
+Let's look at an example that uses two sliders to change the shape of an ellipse
+See EllipseSliders.java
+5/4/2023
+CISC230 Object Oriented Design and Programming
+78
+
+--- Slide 79 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+79
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
+import javafx.scene.Scene;
+import javafx.scene.control.Slider;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Ellipse;
+import javafx.stage.Stage;
+//************************************************************************
+//  EllipseSliders.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of slider controls and property binding.
+//************************************************************************
+public class EllipseSliders extends Application
+{
+    private Ellipse ellipse;
+    private Slider xSlider, ySlider;
+    //--------------------------------------------------------------------
+    //  Displays an ellipse with sliders that control the width and
+    //  height of the ellipse.
+    //--------------------------------------------------------------------
+    public void start(Stage primaryStage)
+    {
+
+continue
+
+--- Slide 80 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+80
+continue
+
+        ellipse = new Ellipse(250, 150, 150, 75);
+        ellipse.setFill(Color.SALMON);
+        xSlider = new Slider(0, 200, 150);
+        xSlider.setShowTickMarks(true);
+        xSlider.setPadding(new Insets(0, 20, 20, 80));
+        ellipse.radiusXProperty().bind(xSlider.valueProperty());
+        ySlider = new Slider(0, 100, 75);
+        ySlider.setOrientation(Orientation.VERTICAL);
+        ySlider.setShowTickMarks(true);
+        ySlider.setPadding(new Insets(20, 0, 0, 30));
+        ellipse.radiusYProperty().bind(ySlider.valueProperty());
+        BorderPane pane = new BorderPane();
+        pane.setLeft(ySlider);
+        pane.setBottom(xSlider);
+        pane.setCenter(ellipse);        
+        pane.setStyle("-fx-background-color: grey");
+        Scene scene = new Scene(pane, 500, 300);
+        primaryStage.setTitle("Ellipse Sliders");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+}
+
+--- Slide 81 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+81
+continue
+
+        Scene scene = new Scene(pane, 500, 300);
+        
+        primaryStage.setTitle("Ellipse Sliders");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+}
+
+--- Slide 82 ---
+Outline
+Late Binding
+Polymorphism via Inheritance
+Polymorphism via Interfaces
+Sorting
+Searching
+Properties
+Sliders (NOT Included)
+Spinners
+5/4/2023
+CISC230 Object Oriented Design and Programming
+82
+
+--- Slide 83 ---
+Spinner
+A spinner is a GUI control that allows the user to select a value from a list of predefined values
+The current value is shown in a text field with arrow buttons for changing the selection
+Only the current value is ever shown, so other GUI elements are never obscured by a drop-down list
+Spinner is a generic class – you specify the type of values the spinner presents
+5/4/2023
+CISC230 Object Oriented Design and Programming
+83
+
+--- Slide 84 ---
+Spinner
+A SpinnerValueFactory is used to define the spinner options
+An integer spinner can be created using an IntegerSpinnerValueFactory
+A string spinner is created using an ObservableList
+See SpinnerDemo.java
+5/4/2023
+CISC230 Object Oriented Design and Programming
+84
+
+--- Slide 85 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+85
+import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+public class SpinnerDemo extends Application
+{
+    private Spinner<Integer> intSpinner;
+    private Spinner<String> stringSpinner;
+    private Text text;
+    public void start(Stage primaryStage)
+    {
+        IntegerSpinnerValueFactory svf =
+            new IntegerSpinnerValueFactory(1, 10, 5);
+        intSpinner = new Spinner<Integer>(svf);        
+        ObservableList<String> list = FXCollections.observableArrayList();
+        list.addAll("Grumpy", "Happy", "Sneezy", "Sleepy", "Dopey",Bashful", "Doc");
+        stringSpinner = new Spinner<String>(list);
+        stringSpinner.getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_VERTICAL);
+continue
+
+--- Slide 86 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+86
+continue
+
+    public void start(Stage primaryStage)
+    {
+        IntegerSpinnerValueFactory svf =
+            new IntegerSpinnerValueFactory(1, 10, 5);
+        intSpinner = new Spinner<Integer>(svf);        
+        ObservableList<String> list = FXCollections.observableArrayList();
+        list.addAll("Grumpy", "Happy", "Sneezy", "Sleepy", "Dopey","Bashful", "Doc");
+        stringSpinner = new Spinner<String>(list);
+        stringSpinner.getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_VERTICAL);
+        StringProperty textString = new SimpleStringProperty("");
+        text = new Text();
+        text.setFont(new Font("Helvetica", 24));
+        text.textProperty().bind(textString.concat(intSpinner.valueProperty()).concat(" and
+                                                  ").concat(stringSpinner.valueProperty()));
+        VBox pane = new VBox(intSpinner, stringSpinner, text);
+        pane.setStyle("-fx-background-color: skyblue");
+        pane.setAlignment(Pos.CENTER);
+        pane.setSpacing(25);
+        Scene scene = new Scene(pane, 300, 250);
+        primaryStage.setTitle("Spinner Demo");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+}
+
+
+continue
+
+--- Slide 87 ---
+CISC230 Object Oriented Design and Programming
+continue
+        
+        VBox pane = new VBox(intSpinner, stringSpinner, text);
+        pane.setStyle("-fx-background-color: skyblue");
+        pane.setAlignment(Pos.CENTER);
+        pane.setSpacing(25);
+        
+        Scene scene = new Scene(pane, 300, 250);
+        
+        primaryStage.setTitle("Spinner Demo");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+}
+5/4/2023
+87
+
+--- Slide 88 ---
+Summary
+Chapter 10 has focused on:
+defining polymorphism and its benefits
+using inheritance to create polymorphic references
+using interfaces to create polymorphic references
+using polymorphism to implement sorting and searching algorithms
+property binding
+additional GUI components
+5/4/2023
+CISC230 Object Oriented Design and Programming
+88

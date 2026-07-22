@@ -1,0 +1,10 @@
+Object-Oriented Programming Concepts
+
+A class is a blueprint for creating objects.
+An object is an instance of a class.
+
+Inheritance allows one class to reuse fields and methods from another class.
+The superclass contains shared behavior, and the subclass can add or override behavior.
+
+Polymorphism allows code to work with objects of different classes through a shared type.
+For example, a method may accept a superclass type while receiving subclass objects.

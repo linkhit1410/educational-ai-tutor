@@ -1,0 +1,1360 @@
+Source file: Chapter 11.pptx
+
+--- Slide 1 ---
+Chapter 11
+Exceptions
+CISC230 Object Oriented Design and Programming
+5/4/2023
+1
+
+--- Slide 2 ---
+Exceptions
+Exception handling is an important aspect of object-oriented design
+Chapter 11 focuses on:
+the purpose of exceptions
+exception messages
+the try-catch statement
+propagating exceptions
+I/O exceptions and writing text files
+GUI tool tips and disabled controls
+more GUI controls
+5/4/2023
+CISC230 Object Oriented Design and Programming
+2
+
+--- Slide 3 ---
+Outline (3 of 7)
+Exception Handling
+The try-catch Statement
+Exception Classes
+I/O Exceptions
+Tool Tips and Disabling Controls
+Scroll Panes
+Split Panes and List Views
+5/4/2023
+CISC230 Object Oriented Design and Programming
+3
+
+--- Slide 4 ---
+Exceptions
+An exception is an object that describes an unusual or erroneous situation
+Exceptions are thrown by a program, and may be caught and handled by another part of the program
+A program can be separated into a normal execution flow and an exception execution flow
+An error is also represented as an object in Java, but usually represents a unrecoverable situation and should not be caught
+5/4/2023
+CISC230 Object Oriented Design and Programming
+4
+
+--- Slide 5 ---
+Exception Handling
+The Java API has a predefined set of exceptions that can occur during execution
+A program can deal with an exception in one of three ways:
+ignore it
+handle it where it occurs
+handle it at another place in the program
+The manner in which an exception is processed is an important design consideration
+5/4/2023
+CISC230 Object Oriented Design and Programming
+5
+
+--- Slide 6 ---
+Exception Handling
+If an exception is ignored (not caught) by the program, the program will terminate and produce an appropriate message
+The message includes a call stack trace that:
+indicates the line on which the exception occurred
+shows the method call trail that lead to the attempted execution of the offending line
+See Zero.java
+5/4/2023
+CISC230 Object Oriented Design and Programming
+6
+
+--- Slide 7 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+7
+//********************************************************************
+//  Zero.java       Author: Lewis/Loftus
+//
+//  Demonstrates an uncaught exception.
+//********************************************************************
+public class Zero
+{
+   //-----------------------------------------------------------------
+   //  Deliberately divides by zero to produce an exception.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      int numerator = 10;
+      int denominator = 0;
+      System.out.println(numerator / denominator);
+      System.out.println("This text will not be printed.");
+   }
+}
+
+--- Slide 8 ---
+CISC230 Object Oriented Design and Programming
+//********************************************************************
+//  Zero.java       Author: Lewis/Loftus
+//
+//  Demonstrates an uncaught exception.
+//********************************************************************
+
+public class Zero
+{
+   //-----------------------------------------------------------------
+   //  Deliberately divides by zero to produce an exception.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      int numerator = 10;
+      int denominator = 0;
+
+      System.out.println(numerator / denominator);
+
+      System.out.println("This text will not be printed.");
+   }
+}
+Output  (when program terminates)
+Exception in thread "main" java.lang.ArithmeticException: / by zero
+        at Zero.main(Zero.java:17)
+5/4/2023
+8
+
+--- Slide 9 ---
+Outline (3 of 7)
+Exception Handling
+The try-catch Statement
+Exception Classes
+I/O Exceptions
+Tool Tips and Disabling Controls
+Scroll Panes
+Split Panes and List Views
+5/4/2023
+CISC230 Object Oriented Design and Programming
+9
+
+--- Slide 10 ---
+The try Statement
+To handle an exception in a program, use a try-catch statement
+A try block is followed by one or more catch clauses
+Each catch clause has an associated exception type and is called an exception handler
+When an exception occurs within the try block, processing immediately jumps to the first catch clause that matches the exception type
+See ProductCodes.java
+5/4/2023
+CISC230 Object Oriented Design and Programming
+10
+
+--- Slide 11 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+11
+//********************************************************************
+//  ProductCodes.java       
+//  Demonstrates the use of a try-catch block.
+import java.util.Scanner;
+public class ProductCodes
+{
+   public static void main(String[] args)
+   {
+      String code;
+      char zone;
+      int district, valid = 0, banned = 0;
+      Scanner scan = new Scanner(System.in);
+      System.out.print("Enter product code (XXX to quit): ");
+      code = scan.nextLine();
+
+
+
+continue
+
+--- Slide 12 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+12
+while (!code.equals("XXX"))
+      {
+         try
+         {
+            zone = code.charAt(9);
+            district = Integer.parseInt(code.substring(3, 7));
+            valid++;
+            if (zone == 'R' && district > 2000)
+               banned++;
+         }
+         catch (StringIndexOutOfBoundsException exception)
+         {
+            System.out.println("Improper code length: " + code);
+         }
+         catch (NumberFormatException exception)
+         {
+            System.out.println("District is not numeric: " + code);
+         }
+         System.out.print("Enter product code (XXX to quit): ");
+         code = scan.nextLine();
+      }
+      System.out.println("# of valid codes entered: " + valid);
+      System.out.println("# of banned codes entered: " + banned);
+   }
+}
+
+--- Slide 13 ---
+CISC230 Object Oriented Design and Programming
+continue
+
+      while (!code.equals("XXX"))
+      {
+         try
+         {
+            zone = code.charAt(9);
+            district = Integer.parseInt(code.substring(3, 7));
+            valid++;
+            if (zone == 'R' && district > 2000)
+               banned++;
+         }
+         catch (StringIndexOutOfBoundsException exception)
+         {
+            System.out.println("Improper code length: " + code);
+         }
+         catch (NumberFormatException exception)
+         {
+            System.out.println("District is not numeric: " + code);
+         }
+
+         System.out.print("Enter product code (XXX to quit): ");
+         code = scan.nextLine();
+      }
+
+      System.out.println("# of valid codes entered: " + valid);
+      System.out.println("# of banned codes entered: " + banned);
+   }
+}
+Sample Run
+Enter product code (XXX to quit): TRV2475A5R-14
+Enter product code (XXX to quit): TRD1704A7R-12
+Enter product code (XXX to quit): TRL2k74A5R-11
+District is not numeric: TRL2k74A5R-11
+Enter product code (XXX to quit): TRQ2949A6M-04
+Enter product code (XXX to quit): TRV2105A2
+Improper code length: TRV2105A2
+Enter product code (XXX to quit): TRQ2778A7R-19
+Enter product code (XXX to quit): XXX
+# of valid codes entered: 4
+# of banned codes entered: 2
+5/4/2023
+13
+
+--- Slide 14 ---
+The finally Clause
+A try statement can have an optional finally clause, which is always executed
+If no exception is generated, the statements in the finally clause are executed after the statements in the try block finish
+If an exception is generated, the statements in the finally clause are executed after the statements in the appropriate catch clause finish
+5/4/2023
+CISC230 Object Oriented Design and Programming
+14
+
+--- Slide 15 ---
+Exception Propagation
+An exception can be handled at a higher level if it is not appropriate to handle it where it occurs 
+Exceptions propagate up through the method calling hierarchy until they are caught and handled or until they reach the level of the main method
+See Propagation.java 
+See ExceptionScope.java
+5/4/2023
+CISC230 Object Oriented Design and Programming
+15
+
+--- Slide 16 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+16
+//********************************************************************
+//  Propagation.java       Author: Lewis/Loftus
+//
+//  Demonstrates exception propagation.
+//********************************************************************
+public class Propagation
+{
+   //-----------------------------------------------------------------
+   //  Invokes the level1 method to begin the exception demonstration.
+   //-----------------------------------------------------------------
+   static public void main(String[] args)
+   {
+      ExceptionScope demo = new ExceptionScope();
+      System.out.println("Program beginning.");
+      demo.level1();
+      System.out.println("Program ending.");
+   }
+}
+
+--- Slide 17 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+17
+//********************************************************************
+//  Propagation.java       Author: Lewis/Loftus
+//
+//  Demonstrates exception propagation.
+//********************************************************************
+
+public class Propagation
+{
+   //-----------------------------------------------------------------
+   //  Invokes the level1 method to begin the exception demonstration.
+   //-----------------------------------------------------------------
+   static public void main(String[] args)
+   {
+      ExceptionScope demo = new ExceptionScope();
+
+      System.out.println("Program beginning.");
+      demo.level1();
+      System.out.println("Program ending.");
+   }
+}
+Output
+Program beginning.
+Level 1 beginning.
+Level 2 beginning.
+Level 3 beginning.
+
+The exception message is: / by zero
+
+The call stack trace:
+java.lang.ArithmeticException: / by zero
+	at ExceptionScope.level3(ExceptionScope.java:54)
+	at ExceptionScope.level2(ExceptionScope.java:41)
+	at ExceptionScope.level1(ExceptionScope.java:18)
+	at Propagation.main(Propagation.java:17)
+
+Level 1 ending.
+Program ending.
+
+--- Slide 18 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+18
+//  ExceptionScope.java
+public class ExceptionScope {
+   public void level1() {
+      System.out.println("Level 1 beginning.");
+      try {
+         level2();
+      }
+      catch (ArithmeticException problem) {
+         System.out.println();
+         System.out.println("The exception message is: " + problem.getMessage());
+         System.out.println();
+         System.out.println("The call stack trace:");
+         problem.printStackTrace();
+         System.out.println();
+      }
+      System.out.println("Level 1 ending.");
+   }
+   public void level2(){
+      System.out.println("Level 2 beginning.");
+      level3();
+      System.out.println("Level 2 ending.");
+   }
+
+continue
+
+--- Slide 19 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+19
+continue
+
+         System.out.println("The call stack trace:");
+         problem.printStackTrace();
+         System.out.println();
+      }
+      System.out.println("Level 1 ending.");
+   }
+   public void level3()
+   {
+      int numerator = 10, denominator = 0;
+      System.out.println("Level 3 beginning.");
+      int result = numerator / denominator;
+      System.out.println("Level 3 ending.");
+   }
+}
+
+--- Slide 20 ---
+Outline (3 of 7)
+Exception Handling
+The try-catch Statement
+Exception Classes
+I/O Exceptions
+Tool Tips and Disabling Controls
+Scroll Panes
+Split Panes and List Views
+5/4/2023
+CISC230 Object Oriented Design and Programming
+20
+
+--- Slide 21 ---
+The Exception Class Hierarchy
+Exception classes in the Java API are related by inheritance, forming an exception class hierarchy
+All error and exception classes are descendents of the Throwable class
+A programmer can define an exception by extending the Exception class or one of its descendants
+The parent class used depends on how the new exception will be used
+5/4/2023
+CISC230 Object Oriented Design and Programming
+21
+
+--- Slide 22 ---
+The Exception Class Hierarchy
+5/4/2023
+CISC230 Object Oriented Design and Programming
+22
+
+--- Slide 23 ---
+Checked Exceptions
+An exception is either checked or unchecked
+A checked exception must either be caught or must be listed in the throws clause of any method that may throw or propagate it
+A throws clause is appended to the method header
+The compiler will issue an error if a checked exception is not caught or listed in a throws clause
+5/4/2023
+CISC230 Object Oriented Design and Programming
+23
+
+--- Slide 24 ---
+Unchecked Exceptions
+An unchecked exception does not require explicit handling, though it could be processed that way
+The only unchecked exceptions in Java are objects of type RuntimeException or any of its descendants
+Errors are similar to RuntimeException and its descendants in that:
+Errors should not be caught
+Errors do not require a throws clause
+5/4/2023
+CISC230 Object Oriented Design and Programming
+24
+
+--- Slide 25 ---
+Quick Check
+5/4/2023
+CISC230 Object Oriented Design and Programming
+25
+Which of these exceptions are checked and which are unchecked?
+NullPointerException
+IndexOutOfBoundsException
+ClassNotFoundException
+NoSuchMethodException
+ArithmeticException
+
+--- Slide 26 ---
+Quick Check
+5/4/2023
+CISC230 Object Oriented Design and Programming
+26
+Which of these exceptions are checked and which are unchecked?
+NullPointerException
+IndexOutOfBoundsException
+ClassNotFoundException
+NoSuchMethodException
+ArithmeticException
+Unchecked
+Unchecked
+Checked
+Checked
+Unchecked
+
+--- Slide 27 ---
+The throw Statement
+Exceptions are thrown using the throw statement
+Usually a throw statement is executed inside an if statement that evaluates a condition to see if the exception should be thrown
+See CreatingExceptions.java 
+See OutOfRangeException.java
+5/4/2023
+CISC230 Object Oriented Design and Programming
+27
+
+--- Slide 28 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+28
+//********************************************************************
+//  CreatingExceptions.java       Author: Lewis/Loftus
+//
+//  Demonstrates the ability to define an exception via inheritance.
+//********************************************************************
+import java.util.Scanner;
+public class CreatingExceptions
+{
+   //-----------------------------------------------------------------
+   //  Creates an exception object and possibly throws it.
+   //-----------------------------------------------------------------
+   public static void main(String[] args) throws OutOfRangeException
+   {
+      final int MIN = 25, MAX = 40;
+      Scanner scan = new Scanner(System.in);
+      OutOfRangeException problem =
+         new OutOfRangeException("Input value is out of range.");
+      System.out.print("Enter an integer value between " + MIN +
+                       " and " + MAX + ", inclusive: ");
+      int value = scan.nextInt();
+      //  Determine if the exception should be thrown
+      if (value < MIN || value > MAX)
+         throw problem;
+      System.out.println("End of main method.");  // may never reach
+   }
+}
+
+--- Slide 29 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+29
+continue
+
+      System.out.print("Enter an integer value between " + MIN +
+                       " and " + MAX + ", inclusive: ");
+      int value = scan.nextInt();
+
+      //  Determine if the exception should be thrown
+      if (value < MIN || value > MAX)
+         throw problem;
+
+      System.out.println("End of main method.");  // may never reach
+   }
+}
+Sample Run
+Enter an integer value between 25 and 40, inclusive: 69
+Exception in thread "main" OutOfRangeException:
+    Input value is out of range.
+    at CreatingExceptions.main(CreatingExceptions.java:20)
+
+--- Slide 30 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+30
+//********************************************************************
+//  OutOfRangeException.java       Author: Lewis/Loftus
+//
+//  Represents an exceptional condition in which a value is out of
+//  some particular range.
+//********************************************************************
+public class OutOfRangeException extends Exception
+{
+   //-----------------------------------------------------------------
+   //  Sets up the exception object with a particular message.
+   //-----------------------------------------------------------------
+   OutOfRangeException(String message)
+   {
+      super(message);
+   }
+}
+
+--- Slide 31 ---
+Quick Check
+5/4/2023
+CISC230 Object Oriented Design and Programming
+31
+What is the matter with this code?
+System.out.println("Before throw");
+throw new OutOfRangeException("Too High");
+System.out.println("After throw");
+
+--- Slide 32 ---
+Quick Check
+5/4/2023
+CISC230 Object Oriented Design and Programming
+32
+What is the matter with this code?
+System.out.println("Before throw");
+throw new OutOfRangeException("Too High");
+System.out.println("After throw");
+The throw is not conditional and therefore always occurs. The second println statement can never be reached.
+
+--- Slide 33 ---
+Example 1
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.io.File;
+public class Error1 {
+  private void openFile (String filenName ) throws FileNotFoundException {
+	new Scanner(new File(filenName) );
+  }
+  private void openFile()	{
+	try {
+		openFile("File.txt");
+	} catch ( FileNotFoundException e  )	{
+		System.out.println("getCasue: " + e.getCause());
+		e.printStackTrace();
+	}
+  }
+  public static void main(String[] args) {
+	new Error1().openFile();
+  }
+}
+5/4/2023
+CISC230 Object Oriented Design and Programming
+33
+
+--- Slide 34 ---
+Example 2
+public class ErrorE {
+  private void thisMethodThrowsAnE(int index) throws Exception, Error {
+	if ( index == 0 )	{
+		System.out.println("thisMethodThrowsAnException() ---> " );
+		throw new Exception("in thisMethodThrowsAnException");
+	} else {
+		System.out.println("thisMethodThrowsAnError() ---> " );
+		throw new Error("in thisMethodThrowsAnException");
+	}
+  }
+  private void caller()	{
+	for ( int index = 0; index < 2; index ++ )	{
+		try {
+			thisMethodThrowsAnE(index);
+		} catch (Exception e)	{
+			e.printStackTrace();
+		} catch (Error e)	{
+			e.printStackTrace();
+		} finally	{
+			System.out.println("Finally");
+			System.out.println("Ok, a few things to clean up" );
+		}
+	}
+  }
+  public static void main(String[] args) {
+	new ErrorE().caller();
+  }
+}
+5/4/2023
+CISC230 Object Oriented Design and Programming
+34
+
+--- Slide 35 ---
+Example 3
+import java.util.Vector;
+public class Finally_0 {
+  private void test_1() {
+	try {
+		String aString = "a:";
+		aString = null;
+		aString.length();
+	} catch (NullPointerException e)	{
+		System.out.println("NullPointerException caught");
+	} finally	{
+		System.out.println("finally 1");
+	}
+  }
+  private void test_2()	 {
+	try {
+		String aString = "a:";
+		aString = null;
+	} catch (Exception e)	{
+		System.out.println(e);
+	} finally	{
+		System.out.println("finally 2");
+	}
+  }
+5/4/2023
+CISC230 Object Oriented Design and Programming
+35
+private void test_3()  {
+        try {
+                String aString = "a:";
+                aString = null;
+                aString.length();
+        } catch (NullPointerException e)        {
+                System.out.println("NullPointerException caught");
+	    System.exit(0);
+        } finally       {
+                System.out.println("finally 1");
+        }
+  }
+  public static void main(String[] args) {
+	new Finally_0().test_1();
+	new Finally_0().test_2();
+	new Finally_0().test_3();
+  }
+}
+
+--- Slide 36 ---
+Example 4
+public class Finally_1 {
+  private int test_1()	 {
+        try {
+                String aString = "a:";
+                aString = null;
+                aString.length();
+        } catch (NullPointerException e)        {
+		System.out.println("catch ");
+		return 0;
+	} finally	{
+		System.out.println("finally");
+		return 1;
+	}
+  }
+5/4/2023
+CISC230 Object Oriented Design and Programming
+36
+private int test_2()	 {
+        try {
+                String aString = "a:";
+                aString = null;
+                aString.length();
+	} catch (Exception e)	{
+		throw new Exception("3");
+	} finally	{
+		System.out.println("finally");
+		return 1;
+	}
+  }
+  public static void main(String[] args) {
+	System.out.println("Rvalue = " + new Finally_1().test_1());
+	System.out.println("Rvalue = " + new Finally_1().test_2());
+  }
+}
+
+--- Slide 37 ---
+Example 5
+public class RunTime {
+  private void divide(int a, int b)	{
+	int result = a / b;
+  }
+  private void callDivider(int a, int b)	{
+	divide(a, b);
+  }
+  public static void main(String[] args) {
+	int a = (int) Math.random();
+	int b = 1;
+	new RunTime().callDivider(a, b);
+	new RunTime().callDivider(b, a);
+  }
+}
+5/4/2023
+CISC230 Object Oriented Design and Programming
+37
+
+--- Slide 38 ---
+Outline (3 of 7)
+Exception Handling
+The try-catch Statement
+Exception Classes
+I/O Exceptions
+Tool Tips and Disabling Controls
+Scroll Panes
+Split Panes and List Views
+5/4/2023
+CISC230 Object Oriented Design and Programming
+38
+
+--- Slide 39 ---
+I/O Exceptions
+Let's examine issues related to exceptions and I/O
+A stream is a sequence of bytes that flow from a source to a destination
+In a program, we read information from an input stream and write information to an output stream
+A program can manage multiple streams simultaneously
+5/4/2023
+CISC230 Object Oriented Design and Programming
+39
+
+--- Slide 40 ---
+Standard I/O
+There are three standard I/O streams:
+standard output – defined by System.out
+standard input – defined by System.in
+standard error – defined by System.err
+We use System.out when we execute println statements
+System.out and System.err typically represent the console window
+System.in typically represents keyboard input, which we've used many times with Scanner
+5/4/2023
+CISC230 Object Oriented Design and Programming
+40
+
+--- Slide 41 ---
+The IOException Class
+Operations performed by some I/O classes may throw an IOException
+A file might not exist
+Even if the file exists, a program may not be able to find it
+The file might not contain the kind of data we expect
+An IOException is a checked exception
+5/4/2023
+CISC230 Object Oriented Design and Programming
+41
+
+--- Slide 42 ---
+Writing Text Files
+In Chapter 5 we explored the use of the Scanner class to read input from a text file
+Let's now explore writing data to a text file
+The PrintWriter class represents a text output file
+Output streams should be closed explicitly
+See TestData.java
+5/4/2023
+CISC230 Object Oriented Design and Programming
+42
+
+--- Slide 43 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+43
+//********************************************************************
+//  TestData.java       Author: Lewis/Loftus
+//  Demonstrates I/O exceptions and the use of a character file output stream.
+//********************************************************************
+import java.util.Random;
+import java.io.*;
+public class TestData
+{
+   public static void main(String[] args) throws IOException
+   {
+      final int MAX = 10;
+      int value;
+      String fileName = "test.txt";
+      PrintWriter outFile = new PrintWriter(fileName);
+      Random rand = new Random();
+      for (int line = 1; line <= MAX; line++)
+      {
+         for (int num = 1; num <= MAX; num++)
+         {
+            value = rand.nextInt(90) + 10;
+            outFile.print(value + "   ");
+         }
+         outFile.println();
+      }
+      outFile.close();
+      System.out.println("Output file has been created: " + fileName);
+   }
+}
+
+continue
+
+--- Slide 44 ---
+continue
+
+      Random rand = new Random();
+
+      for (int line = 1; line <= MAX; line++)
+      {
+         for (int num = 1; num <= MAX; num++)
+         {
+            value = rand.nextInt(90) + 10;
+            outFile.print(value + "   ");
+         }
+         outFile.println();
+      }
+
+      outFile.close();
+      System.out.println("Output file has been created: " + fileName);
+   }
+}
+5/4/2023
+CISC230 Object Oriented Design and Programming
+44
+Output
+Output file has been created: test.txt
+Sample test.txt File
+77   46   24   67   45   37   32   40   39   10   
+90   91   71   64   82   80   68   18   83   89   
+25   80   45   75   74   40   15   90   79   59   
+44   43   95   85   93   61   15   20   52   86   
+60   85   18   73   56   41   35   67   21   42   
+93   25   89   47   13   27   51   94   76   13   
+33   25   48   42   27   24   88   18   32   17   
+71   10   90   88   60   19   89   54   21   92   
+45   26   47   68   55   98   34   38   98   38   
+48   59   90   12   86   36   11   65   41   62
+
+--- Slide 45 ---
+Outline (3 of 7)
+Exception Handling
+The try-catch Statement
+Exception Classes
+I/O Exceptions
+Tool Tips and Disabling Controls
+Scroll Panes
+Split Panes and List Views
+5/4/2023
+CISC230 Object Oriented Design and Programming
+45
+
+--- Slide 46 ---
+Tool Tips
+A tool tip provides a short pop-up description when the mouse cursor rests momentarily on a component
+A tool tip is assigned using the setToolTip method of a JavaFX control
+	 ToolTip tip = new ToolTip("Update cost");
+	 myButton.setToolTip(tip);
+5/4/2023
+CISC230 Object Oriented Design and Programming
+46
+
+--- Slide 47 ---
+Disabled Controls
+Controls can be disabled if they should not be used
+A disabled control is "grayed out" and will not respond to user interaction
+To disable a control, call the setDisable method:
+		myButton.setDisable(true);
+See LightBulb.java
+5/4/2023
+CISC230 Object Oriented Design and Programming
+47
+
+--- Slide 48 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+48
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+//************************************************************************
+//  LightBulb.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of tool tips and disabled controls.
+//************************************************************************
+public class LightBulb extends Application
+{
+    private Button onButton, offButton;
+    private ImageView bulbView;
+
+continue
+
+--- Slide 49 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+49
+continue
+    
+    //--------------------------------------------------------------------
+    //  Displays an image of a light bulb that can be turned on and off
+    //  using enabled buttons with tool tips set.
+    //--------------------------------------------------------------------
+    public void start(Stage primaryStage)
+    {
+        Image img = new Image("lightBulbs.png");
+        bulbView = new ImageView(img);
+        bulbView.setViewport(new Rectangle2D(0, 0, 125, 200));  // off
+        
+        onButton = new Button("On");
+        onButton.setPrefWidth(70);
+        onButton.setTooltip(new Tooltip("Turn me on!"));
+        onButton.setOnAction(this::processButtonPress);
+        offButton = new Button("Off");
+        offButton.setPrefWidth(70);
+        offButton.setTooltip(new Tooltip("Turn me off!"));
+        offButton.setDisable(true);
+        offButton.setOnAction(this::processButtonPress);
+        
+
+continue
+
+--- Slide 50 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+50
+continue
+        
+        HBox buttons = new HBox(onButton, offButton);
+        buttons.setAlignment(Pos.CENTER);
+        buttons.setSpacing(30);
+        VBox root = new VBox(bulbView, buttons);
+        root.setAlignment(Pos.CENTER);
+        root.setStyle("-fx-background-color: black");
+        root.setSpacing(20);        
+        Scene scene = new Scene(root, 250, 300);
+        primaryStage.setTitle("Light Bulb");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+continue
+
+--- Slide 51 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+51
+continue
+    
+    //--------------------------------------------------------------------
+    //  Determines which button was pressed and sets the image viewport
+    //  appropriately to show either the on or off bulb. Also swaps the
+    //  disable state of both buttons.
+    //--------------------------------------------------------------------
+    public void processButtonPress(ActionEvent event)
+    {
+        if (event.getSource() == onButton)
+        {
+            bulbView.setViewport(new Rectangle2D(143, 0, 125, 200)); // on
+            onButton.setDisable(true);
+            offButton.setDisable(false);
+        }
+        else
+        {
+            bulbView.setViewport(new Rectangle2D(0, 0, 125, 200)); // off
+            offButton.setDisable(true);
+            onButton.setDisable(false);
+        }
+    }
+}
+
+--- Slide 52 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+52
+continue
+    
+    //--------------------------------------------------------------------
+    //  Determines which button was pressed and sets the image viewport
+    //  appropriately to show either the on or off bulb. Also swaps the
+    //  disable state of both buttons.
+    //--------------------------------------------------------------------
+    public void processButtonPress(ActionEvent event)
+    {
+        if (event.getSource() == onButton)
+        {
+            bulbView.setViewport(new Rectangle2D(143, 0, 125, 200)); // on
+            onButton.setDisable(true);
+            offButton.setDisable(false);
+        }
+        else
+        {
+            bulbView.setViewport(new Rectangle2D(0, 0, 125, 200)); // off
+            offButton.setDisable(true);
+            onButton.setDisable(false);
+        }
+    }
+}
+
+--- Slide 53 ---
+Outline (3 of 7)
+Exception Handling
+The try-catch Statement
+Exception Classes
+I/O Exceptions
+Tool Tips and Disabling Controls
+Scroll Panes
+Split Panes and List Views
+5/4/2023
+CISC230 Object Oriented Design and Programming
+53
+
+--- Slide 54 ---
+Scroll Panes
+A JavaFX scroll pane provides a limited but scrollable view of a large underlying node, such as an image
+A scroll pane provides horizontal and vertical scroll bars, as needed
+No event listener is needed for a scroll pane
+See MapViewer.java
+5/4/2023
+CISC230 Object Oriented Design and Programming
+54
+
+--- Slide 55 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+55
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+public class MapViewer extends Application
+{
+    //--------------------------------------------------------------------
+    //  Presents a scroll pane that allows the user to determine which
+    //  section of the underlying image (a map of the USA) is visible.
+    //--------------------------------------------------------------------
+    public void start(Stage primaryStage)
+    {
+        Image img = new Image("map.jpg");
+        ImageView imgView = new ImageView(img);
+        ScrollPane root = new ScrollPane(imgView);
+        root.setHbarPolicy(ScrollBarPolicy.ALWAYS);     
+        Scene scene = new Scene(root, 600, 400);
+        primaryStage.setTitle("Map Viewer");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+}
+
+
+continue
+
+--- Slide 56 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+56
+continue
+
+        Image img = new Image("map.jpg");
+        ImageView imgView = new ImageView(img);
+
+        ScrollPane root = new ScrollPane(imgView);
+        root.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+        
+        Scene scene = new Scene(root, 600, 400);
+        
+        primaryStage.setTitle("Map Viewer");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+}
+
+--- Slide 57 ---
+Outline (3 of 7)
+Exception Handling
+The try-catch Statement
+Exception Classes
+I/O Exceptions
+Tool Tips and Disabling Controls
+Scroll Panes
+Split Panes and List Views
+5/4/2023
+CISC230 Object Oriented Design and Programming
+57
+
+--- Slide 58 ---
+Split Panes
+A JavaFX split pane displays two or more nodes separated by a moveable divider bar
+As the user slides the divider bar, it gives more space to one side and reduces space on the other
+The nodes can be displayed side by side or one on top of the other
+If more than two nodes are added to a split pane, each node is separated from the next by another divider bar
+5/4/2023
+CISC230 Object Oriented Design and Programming
+58
+
+--- Slide 59 ---
+List Views
+A JavaFX list view presents a list of selectable options
+The options are always visible (not a drop-down), and the view is resizable and scrollable
+A list view contains Observable items
+The following example displays a list of words (food items) on one side of a split pane and an image of the selected food item on the other
+See FoodImages.java
+5/4/2023
+CISC230 Object Oriented Design and Programming
+59
+
+--- Slide 60 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+60
+import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Scene;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SplitPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+//************************************************************************
+//  FoodImages.java       Author: Lewis/Loftus
+//
+//  Demonstrates a split pane and a list view.
+//************************************************************************
+public class FoodImages extends Application
+{
+    private Image[] foodImages;
+    private ImageView imgView;
+    private ListView<String> listView;
+
+continue
+
+--- Slide 61 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+61
+continue
+    
+    //--------------------------------------------------------------------
+    //  Displays a split pane with a list of food items on the left
+    //  and an image of the selected food item on the right.
+    //--------------------------------------------------------------------
+    public void start(Stage primaryStage)
+    {
+        String[] food = {"apples", "asparagus", "bacon", "bread",
+            "carrots", "cheesecake", "eggs", "hamburger", "muffins",
+            "onions", "oranges", "pancakes", "peanuts", "pizza",
+            "potatoes", "pretzels", "spaghetti", "sushi", "watermelon"};
+        
+        foodImages = new Image[food.length];
+        for (int i = 0; i < food.length; i++)
+            foodImages[i] = new Image(food[i] + ".jpg");
+                        
+        imgView = new ImageView(foodImages[0]);
+        StackPane imgPane = new StackPane(imgView);
+        imgPane.setMinWidth(300);
+        
+        imgView.setPreserveRatio(true);
+        imgView.fitWidthProperty().bind(imgPane.widthProperty());
+        
+        ObservableList<String> list = FXCollections.observableArrayList();
+        list.addAll(food);
+
+continue
+
+--- Slide 62 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+62
+continue
+
+        listView = new ListView<String>(list);
+        listView.setMinWidth(100);
+        listView.getSelectionModel().select(0);
+        listView.getSelectionModel().selectedItemProperty().addListener(
+            this::processListSelection);  
+        SplitPane root = new SplitPane();
+        root.setDividerPositions(0.25);
+        root.getItems().addAll(listView, imgPane);
+        Scene scene = new Scene(root, 600, 350);
+        primaryStage.setTitle("Food Images");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+    //--------------------------------------------------------------------
+    //  Processes a list view selection by getting the index of the
+    //  selected item and displaying the corresponding image.
+    //--------------------------------------------------------------------
+    public void processListSelection(ObservableValue<? extends String> val,
+            String oldValue, String newValue)
+    {
+        int index = listView.getSelectionModel().getSelectedIndex();
+        imgView.setImage(foodImages[index]);
+    }
+}
+
+--- Slide 63 ---
+CISC230 Object Oriented Design and Programming
+continue
+
+    //--------------------------------------------------------------------
+    //  Processes a list view selection by getting the index of the
+    //  selected item and displaying the corresponding image.
+    //--------------------------------------------------------------------
+    public void processListSelection(ObservableValue<? extends String> val,
+            String oldValue, String newValue)
+    {
+        int index = listView.getSelectionModel().getSelectedIndex();
+        imgView.setImage(foodImages[index]);
+    }
+}
+5/4/2023
+63
+
+--- Slide 64 ---
+Summary
+Chapter 11 has focused on:
+the purpose of exceptions
+exception messages
+the try-catch statement
+propagating exceptions
+I/O exceptions and writing text files
+GUI tool tips and disabled controls
+more GUI controls
+5/4/2023
+CISC230 Object Oriented Design and Programming
+64
+
+--- Slide 65 ---
+65
+5/4/2023
+CISC230 Object Oriented Design and Programming
+65
+Throws clause
+
+--- Slide 66 ---
+66
+66
+5/4/2023
+CISC230 Object Oriented Design and Programming
+
+--- Slide 67 ---
+67
+5/4/2023
+CISC230 Object Oriented Design and Programming
+
+--- Slide 68 ---
+The Finally Clause
+A try statement can have an optional finally clause, which is always executed
+If no exception is generated, the statements in the finally clause are executed after the statements in the try block finish
+If an exception is generated, the statements in the finally clause are executed after the statements in the appropriate catch clause finish
+5/4/2023
+CISC230 Object Oriented Design and Programming
+68
+
+--- Slide 69 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+69
+
+--- Slide 70 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+70
+
+--- Slide 71 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+71
+
+--- Slide 72 ---
+72
+5/4/2023
+CISC230 Object Oriented Design and Programming
+
+--- Slide 73 ---
+Stack Unwinding
+Stack unwinding – When an exception is thrown but not caught in a particular scope, the method-call stack is “unwound,” and an attempt is made to catch the exception in the next outer try block.
+When unwinding occurs:
+The method in which the exception was not caught terminates
+All local variables in that method go out of scope
+Control returns to the statement that originally invoked the method – if a try block encloses the method call, an attempt is made to catch the exception.
+73
+5/4/2023
+CISC230 Object Oriented Design and Programming
+
+--- Slide 74 ---
+5/4/2023
+CISC230 Object Oriented Design and Programming
+74
+
+--- Slide 75 ---
+Exception Propagation
+An exception can be handled at a higher level if it is not appropriate to handle it where it occurs
+Exceptions propagate up through the method calling hierarchy until they are caught and handled or until they reach the level of the main method
+See Propagation.java
+See ExceptionScope.java
+5/4/2023
+CISC230 Object Oriented Design and Programming
+75
+
+--- Slide 76 ---
+Listing 11.3 (1 of 2)
+5/4/2023
+CISC230 Object Oriented Design and Programming
+76
+
+--- Slide 77 ---
+Listing 11.3 (2 of 2)
+5/4/2023
+CISC230 Object Oriented Design and Programming
+77
+
+--- Slide 78 ---
+Listing 11.4 (1 of 3)
+5/4/2023
+CISC230 Object Oriented Design and Programming
+78
+
+--- Slide 79 ---
+Listing 11.4 (2 of 3)
+5/4/2023
+CISC230 Object Oriented Design and Programming
+79
+
+--- Slide 80 ---
+Listing 11.4 (3 of 3)
+5/4/2023
+CISC230 Object Oriented Design and Programming
+80

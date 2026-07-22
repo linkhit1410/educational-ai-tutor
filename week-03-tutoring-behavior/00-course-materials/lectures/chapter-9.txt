@@ -1,0 +1,1396 @@
+Source file: Chapter 9.pptx
+
+--- Slide 1 ---
+Chapter 9
+Inheritance
+
+--- Slide 2 ---
+Inheritance
+Inheritance is a fundamental object-oriented design technique used to create and organize reusable classes
+Chapter 9 focuses on:
+deriving new classes from existing classes
+the protected modifier
+creating class hierarchies
+abstract classes
+indirect visibility of inherited members
+designing for inheritance
+the JavaFX class hierarchy
+color and date pickers
+dialog boxes
+4/24/2026
+CISC230 Object Oriented Design and Programming
+2
+
+--- Slide 3 ---
+Outline
+Creating Subclasses
+Overriding Methods
+Class Hierarchies
+Visibility
+Designing for Inheritance
+Inheritance in JavaFX
+Color and Date Pickers
+Dialog Boxes
+4/24/2026
+CISC230 Object Oriented Design and Programming
+3
+
+--- Slide 4 ---
+Inheritance
+Inheritance allows a software developer to derive a new class from an existing one
+The existing class is called the parent class, or superclass, or base class
+The derived class is called the child class or subclass
+As the name implies, the child inherits characteristics of the parent
+That is, the child class inherits the methods and data defined by the parent class
+4/24/2026
+CISC230 Object Oriented Design and Programming
+4
+
+--- Slide 5 ---
+Inheritance
+Inheritance relationships are shown in a UML class diagram using a solid arrow with an unfilled triangular arrowhead pointing to the parent class
+
+
+
+
+
+
+Proper inheritance creates an is-a relationship, meaning the child is a more specific version of the parent
+4/24/2026
+CISC230 Object Oriented Design and Programming
+5
+
+--- Slide 6 ---
+Inheritance
+A programmer can tailor a derived class as needed by adding new variables or methods, or by modifying the inherited ones
+One benefit of inheritance is software reuse
+By using existing software components to create new ones, we capitalize on all the effort that went into the design, implementation, and testing of the existing software
+4/24/2026
+CISC230 Object Oriented Design and Programming
+6
+
+--- Slide 7 ---
+Deriving Subclasses
+In Java, we use the reserved word extends to establish an inheritance relationship
+4/24/2026
+CISC230 Object Oriented Design and Programming
+7
+See Words.java 
+See Book.java 
+See Dictionary.java
+public class Car extends Vehicle
+{
+   // class contents
+}
+
+--- Slide 8 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+8
+//********************************************************************
+//  Words.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of an inherited method.
+//********************************************************************
+public class Words
+{
+   //-----------------------------------------------------------------
+   //  Instantiates a derived class and invokes its inherited and
+   //  local methods.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      Dictionary webster = new Dictionary();
+      System.out.println("Number of pages: " + webster.getPages());
+      System.out.println("Number of definitions: " +
+                         webster.getDefinitions());
+      System.out.println("Definitions per page: " +
+                         webster.computeRatio());
+   }
+}
+
+--- Slide 9 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+9
+//********************************************************************
+//  Words.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of an inherited method.
+//********************************************************************
+
+public class Words
+{
+   //-----------------------------------------------------------------
+   //  Instantiates a derived class and invokes its inherited and
+   //  local methods.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      Dictionary webster = new Dictionary();
+
+      System.out.println("Number of pages: " + webster.getPages());
+
+      System.out.println("Number of definitions: " +
+                         webster.getDefinitions());
+
+      System.out.println("Definitions per page: " +
+                         webster.computeRatio());
+   }
+}
+Output
+Number of pages: 1500
+Number of definitions: 52500
+Definitions per page: 35.0
+
+--- Slide 10 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+10
+//********************************************************************
+//  Book.java       Author: Lewis/Loftus
+//
+//  Represents a book. Used as the parent of a derived class to
+//  demonstrate inheritance.
+//********************************************************************
+public class Book
+{
+   protected int pages = 1500;
+   //----------------------------------------------------------------
+   //  Pages mutator.
+   //----------------------------------------------------------------
+   public void setPages(int numPages)
+   {
+      pages = numPages;
+   }
+   //----------------------------------------------------------------
+   //  Pages accessor.
+   //----------------------------------------------------------------
+   public int getPages()
+   {
+      return pages;
+   }
+}
+
+--- Slide 11 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+11
+//  Represents a dictionary, which is a book. Used to demonstrate
+//  inheritance.
+public class Dictionary extends Book
+{
+   private int definitions = 52500;
+   //-----------------------------------------------------------------
+   //  Prints a message using both local and inherited values.
+   //-----------------------------------------------------------------
+   public double computeRatio()
+   {
+      return (double) definitions/pages;
+   }
+ //----------------------------------------------------------------
+   //  Definitions mutator.
+   //----------------------------------------------------------------
+   public void setDefinitions(int numDefinitions)
+   {
+      definitions = numDefinitions;
+   }
+   //----------------------------------------------------------------
+   //  Definitions accessor.
+   //----------------------------------------------------------------
+   public int getDefinitions()
+   {
+      return definitions;
+   }
+}
+
+--- Slide 12 ---
+The protected Modifier
+Visibility modifiers affect the way that class members can be used in a child class
+Variables and methods declared with private visibility cannot be referenced in a child class
+They can be referenced in the child class if they are declared with public visibility -- but public variables violate the principle of encapsulation
+There is a third visibility modifier that helps in inheritance situations:  protected
+4/24/2026
+CISC230 Object Oriented Design and Programming
+12
+
+--- Slide 13 ---
+The protected Modifier
+The protected modifier allows a child class to reference a variable or method in the child class
+It provides more encapsulation than public visibility, but is not as tightly encapsulated as private visibility
+A protected variable is also visible to any class in the same package as the parent class
+Protected variables and methods can be shown with a # symbol preceding them in UML diagrams
+4/24/2026
+CISC230 Object Oriented Design and Programming
+13
+
+--- Slide 14 ---
+Class Diagram for Words
+4/24/2026
+CISC230 Object Oriented Design and Programming
+14
+
+--- Slide 15 ---
+The super Reference
+Constructors are not inherited, even though they have public visibility
+Yet we often want to use the parent's constructor to set up the "parent's part" of the object
+The super reference can be used to refer to the parent class, and often is used to invoke the parent's constructor
+A child’s constructor is responsible for calling the parent’s constructor
+4/24/2026
+CISC230 Object Oriented Design and Programming
+15
+
+--- Slide 16 ---
+The super Reference
+The first line of a child’s constructor should use the super reference to call the parent’s constructor
+The super reference can also be used to reference other variables and methods defined in the parent’s class
+See Words2.java 
+See Book2.java 
+See Dictionary2.java
+4/24/2026
+CISC230 Object Oriented Design and Programming
+16
+
+--- Slide 17 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+17
+//********************************************************************
+//  Words2.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of the super reference.
+//********************************************************************
+public class Words2
+{
+   //-----------------------------------------------------------------
+   //  Instantiates a derived class and invokes its inherited and
+   //  local methods.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      Dictionary2 webster = new Dictionary2(1500, 52500);
+      System.out.println("Number of pages: " + webster.getPages());
+      System.out.println("Number of definitions: " +
+                         webster.getDefinitions());
+      System.out.println("Definitions per page: " +
+                         webster.computeRatio());
+   }
+}
+
+--- Slide 18 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+18
+//********************************************************************
+//  Words2.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of the super reference.
+//********************************************************************
+
+public class Words2
+{
+   //-----------------------------------------------------------------
+   //  Instantiates a derived class and invokes its inherited and
+   //  local methods.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      Dictionary2 webster = new Dictionary2(1500, 52500);
+
+      System.out.println("Number of pages: " + webster.getPages());
+
+      System.out.println("Number of definitions: " +
+                         webster.getDefinitions());
+
+      System.out.println("Definitions per page: " +
+                         webster.computeRatio());
+   }
+}
+Output
+Number of pages: 1500
+Number of definitions: 52500
+Definitions per page: 35.0
+
+--- Slide 19 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+19
+//  Represents a book. Used as the parent of a derived class to
+//  demonstrate inheritance and the use of the super reference.
+//********************************************************************
+public class Book2
+{
+   protected int pages;
+   public Book2(int numPages)
+   {
+      pages = numPages;
+   }
+   //----------------------------------------------------------------
+   //  Pages mutator.
+   //----------------------------------------------------------------
+   public void setPages(int numPages)
+   {
+      pages = numPages;
+   }
+   //----------------------------------------------------------------
+   //  Pages accessor.
+   //----------------------------------------------------------------
+   public int getPages()
+   {
+      return pages;
+   }
+}
+
+--- Slide 20 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+20
+//  Represents a dictionary, which is a book. Used to demonstrate
+//  the use of the super reference.
+public class Dictionary2 extends Book2
+{
+   private int definitions;
+   //  Constructor: Sets up the dictionary with the specified number
+   //  of pages and definitions.
+   public Dictionary2(int numPages, int numDefinitions)
+   {
+      super(numPages);
+      definitions = numDefinitions;
+   }
+   //  Prints a message using both local and inherited values.
+   public double computeRatio()
+   {
+      return (double) definitions/pages;
+   }
+   //  Definitions mutator.
+   public void setDefinitions(int numDefinitions)
+   {
+      definitions = numDefinitions;
+   }
+   //  Definitions accessor.
+   public int getDefinitions()
+   {
+      return definitions;
+   }
+}
+
+--- Slide 21 ---
+Multiple Inheritance
+Java supports single inheritance, meaning that a derived class can have only one parent class
+Multiple inheritance allows a class to be derived from two or more classes, inheriting the members of all parents
+Collisions, such as the same variable name in two parents, have to be resolved
+Multiple inheritance is generally not needed, and Java does not support it
+4/24/2026
+CISC230 Object Oriented Design and Programming
+21
+
+--- Slide 22 ---
+Example
+public class B {
+  int aBint;
+  public B()	{
+	System.out.println("public B()" );
+  }
+  public B(int aBint)	{
+	this.aBint = aBint;
+	System.out.println("public B(int aBint)" );
+  }
+  public String toString()	{
+	return ""  + getClass();
+  }
+  public static void main(String args[])	{
+	System.out.println("1: " + new B());
+	System.out.println("2: " + new B(42));
+  }
+}
+4/24/2026
+CISC230 Object Oriented Design and Programming
+22
+class BB extends B {
+  int aBBint;
+  public int x;		
+  public BB()	{
+	System.out.println("public BB()" );
+  }
+  public BB(int aBBint)	{
+	this.aBBint = aBBint;
+	System.out.println("public BB(int x)" );
+  }
+
+
+  public String toString()	{
+	return "" + getClass();
+  }
+  public static void main(String args[])	{
+	System.out.println("1: " + new BB());
+	System.out.println("2: " + new BB(42));
+  }
+}
+
+--- Slide 23 ---
+Outline
+Creating Subclasses
+Overriding Methods
+Class Hierarchies
+Visibility
+Designing for Inheritance
+Inheritance in JavaFX
+Color and Date Pickers
+Dialog Boxes
+4/24/2026
+CISC230 Object Oriented Design and Programming
+23
+
+--- Slide 24 ---
+Overriding Methods
+A child class can override the definition of an inherited method in favor of its own
+The new method must have the same signature as the parent's method, but can have a different body
+The type of the object executing the method determines which version of the method is invoked
+See Messages.java 
+See Thought.java 
+See Advice.java
+4/24/2026
+CISC230 Object Oriented Design and Programming
+24
+
+--- Slide 25 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+25
+//********************************************************************
+//  Messages.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of an overridden method.
+//********************************************************************
+public class Messages
+{
+   //-----------------------------------------------------------------
+   //  Creates two objects and invokes the message method in each.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      Thought parked = new Thought();
+      Advice dates = new Advice();
+      parked.message();
+      dates.message();  // overridden
+   }
+}
+
+--- Slide 26 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+26
+//********************************************************************
+//  Messages.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of an overridden method.
+//********************************************************************
+
+public class Messages
+{
+   //-----------------------------------------------------------------
+   //  Creates two objects and invokes the message method in each.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      Thought parked = new Thought();
+      Advice dates = new Advice();
+
+      parked.message();
+
+      dates.message();  // overridden
+   }
+}
+Output
+I feel like I'm diagonally parked in a parallel universe.
+
+Warning: Dates in calendar are closer than they appear.
+
+I feel like I'm diagonally parked in a parallel universe.
+
+--- Slide 27 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+27
+//********************************************************************
+//  Thought.java       Author: Lewis/Loftus
+//
+//  Represents a stray thought. Used as the parent of a derived
+//  class to demonstrate the use of an overridden method.
+//********************************************************************
+public class Thought
+{
+   //-----------------------------------------------------------------
+   //  Prints a message.
+   //-----------------------------------------------------------------
+   public void message()
+   {
+      System.out.println("I feel like I'm diagonally parked in a " +
+                         "parallel universe.");
+      System.out.println();
+   }
+}
+
+--- Slide 28 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+28
+//********************************************************************
+//  Advice.java       Author: Lewis/Loftus
+//
+//  Represents some thoughtful advice. Used to demonstrate the use
+//  of an overridden method.
+//********************************************************************
+public class Advice extends Thought
+{
+   //-----------------------------------------------------------------
+   //  Prints a message. This method overrides the parent's version.
+   //-----------------------------------------------------------------
+   public void message()
+   {
+      System.out.println("Warning: Dates in calendar are closer " +
+                         "than they appear.");
+      System.out.println();
+      super.message();  // explicitly invokes the parent's version
+   }
+}
+
+--- Slide 29 ---
+Overriding
+A method in the parent class can be invoked explicitly using the super reference
+If a method is declared with the final modifier, it cannot be overridden
+The concept of overriding can be applied to data and is called shadowing variables
+Shadowing variables should be avoided because it tends to cause unnecessarily confusing code
+4/24/2026
+CISC230 Object Oriented Design and Programming
+29
+
+--- Slide 30 ---
+Overloading vs. Overriding
+Overloading deals with multiple methods with the same name in the same class, but with different signatures
+Overriding deals with two methods, one in a parent class and one in a child class, that have the same signature
+Overloading lets you define a similar operation in different ways for different parameters
+Overriding lets you define a similar operation in different ways for different object types
+4/24/2026
+CISC230 Object Oriented Design and Programming
+30
+
+--- Slide 31 ---
+Quick Check
+4/24/2026
+CISC230 Object Oriented Design and Programming
+31
+True or False?
+A child class may define a method with
+the same name as a method in the parent.
+2. A child class can override the constructor
+of the parent class.
+3. A child class cannot override a final method
+of the parent class.
+4. It is considered poor design when a child
+class overrides a method from the parent.
+5. A child class may define a variable with the
+same name as a variable in the parent.
+
+--- Slide 32 ---
+Quick Check
+4/24/2026
+CISC230 Object Oriented Design and Programming
+32
+True or False?
+A child class may define a method with
+the same name as a method in the parent.
+A child class can override the constructor
+of the parent class.
+A child class cannot override a final method
+of the parent class.
+It is considered poor design when a child
+class overrides a method from the parent.
+A child class may define a variable with the
+same name as a variable in the parent.
+True
+False
+True
+False
+True, but
+shouldn't
+
+--- Slide 33 ---
+Outline
+Creating Subclasses
+Overriding Methods
+Class Hierarchies
+Visibility
+Designing for Inheritance
+Inheritance in JavaFX
+Color and Date Pickers
+Dialog Boxes
+4/24/2026
+CISC230 Object Oriented Design and Programming
+33
+
+--- Slide 34 ---
+class C extends class B extends class A
+4/24/2026
+CISC230 Object Oriented Design and Programming
+34
+
+--- Slide 35 ---
+Class Hierarchies
+A child class of one parent can be the parent of another child, forming a class hierarchy
+4/24/2026
+CISC230 Object Oriented Design and Programming
+35
+
+--- Slide 36 ---
+Class Hierarchies
+Two children of the same parent are called siblings
+Common features should be put as high in the hierarchy as is reasonable
+An inherited member is passed continually down the line
+Therefore, a child class inherits from all its ancestor classes
+There is no single class hierarchy that is appropriate for all situations
+4/24/2026
+CISC230 Object Oriented Design and Programming
+36
+
+--- Slide 37 ---
+The Object Class
+A class called Object is defined in the java.lang package of the Java standard class library
+All classes are derived from the Object class
+If a class is not explicitly defined to be the child of an existing class, it is assumed to be the child of the Object class
+Therefore, the Object class is the ultimate root of all class hierarchies
+4/24/2026
+CISC230 Object Oriented Design and Programming
+37
+
+--- Slide 38 ---
+The Object Class
+The Object class contains a few useful methods, which are inherited by all classes
+For example, the toString method is defined in the Object class
+Every time we define the toString method, we are actually overriding an inherited definition
+The toString method in the Object class is defined to return a string that contains the name of the object’s class along with a hash code
+4/24/2026
+CISC230 Object Oriented Design and Programming
+38
+
+--- Slide 39 ---
+The Object Class
+The equals method of the Object class returns true if two references are aliases
+We can override equals in any class to define equality in some more appropriate way 
+As we've seen, the String class defines the equals method to return true if two String objects contain the same characters
+The designers of the String class have overridden the equals method inherited from Object in favor of a more useful version
+4/24/2026
+CISC230 Object Oriented Design and Programming
+39
+
+--- Slide 40 ---
+Abstract Classes
+An abstract class is a placeholder in a class hierarchy that represents a generic concept
+An abstract class cannot be instantiated
+We use the modifier abstract on the class header to declare a class as abstract:
+4/24/2026
+CISC230 Object Oriented Design and Programming
+40
+public abstract class Product
+{
+   // class contents
+}
+
+--- Slide 41 ---
+Abstract Classes
+An abstract class often contains abstract methods with no definitions (like an interface)
+Unlike an interface, the abstract modifier must be applied to each abstract method
+Also, an abstract class typically contains non-abstract methods with full definitions
+A class declared as abstract does not have to contain abstract methods -- simply declaring it as abstract makes it so
+4/24/2026
+CISC230 Object Oriented Design and Programming
+41
+
+--- Slide 42 ---
+Abstract Classes
+The child of an abstract class must override the abstract methods of the parent, or it too will be considered abstract
+An abstract method cannot be defined as final or static
+The use of abstract classes is an important element of software design – it allows us to establish common elements in a hierarchy that are too general to instantiate
+4/24/2026
+CISC230 Object Oriented Design and Programming
+42
+
+--- Slide 43 ---
+Interface Hierarchies
+Inheritance can be applied to interfaces
+That is, one interface can be derived from another interface
+The child interface inherits all abstract methods of the parent
+A class implementing the child interface must define all methods from both interfaces
+Class hierarchies and interface hierarchies are distinct (they do not overlap)
+4/24/2026
+CISC230 Object Oriented Design and Programming
+43
+
+--- Slide 44 ---
+Quick Check
+4/24/2026
+CISC230 Object Oriented Design and Programming
+44
+What are some methods defined by the Object class?
+What is an abstract class?
+
+--- Slide 45 ---
+Quick Check
+4/24/2026
+CISC230 Object Oriented Design and Programming
+45
+What are some methods defined by the Object class?
+What is an abstract class?
+String toString()
+boolean equals(Object obj)
+Object clone()
+An abstract class is a placeholder in the class
+hierarchy, defining a general concept and gathering
+elements common to all derived classes. An abstract
+class cannot be instantiated.
+
+--- Slide 46 ---
+Example
+abstract class Area extends Object {
+  String type;
+  public String getType()	{
+	return type;
+  }
+  public abstract int area();
+  public abstract int perimeter();
+}
+4/24/2026
+CISC230 Object Oriented Design and Programming
+46
+public class Circle extends Area {
+  private int radius;	
+  public Circle(int _radius)	{
+	type = "Circle";
+	radius = _radius;
+  }
+  public int area()	{
+	return (int)(Math.PI * radius * radius);
+  }
+public int perimeter()	{
+	return (int)(Math.PI * radius * radius);
+  }
+public static void main (String[] args) {
+           Circle c = new Cricle(3);
+  }
+}
+
+--- Slide 47 ---
+Outline
+Creating Subclasses
+Overriding Methods
+Class Hierarchies
+Visibility
+Designing for Inheritance
+Inheritance in JavaFX
+Color and Date Pickers
+Dialog Boxes
+4/24/2026
+CISC230 Object Oriented Design and Programming
+47
+
+--- Slide 48 ---
+Visibility Revisited
+It's important to understand one subtle issue related to inheritance and visibility
+All variables and methods of a parent class, even private members, are inherited by its children
+As we've mentioned, private members cannot be referenced by name in the child class
+However, private members inherited by child classes exist and can be referenced indirectly
+4/24/2026
+CISC230 Object Oriented Design and Programming
+48
+
+--- Slide 49 ---
+Visibility Revisited
+Because the parent can refer to the private member, the child can reference it indirectly using its parent's methods
+The super reference can be used to refer to the parent class, even if no object of the parent exists
+See FoodAnalyzer.java 
+See FoodItem.java 
+See Pizza.java
+4/24/2026
+CISC230 Object Oriented Design and Programming
+49
+
+--- Slide 50 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+50
+//********************************************************************
+//  FoodAnalyzer.java       Author: Lewis/Loftus
+//
+//  Demonstrates indirect access to inherited private members.
+//********************************************************************
+public class FoodAnalyzer
+{
+   //-----------------------------------------------------------------
+   //  Instantiates a Pizza object and prints its calories per
+   //  serving.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      Pizza special = new Pizza(275);
+      System.out.println("Calories per serving: " +
+                         special.caloriesPerServing());
+   }
+}
+
+--- Slide 51 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+51
+//********************************************************************
+//  FoodAnalyzer.java       Author: Lewis/Loftus
+//
+//  Demonstrates indirect access to inherited private members.
+//********************************************************************
+
+public class FoodAnalyzer
+{
+   //-----------------------------------------------------------------
+   //  Instantiates a Pizza object and prints its calories per
+   //  serving.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      Pizza special = new Pizza(275);
+
+      System.out.println("Calories per serving: " +
+                         special.caloriesPerServing());
+   }
+}
+Output
+Calories per serving: 309
+
+--- Slide 52 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+52
+//  Represents an item of food. Used as the parent of a derived class
+//  to demonstrate indirect referencing.
+//********************************************************************
+public class FoodItem
+{
+   final private int CALORIES_PER_GRAM = 9;
+   private int fatGrams;
+   protected int servings;
+   public FoodItem(int numFatGrams, int numServings)
+   {
+      fatGrams = numFatGrams;
+      servings = numServings;
+   }
+   private int calories()
+   {
+      return fatGrams * CALORIES_PER_GRAM;
+   }
+   public int caloriesPerServing()
+   {
+      return (calories() / servings);
+   }
+}
+
+--- Slide 53 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+53
+//********************************************************************
+//  Pizza.java       Author: Lewis/Loftus
+//
+//  Represents a pizza, which is a food item. Used to demonstrate
+//  indirect referencing through inheritance.
+//********************************************************************
+public class Pizza extends FoodItem
+{
+   //-----------------------------------------------------------------
+   //  Sets up a pizza with the specified amount of fat (assumes
+   //  eight servings).
+   //-----------------------------------------------------------------
+   public Pizza(int fatGrams)
+   {
+      super(fatGrams, 8);
+   }
+}
+
+--- Slide 54 ---
+Visibility Modifiers
+Modifier | Same class | Same package (non-subclass) | Subclass in same package | Subclass in different package | Unrelated, different package
+private | ✓ | ✗ | ✗ | ✗ | ✗
+(default) | ✓ | ✓ | ✓ | ✗ | ✗
+protected | ✓ | ✓ | ✓ | ✓ (see caveat) | ✗
+public | ✓ | ✓ | ✓ | ✓ | ✓
+4/24/2026
+CISC230: Object Oriented Design and Programming
+54
+
+--- Slide 55 ---
+Outline
+Creating Subclasses
+Overriding Methods
+Class Hierarchies
+Visibility
+Designing for Inheritance
+Inheritance in JavaFX
+Color and Date Pickers
+Dialog Boxes
+4/24/2026
+CISC230 Object Oriented Design and Programming
+55
+
+--- Slide 56 ---
+Designing for Inheritance
+As we've discussed, taking the time to create a good software design reaps long-term benefits
+Inheritance issues are an important part of an object-oriented design
+Properly designed inheritance relationships can contribute greatly to the elegance, maintainability, and reuse of the software
+Let's summarize some of the issues regarding inheritance that relate to a good software design
+4/24/2026
+CISC230 Object Oriented Design and Programming
+56
+
+--- Slide 57 ---
+Inheritance Design Issues
+Every derivation should be an is-a relationship
+Think about the potential future of a class hierarchy, and design classes to be reusable and flexible
+Find common characteristics of classes and push them as high in the class hierarchy as appropriate
+Override methods as appropriate to tailor or change the functionality of a child
+Add new variables to children, but don't redefine (shadow) inherited variables
+4/24/2026
+CISC230 Object Oriented Design and Programming
+57
+
+--- Slide 58 ---
+Inheritance Design Issues
+Allow each class to manage its own data; use the super reference to invoke the parent's constructor to set up its data
+Override general methods such as toString and equals with appropriate definitions
+Use abstract classes to represent general concepts that derived classes have in common
+Use visibility modifiers carefully to provide needed access without violating encapsulation
+4/24/2026
+CISC230 Object Oriented Design and Programming
+58
+
+--- Slide 59 ---
+Restricting Inheritance
+If the final modifier is applied to a method, that method cannot be overridden in any derived classes
+If the final modifier is applied to an entire class, then that class cannot be used to derive any children at all
+Therefore, an abstract class cannot be declared as final
+4/24/2026
+CISC230 Object Oriented Design and Programming
+59
+
+--- Slide 60 ---
+Outline
+Creating Subclasses
+Overriding Methods
+Class Hierarchies
+Visibility
+Designing for Inheritance
+Inheritance in JavaFX
+Color and Date Pickers
+Dialog Boxes
+4/24/2026
+CISC230 Object Oriented Design and Programming
+60
+
+--- Slide 61 ---
+Inheritance in JavaFX
+4/24/2026
+CISC230 Object Oriented Design and Programming
+61
+
+--- Slide 62 ---
+Inheritance in JavaFX
+All shape classes are derived from Shape, which manages stroke and fill
+Nodes derived from Parent can hold other nodes
+So shapes cannot hold other nodes
+Any Region can be styled with CSS
+All layout panes are derived from Pane
+Controls have various intermediate classes to organize common characteristics
+4/24/2026
+CISC230 Object Oriented Design and Programming
+62
+
+--- Slide 63 ---
+Inheritance in JavaFX
+Note the difference between the scene graph (containment) and the inheritance hierarchy
+Only a Parent can serve as the root node of a scene
+So a Pane can be the root node of a scene, and could contain a Circle and a Button
+A ChoiceBox could be the root node of a scene, but a Rectangle could not
+4/24/2026
+CISC230 Object Oriented Design and Programming
+63
+
+--- Slide 64 ---
+Outline
+Creating Subclasses
+Overriding Methods
+Class Hierarchies
+Visibility
+Designing for Inheritance
+Inheritance in JavaFX
+Color and Date Pickers
+Dialog Boxes
+4/24/2026
+CISC230 Object Oriented Design and Programming
+64
+
+--- Slide 65 ---
+Color and Date Pickers
+A color picker is a control that allows the user to select a color from a palette or other model
+A date picker allows the user to select a calendar date
+Both appear as a single field and use drop-down panes for the selection
+See PickerDemo.java
+4/24/2026
+CISC230 Object Oriented Design and Programming
+65
+
+--- Slide 66 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+66
+import java.time.LocalDate;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.DatePicker;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+//  Demonstrates the use of color picker and date picker controls.
+public class PickerDemo extends Application
+{
+    private Text message;
+    private DatePicker datePicker;
+    private ColorPicker colorPicker;
+
+--- Slide 67 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+67
+continue
+    //  Allows the user to select a date and a color. A Text object
+    //  displays the day of the week in the color specified.
+    public void start(Stage primaryStage)
+    {
+        datePicker = new DatePicker(LocalDate.now());
+        datePicker.setOnAction(this::processDateChoice);
+        
+        colorPicker = new ColorPicker(Color.BLACK);
+        colorPicker.setOnAction(this::processColorChoice);
+        message = new Text("HAPPY " + LocalDate.now().getDayOfWeek());
+        message.setFont(Font.font("Helvetica", FontWeight.BOLD,
+            FontPosture.REGULAR, 24));
+        HBox pickers = new HBox(datePicker, colorPicker);
+        pickers.setSpacing(15);
+        pickers.setAlignment(Pos.CENTER);
+        VBox root = new VBox();
+        root.setStyle("-fx-background-color: white");
+        root.setSpacing(20);
+        root.setAlignment(Pos.CENTER);
+        root.getChildren().addAll(pickers, message);
+
+continue
+
+--- Slide 68 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+68
+continue
+        
+        Scene scene = new Scene(root, 400, 150);
+        primaryStage.setTitle("Picker Demo");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }    
+    //--------------------------------------------------------------------
+    //  Gets the value of the date from the date picker and updates the
+    //  message with the corresponding day of the week.
+    //--------------------------------------------------------------------
+    public void processDateChoice(ActionEvent event)
+    {
+        LocalDate date = datePicker.getValue();
+        message.setText("HAPPY " + date.getDayOfWeek());
+    }    
+    //--------------------------------------------------------------------
+    //  Gets the color specified in the color picker and sets the
+    //  color of the displayed message.
+    //--------------------------------------------------------------------
+    public void processColorChoice(ActionEvent event)
+    {
+        message.setFill(colorPicker.getValue());
+    }
+}
+
+--- Slide 69 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+69
+
+--- Slide 70 ---
+Outline
+Creating Subclasses
+Overriding Methods
+Class Hierarchies
+Visibility
+Designing for Inheritance
+Inheritance in JavaFX
+Color and Date Pickers
+Dialog Boxes
+4/24/2026
+CISC230 Object Oriented Design and Programming
+70
+
+--- Slide 71 ---
+Dialog Boxes
+A dialog box is a window that pops up to provide brief user interaction with a specific purpose
+The Alert class provides support for several basic dialog box types:
+AlertType.INFORMATION
+AlertType.CONFIRMATION
+AlertType.WARNING
+AlertType.ERROR
+4/24/2026
+CISC230 Object Oriented Design and Programming
+71
+
+--- Slide 72 ---
+Dialog Boxes
+Two other dialog box classes are TextInputDialog and ChoiceDialog
+They allow the user to enter input using a text field or a drop-down choice box, respectively
+See EventOdd.java
+4/24/2026
+CISC230 Object Oriented Design and Programming
+72
+
+--- Slide 73 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+73
+import java.util.Optional;
+import javafx.application.Application;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextInputDialog;
+import javafx.stage.Stage;
+//************************************************************************
+//  EvenOdd.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of information and confirmation alerts, as well
+//  as text input dialog boxes.
+//************************************************************************
+public class EvenOdd extends Application
+{
+    //--------------------------------------------------------------------
+    //  Prompts the user for an integer, informs the user if that value
+    //  is even or odd, then asks if the user would like to process
+    //  another value. All interaction is performed using dialog boxes.
+    //--------------------------------------------------------------------
+    public void start(Stage primaryStage) throws Exception
+    {
+        boolean doAnother = true;
+
+continue
+
+--- Slide 74 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+74
+while (doAnother)
+        {
+            TextInputDialog inputDialog = new TextInputDialog();
+            inputDialog.setHeaderText(null);
+            inputDialog.setTitle(null);
+            inputDialog.setContentText("Enter an integer:");
+            Optional<String> numString = inputDialog.showAndWait();
+            if (numString.isPresent())
+            {
+                int num = Integer.parseInt(numString.get());
+                String result = "That number is " +
+                    ((num % 2 == 0) ? "even." : "odd.");
+                Alert answerDialog = new Alert(AlertType.INFORMATION);
+                answerDialog.setHeaderText(null);
+                answerDialog.setContentText(result);
+                answerDialog.showAndWait();
+                Alert confirmDialog = new Alert(AlertType.CONFIRMATION);
+                confirmDialog.setHeaderText(null);
+                confirmDialog.setContentText("Do another?");
+                Optional<ButtonType> another = confirmDialog.showAndWait();
+                if (another.get() != ButtonType.OK)
+                    doAnother = false;
+            }
+            else
+                doAnother = false;
+        }
+    }
+}
+continue
+
+--- Slide 75 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+75
+continue
+
+                if (another.get() != ButtonType.OK)
+                    doAnother = false;
+            }
+            else
+                doAnother = false;
+        }
+    }
+}
+
+--- Slide 76 ---
+File Choosers
+A file chooser is a specialized dialog box that allows the user to select a file from the hard drive
+The following example opens a text file using a file chooser and displays its contents in a text area
+See DisplayFile.java
+4/24/2026
+CISC230 Object Oriented Design and Programming
+76
+
+--- Slide 77 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+77
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.TextArea;
+import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+//  Demonstrates the use of a file chooser dialog box and a text area.
+public class DisplayFile extends Application
+{
+    //  Presents a file chooser dialog, reads the selected file and
+    //  loads it into a text area.
+    public void start(Stage primaryStage) throws IOException
+    {
+        FileChooser chooser = new FileChooser();
+        File selectedFile = chooser.showOpenDialog(primaryStage);
+        TextArea content = new TextArea();
+        content.setFont(new Font("Courier", 12));
+        content.setEditable(false);
+
+--- Slide 78 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+78
+continue
+
+                
+        if (selectedFile == null)
+            content.setText("No file chosen.");
+        else
+        {
+            Scanner scan = new Scanner(selectedFile);
+            
+            String info = "";
+            while (scan.hasNext())
+                info += scan.nextLine() + "\n";
+            
+            content.setText(info);
+        }
+        
+        Scene scene = new Scene(content, 500, 500);
+        
+        primaryStage.setTitle("Display File");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+}
+
+--- Slide 79 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+79
+continue
+
+        TextArea content = new TextArea();
+        content.setFont(new Font("Courier", 12));
+        content.setEditable(false);
+        
+        if (selectedFile == null)
+            content.setText("No file chosen.");
+        else
+        {
+            Scanner scan = new Scanner(selectedFile);
+            
+            String info = "";
+            while (scan.hasNext())
+                info += scan.nextLine() + "\n";
+            
+            content.setText(info);
+        }
+        
+        Scene scene = new Scene(content, 500, 500);
+        
+        primaryStage.setTitle("Display File");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+}
+
+--- Slide 80 ---
+4/24/2026
+CISC230 Object Oriented Design and Programming
+80
+continue
+
+        TextArea content = new TextArea();
+        content.setFont(new Font("Courier", 12));
+        content.setEditable(false);
+        
+        if (selectedFile == null)
+            content.setText("No file chosen.");
+        else
+        {
+            Scanner scan = new Scanner(selectedFile);
+            
+            String info = "";
+            while (scan.hasNext())
+                info += scan.nextLine() + "\n";
+            
+            content.setText(info);
+        }
+        
+        Scene scene = new Scene(content, 500, 500);
+        
+        primaryStage.setTitle("Display File");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+}
+
+--- Slide 81 ---
+Summary
+Chapter 9 focused on:
+deriving new classes from existing classes
+the protected modifier
+creating class hierarchies
+abstract classes
+indirect visibility of inherited members
+designing for inheritance
+the JavaFX class hierarchy
+color and date pickers
+dialog boxes
+4/24/2026
+CISC230 Object Oriented Design and Programming
+81
+
+--- Slide 82 ---
+Copyright
+4/24/2026
+CISC230 Object Oriented Design and Programming
+82
+This work is protected by United States copyright laws and is provided solely for the use of instructors in teaching their courses and assessing student learning. Dissemination or sale of any part of this work (including on the World Wide Web) will destroy the integrity of the work and is not permitted. The work and materials from it should never be made available to students except by instructors using the accompanying text in their classes. All recipients of this work are expected to abide by these restrictions and to honor the intended pedagogical purposes and the needs of other instructors who rely on these materials.
