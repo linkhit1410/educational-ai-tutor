@@ -1,0 +1,1256 @@
+Source file: Chapter 4.pptx
+
+--- Slide 1 ---
+Chapter 4
+Writing Classes
+
+--- Slide 2 ---
+Writing Classes
+We've been using predefined classes from the Java API. Now we will learn to write our own classes.
+Chapter 4 focuses on:
+class definitions
+instance data
+encapsulation and Java modifiers
+method declaration and parameter passing
+constructors
+arcs and images
+events and event handlers
+buttons and text fields
+10/4/2024
+CISC230 Object Oriented Design and Programming
+2
+
+--- Slide 3 ---
+Outline
+Anatomy of a Class
+Encapsulation
+Anatomy of a Method
+Arcs
+Images
+Graphical User Interfaces
+Text Fields
+10/4/2024
+CISC230 Object Oriented Design and Programming
+3
+
+--- Slide 4 ---
+Writing Classes
+The programs we’ve written in previous examples have used classes defined in the Java API
+Now we will begin to design programs that rely on classes that we write ourselves
+The class that contains the main method is just the starting point of a program
+True object-oriented programming is based on defining classes that represent objects with well-defined characteristics and functionality
+10/4/2024
+CISC230 Object Oriented Design and Programming
+4
+
+--- Slide 5 ---
+Examples of Classes
+10/4/2024
+CISC230 Object Oriented Design and Programming
+5
+
+--- Slide 6 ---
+Check Point: What could be possible attributes and operations?
+10/4/2024
+CISC230 Object Oriented Design and Programming
+6
+
+--- Slide 7 ---
+Classes and Objects
+Recall from our overview of objects in Chapter 1 that an object has state and behavior
+Consider a six-sided die (singular of dice)
+Its state can be defined as which face is showing
+Its primary behavior is that it can be rolled
+We represent a die by designing a class called Die that models this state and behavior
+The class serves as the blueprint for a die object
+We can then instantiate as many die objects as we need for any program
+10/4/2024
+CISC230 Object Oriented Design and Programming
+7
+
+--- Slide 8 ---
+Classes
+A class can contain data declarations and method declarations
+10/4/2024
+CISC230 Object Oriented Design and Programming
+8
+Data declarations
+Method declarations
+
+--- Slide 9 ---
+Classes
+The values of the data define the state of an object created from the class
+The functionality of the methods define the behaviors of the object
+For our Die class, we might declare an integer called faceValue that represents the current value showing on the face
+One of the methods would “roll” the die by setting faceValue to a random number between one and six
+10/4/2024
+CISC230 Object Oriented Design and Programming
+9
+
+--- Slide 10 ---
+Classes
+We’ll want to design the Die class so that it is a versatile and reusable resource
+Any given program will probably not use all operations of a given class
+See RollingDice.java
+See Die.java
+10/4/2024
+CISC230 Object Oriented Design and Programming
+10
+
+--- Slide 11 ---
+Int 0
+Float 0.0
+Boolean false
+String null
+
+faceValue= 5
+Die1.roll() 5
+10/4/2024
+CISC230 Object Oriented Design and Programming
+11
+public class Die
+{
+   private final int MAX = 6;  // maximum face value
+   private int faceValue;  // current value showing on the die
+   //  Constructor: Sets the initial face value.
+   public Die(){
+      faceValue = 1;
+   }
+   //  Rolls the die and returns the result.
+   public int roll(){
+      faceValue = (int)(Math.random() * MAX) + 1;
+      return faceValue;
+   }
+   //  Face value mutator.
+   public void setFaceValue(int value){
+      faceValue = value;
+   }
+   //  Face value accessor.
+   public int getFaceValue(){
+      return faceValue;
+   }
+//  Returns a string representation of this die.
+   public String toString(){
+      String result = Integer.toString(faceValue);
+      return result;
+   }
+}
+
+--- Slide 12 ---
+10/4/2024
+CISC230 Object Oriented Design and Programming
+12
+public class RollingDice
+{
+   //  Creates two Die objects and rolls them several times.
+   public static void main(String[] args)
+   {
+      Die die1, die2;
+      int sum;
+      die1 = new Die();  //1
+      die2 = new Die();  //1
+      die1.roll();  //5
+      die2.roll();  //2
+      System.out.println("Die One: " + die1+ ", Die Two: " + die2);
+      die1.roll();
+      die2.setFaceValue(4);
+      System.out.println("Die One: " + die1 + ", Die Two: " + die2);
+      sum = die1.getFaceValue() + die2.getFaceValue();
+      System.out.println("Sum: " + sum);
+      sum = die1.roll() + die2.roll();
+      System.out.println("Die One: " + die1 + ", Die Two: " + die2);
+      System.out.println("New sum: " + sum);
+   }
+}
+Sample Run
+Die One: 5, Die Two: 2
+Die One: 1, Die Two: 4
+Sum: 5
+Die One: 4, Die Two: 2
+New sum: 6
+
+--- Slide 13 ---
+The Die Class
+The Die class contains two data values
+a constant MAX that represents the maximum face value
+an integer faceValue that represents the current face value
+The roll method uses the random method of the Math class to determine a new face value
+There are also methods to explicitly set and retrieve the current face value at any time
+10/4/2024
+CISC230 Object Oriented Design and Programming
+13
+
+--- Slide 14 ---
+The toString Method
+It's good practice to define a toString method for a class
+The toString method returns a character string that represents the object in some way
+It is called automatically when an object is concatenated to a string or when it is passed to the println method
+It's also convenient for debugging problems
+10/4/2024
+CISC230 Object Oriented Design and Programming
+14
+
+--- Slide 15 ---
+Constructors
+As mentioned previously, a constructor is used to set up an object when it is initially created
+A constructor has the same name as the class
+The Die constructor is used to set the initial face value of each new die object to one
+We examine constructors in more detail later in this chapter
+10/4/2024
+CISC230 Object Oriented Design and Programming
+15
+
+--- Slide 16 ---
+Data Scope
+The scope of data is the area in a program in which that data can be referenced (used)
+Data declared at the class level can be referenced by all methods in that class
+Data declared within a method can be used only in that method
+Data declared within a method is called local data
+In the Die class, the variable result is declared inside the toString method -- it is local to that method and cannot be referenced anywhere else
+10/4/2024
+CISC230 Object Oriented Design and Programming
+16
+
+--- Slide 17 ---
+Instance Data
+A variable declared at the class level (such as faceValue) is called instance data
+Each instance (object) has its own instance variable
+A class declares the type of the data, but it does not reserve memory space for it
+Each time a Die object is created, a new faceValue variable is created as well
+The objects of a class share the method definitions, but each object has its own data space
+That's the only way two objects can have different states
+10/4/2024
+CISC230 Object Oriented Design and Programming
+17
+
+--- Slide 18 ---
+Instance Data
+We can depict the two Die objects from the RollingDice program as follows:
+10/4/2024
+CISC230 Object Oriented Design and Programming
+18
+Each object maintains its own faceValue variable, and thus its own state
+
+--- Slide 19 ---
+UML Diagrams
+UML stands for the Unified Modeling Language
+UML diagrams show relationships among classes and objects
+A UML class diagram consists of one or more classes, each with sections for the class name, attributes (data), and operations (methods)
+Lines between classes represent associations
+A dotted arrow shows that one class uses the other (calls its methods)
+10/4/2024
+CISC230 Object Oriented Design and Programming
+19
+
+--- Slide 20 ---
+UML Class Diagrams
+A UML class diagram for the RollingDice program:
+20
+10/4/2024
+CISC230 Object Oriented Design and Programming
+
+--- Slide 21 ---
+Quick Check
+10/4/2024
+CISC230 Object Oriented Design and Programming
+21
+What is the relationship between a class and an object?
+
+--- Slide 22 ---
+Quick Check
+10/4/2024
+CISC230 Object Oriented Design and Programming
+22
+What is the relationship between a class and an object?
+A class is the definition/pattern/blueprint of an object. It defines the data that will be managed by an object but doesn't reserve memory space for it. Multiple objects can be created from a class, and each object has its own copy of the instance data.
+
+--- Slide 23 ---
+Quick Check
+10/4/2024
+CISC230 Object Oriented Design and Programming
+23
+Where is instance data declared?
+
+
+What is the scope of instance data?
+
+
+What is local data?
+
+--- Slide 24 ---
+Quick Check
+10/4/2024
+CISC230 Object Oriented Design and Programming
+24
+Where is instance data declared?
+
+
+What is the scope of instance data?
+
+
+
+What is local data?
+At the class level.
+
+
+It can be referenced in any method of the class.
+
+
+Local data is declared within a method and is only accessible in that method.
+
+--- Slide 25 ---
+Outline
+Anatomy of a Class
+Encapsulation
+Anatomy of a Method
+Arcs
+Images
+Graphical User Interfaces
+Text Fields
+10/4/2024
+CISC230 Object Oriented Design and Programming
+25
+
+--- Slide 26 ---
+Encapsulation
+There are two views of an object:
+internal  -  the details of the variables and methods of the class that defines it
+external  -  the services that an object provides and how the object interacts with the rest of the system
+From the external view, an object is an encapsulated entity, providing a set of specific services
+These services define the interface to the object
+10/4/2024
+CISC230 Object Oriented Design and Programming
+26
+
+--- Slide 27 ---
+Encapsulation
+One object (called the client) may use another object for the services it provides
+The client of an object may request its services (call its methods), but it should not have to be aware of how those services are accomplished
+Any changes to the object's state (its variables) should be made by that object's methods
+We should make it difficult, if not impossible, for a client to access an object’s variables directly
+That is, an object should be self-governing
+10/4/2024
+CISC230 Object Oriented Design and Programming
+27
+
+--- Slide 28 ---
+Encapsulation
+An encapsulated object can be thought of as a black box -- its inner workings are hidden from the client
+The client invokes the interface methods, and they manage the instance data
+10/4/2024
+CISC230 Object Oriented Design and Programming
+28
+
+--- Slide 29 ---
+Visibility Modifiers
+In Java, we accomplish encapsulation through the appropriate use of visibility modifiers
+A modifier is a Java reserved word that specifies characteristics of a method or data
+We've used the final modifier to define constants. This is an access modifier
+Java has three visibility modifiers:  public, protected, and private
+The protected modifier involves inheritance, which we will discuss later
+10/4/2024
+CISC230 Object Oriented Design and Programming
+29
+
+--- Slide 30 ---
+Visibility Modifiers
+Members of a class that are declared with public visibility can be referenced anywhere
+Members of a class that are declared with private visibility can be referenced only within that class
+Members declared without a visibility modifier have default visibility and can be referenced by any class in the same package
+10/4/2024
+CISC230 Object Oriented Design and Programming
+30
+
+--- Slide 31 ---
+Visibility Modifiers
+Public variables violate encapsulation because they allow the client to modify the values directly
+Therefore, instance variables should not be declared with public visibility
+It is acceptable to give a constant public visibility, which allows it to be used outside of the class
+Public constants do not violate encapsulation because, although the client can access it, its value cannot be changed
+10/4/2024
+CISC230 Object Oriented Design and Programming
+31
+
+--- Slide 32 ---
+Visibility Modifiers
+Methods that provide the object's services are declared with public visibility so that they can be invoked by clients
+Public methods are also called service methods
+A method created simply to assist a service method is called a support method
+Since a support method is not intended to be called by a client, it should not be declared with public visibility
+10/4/2024
+CISC230 Object Oriented Design and Programming
+32
+
+--- Slide 33 ---
+Visibility Modifiers
+10/4/2024
+CISC230 Object Oriented Design and Programming
+33
+Provide services
+to clients
+Support other
+methods in the
+class
+Enforce
+encapsulation
+Violate
+encapsulation
+
+--- Slide 34 ---
+Accessors and Mutators
+Because instance data is private, a class usually provides services to access and modify data values
+An accessor method returns the current value of a variable
+A mutator method changes the value of a variable
+The names of accessor and mutator methods take the form getX and setX, respectively, where X is the name of the value
+They are sometimes called “getters” and “setters”
+10/4/2024
+CISC230 Object Oriented Design and Programming
+34
+
+--- Slide 35 ---
+Mutator Restrictions
+The use of mutators gives the class designer the ability to restrict a client’s options to modify an object’s state
+A mutator is often designed so that the values of variables can be set only within particular limits
+For example, the setFaceValue mutator of the Die class should restrict the value to the valid range (1 to MAX)
+We’ll see in Chapter 5 how such restrictions can be implemented
+10/4/2024
+CISC230 Object Oriented Design and Programming
+35
+
+--- Slide 36 ---
+Quick Check
+10/4/2024
+CISC230 Object Oriented Design and Programming
+36
+Why was the faceValue variable declared as private in the Die class?
+
+
+
+
+Why is it ok to declare MAX as public in the Die class?
+
+--- Slide 37 ---
+Quick Check
+10/4/2024
+CISC230 Object Oriented Design and Programming
+37
+Why was the faceValue variable declared as private in the Die class?
+
+
+
+
+Why is it ok to declare MAX as public in the Die class?
+By making it private, each Die object controls its own data and allows it to be modified only by the well-defined operations it provides.
+
+
+
+MAX is a constant. Its value cannot be changed. Therefore, there is no violation of encapsulation.
+
+--- Slide 38 ---
+Outline
+Anatomy of a Class
+Encapsulation
+Anatomy of a Method
+Arcs
+Images
+Graphical User Interfaces
+Text Fields
+10/4/2024
+CISC230 Object Oriented Design and Programming
+38
+
+--- Slide 39 ---
+Method Declarations
+Let’s now examine methods in more detail
+A method declaration specifies the code that will be executed when the method is invoked (called)
+When a method is invoked, the flow of control jumps to the method and executes its code
+When complete, the flow returns to the place where the method was called and continues
+The invocation may or may not return a value, depending on how the method is defined
+10/4/2024
+CISC230 Object Oriented Design and Programming
+39
+
+--- Slide 40 ---
+Method Control Flow
+If the called method is in the same class, only the method name is needed
+10/4/2024
+CISC230 Object Oriented Design and Programming
+40
+
+--- Slide 41 ---
+Method Control Flow
+The called method is often part of another class or object
+10/4/2024
+CISC230 Object Oriented Design and Programming
+41
+
+--- Slide 42 ---
+Method Header
+A method declaration begins with a method header
+10/4/2024
+CISC230 Object Oriented Design and Programming
+42
+char calc(int num1, int num2, String message)
+method
+name
+return
+type
+parameter list
+The parameter list specifies the type
+and name of each parameter
+
+The name of a parameter in the method
+declaration is called a formal parameter
+
+--- Slide 43 ---
+Method Body
+The method header is followed by the method body
+10/4/2024
+CISC230 Object Oriented Design and Programming
+43
+char calc(int num1, int num2, String message)
+{
+   int sum = num1 + num2;
+   char result = message.charAt(sum);
+
+   return result;
+}
+The return expression
+must be consistent with
+the return type
+sum and result
+are local data
+
+They are created each time the method is called, and are destroyed when it finishes executing
+
+--- Slide 44 ---
+The return Statement
+The return type of a method indicates the type of value that the method sends back to the calling location
+A method that does not return a value has a void return type
+A return statement specifies the value that will be returned
+return expression;
+Its expression must conform to the return type
+10/4/2024
+CISC230 Object Oriented Design and Programming
+44
+
+--- Slide 45 ---
+Parameters
+When a method is called, the actual parameters in the invocation are copied into the formal parameters in the method header
+10/4/2024
+CISC230 Object Oriented Design and Programming
+45
+ch = obj.calc(25, count, "Hello");
+
+--- Slide 46 ---
+Local Data
+As we’ve seen, local variables can be declared inside a method
+The formal parameters of a method create automatic local variables when the method is invoked
+When the method finishes, all local variables are destroyed (including the formal parameters)
+Keep in mind that instance variables, declared at the class level, exists as long as the object exists
+10/4/2024
+CISC230 Object Oriented Design and Programming
+46
+
+--- Slide 47 ---
+Bank Account Example
+Let’s look at another example that demonstrates the implementation details of classes and methods
+We’ll represent a bank account by a class named Account
+It’s state can include the account number, the current balance, and the name of the owner
+An account’s behaviors (or services) include deposits and withdrawals, and adding interest
+10/4/2024
+CISC230 Object Oriented Design and Programming
+47
+
+--- Slide 48 ---
+Driver Programs
+A driver program drives the use of other, more interesting parts of a program
+Driver programs are often used to test other parts of the software
+The Transactions class contains a main method that drives the use of the Account class, exercising its services
+See Transactions.java
+See Account.java
+10/4/2024
+CISC230 Object Oriented Design and Programming
+48
+
+--- Slide 49 ---
+10/4/2024
+CISC230 Object Oriented Design and Programming
+49
+import java.text.NumberFormat;
+public class Account {
+   private final double RATE = 0.035;  // interest rate of 3.5%
+   private long acctNumber;
+   private double balance;
+   private String name;
+   //  Sets up the account by defining its owner, account number,and initial balance.
+   public Account(String owner, long account, double initial){
+      name = owner;
+      acctNumber = account;
+      balance = initial;
+   }
+   public double deposit(double amount){//  Deposits the specified amount. Returns the new balance.
+           return balance = balance + amount;
+   }
+   //  Withdraws the specified amount from the account and applies the fee. Returns the new balance.
+   public double withdraw(double amount, double fee){
+    return balance = balance - amount - fee;
+   }
+   public double addInterest(){//  Adds interest to the account and returns the new balance.
+         return balance += (balance * RATE);
+   }
+   public double getBalance(){//  Returns the current balance of the account.
+       return balance;
+   }
+   public String toString() {//  Returns a one-line description of the account as a string.
+      NumberFormat fmt = NumberFormat.getCurrencyInstance();
+      return (acctNumber + "\t" + name + "\t" + fmt.format(balance));
+   }
+}
+
+--- Slide 50 ---
+10/4/2024
+CISC230 Object Oriented Design and Programming
+50
+public class Transactions
+{
+   //  Creates some bank accounts and requests various services.
+   public static void main(String[] args)
+   {
+      Account acct1 = new Account("Ted Murphy", 72354, 102.56);
+      Account acct2 = new Account("Jane Smith", 69713, 40.00);
+      Account acct3 = new Account("Edward Demsey", 93757, 759.32);
+      acct1.deposit(25.85);
+      double smithBalance = acct2.deposit(500.00);
+      System.out.println("Smith balance after deposit: " +
+                          smithBalance);
+       System.out.println("Smith balance after withdrawal: " +
+                          acct2.withdraw (430.75, 1.50));
+      acct1.addInterest();
+      acct2.addInterest();
+      acct3.addInterest();
+      System.out.println();
+      System.out.println(acct1);
+      System.out.println(acct2);
+      System.out.println(acct3);
+   }
+}
+Output
+Smith balance after deposit: 540.0
+Smith balance after withdrawal: 107.55
+
+72354   Ted Murphy      $132.90
+69713   Jane Smith      $111.52
+93757   Edward Demsey   $785.90
+
+--- Slide 51 ---
+Bank Account Example
+10/4/2024
+CISC230 Object Oriented Design and Programming
+51
+
+--- Slide 52 ---
+Bank Account Example
+There are some improvements that can be made to the Account class
+Formal getters and setters could have been defined for all data
+The design of some methods could also be more robust, such as verifying that the amount parameter to the withdraw method is positive
+10/4/2024
+CISC230 Object Oriented Design and Programming
+52
+
+--- Slide 53 ---
+Constructors Revisited
+Note that a constructor has no return type specified in the method header, not even void
+A common error is to put a return type on a constructor, which makes it a “regular” method that happens to have the same name as the class
+The programmer does not have to define a constructor for a class
+Each class has a default constructor that accepts no parameters
+10/4/2024
+CISC230 Object Oriented Design and Programming
+53
+
+--- Slide 54 ---
+Quick Check
+10/4/2024
+CISC230 Object Oriented Design and Programming
+54
+How do we express which Account object's balance is updated when a deposit is made?
+
+--- Slide 55 ---
+Quick Check
+10/4/2024
+CISC230 Object Oriented Design and Programming
+55
+How do we express which Account object's balance is updated when a deposit is made?
+Each account is referenced by an object reference variable:
+Account myAcct = new Account(…);
+and when a method is called, you call it through a particular object:
+myAcct.deposit(50);
+
+--- Slide 56 ---
+Outline
+Anatomy of a Class
+Encapsulation
+Anatomy of a Method
+Arcs
+Images
+Graphical User Interfaces
+Text Fields
+10/4/2024
+CISC230 Object Oriented Design and Programming
+56
+
+--- Slide 57 ---
+Arcs
+In Chapter 3 we explored basic shapes: lines, rectangles, circles, and ellipses
+In JavaFX, an arc is defined as a portion of an ellipse
+Like an ellipse, the first four parameters to the Arc constructor specify the center point (x and y) as well as the radii along the horizontal and vertical
+Two additional parameters specify the portion of the ellipse that define the arc
+10/4/2024
+CISC230 Object Oriented Design and Programming
+57
+
+--- Slide 58 ---
+Arcs
+The Arc constructor:
+Arc(centerX, centerY, radiusX, radiusY, startAngle, arcLength)
+The start angle is where the arc begins relative to the horizontal
+The arc length is the angle that defines how big the arc is
+Both angles are specified in degrees
+10/4/2024
+CISC230 Object Oriented Design and Programming
+58
+
+--- Slide 59 ---
+Arcs
+An arc whose underlying ellipse is centered at (150, 100), a horizontal radius of 70 and a vertical radius of 30, a start angle of 45 and a arc length of 90:
+Arc myArc = new Arc(150, 100, 70, 30, 45, 90);
+10/4/2024
+CISC230 Object Oriented Design and Programming
+59
+
+--- Slide 60 ---
+Arcs
+An arc also has an arc type:
+
+
+
+
+See ArcDisplay.java
+10/4/2024
+CISC230 Object Oriented Design and Programming
+60
+ArcType.OPEN | The curve along the ellipse edge
+ArcType.CHORD | End points are connected by a straight line
+ArcType.ROUND | End points are connected to the center point of the ellipse, forming a rounded “pie” piece
+
+--- Slide 61 ---
+10/4/2024
+CISC230 Object Oriented Design and Programming
+61
+import javafx.application.Application;
+import javafx.stage.Stage;
+import javafx.scene.*;
+import javafx.scene.shapes.*;
+public class ArcDisplay extends Application
+{
+    public void start(Stage primaryStage) //  Draws three arcs based on the same underlying ellipse.
+    {
+        Ellipse backgroundEllipse = new Ellipse(250, 150, 170, 100);
+        backgroundEllipse.setFill(null);
+        backgroundEllipse.setStroke(Color.GRAY);
+        backgroundEllipse.getStrokeDashArray().addAll(5.0, 5.0);
+        Arc arc1 = new Arc(250, 150, 170, 100, 90, 90);
+        arc1.setType(ArcType.OPEN);
+        arc1.setStroke(Color.RED);
+        arc1.setFill(null);
+        Arc arc2 = new Arc(250, 150, 170, 100, 20, 50);
+        arc2.setType(ArcType.ROUND);
+        arc2.setStroke(Color.GREEN);
+        arc2.setFill(Color.GREEN);
+        Arc arc3 = new Arc(250, 150, 170, 100, 230, 130);
+        arc3.setType(ArcType.CHORD);
+        arc3.setStroke(Color.BLUE);
+        arc3.setFill(null);
+        Group root = new Group(backgroundEllipse, arc1, arc2, arc3);
+        Scene scene = new Scene(root, 500, 300, Color.LIGHTYELLOW);
+        primaryStage.setTitle("Arc Display");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+}
+import javafx.scene.Scene;
+import javafx.scene.Group;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Arc;
+import javafx.scene.shape.ArcType;
+import javafx.scene.shape.Ellipse;
+
+--- Slide 62 ---
+10/4/2024
+CISC230 Object Oriented Design and Programming
+62
+
+--- Slide 63 ---
+Outline
+Anatomy of a Class
+Encapsulation
+Anatomy of a Method
+Arcs
+Images
+Graphical User Interfaces
+Text Fields
+10/4/2024
+CISC230 Object Oriented Design and Programming
+63
+
+--- Slide 64 ---
+Images
+The JavaFX Image class is used to load an image from a file or URL
+Supported formats:  jpeg, gif, and png
+To display an image, use an ImageView object
+An Image object cannot be added to a container directly
+See ImageDisplay.java
+10/4/2024
+CISC230 Object Oriented Design and Programming
+64
+
+--- Slide 65 ---
+10/4/2024
+CISC230 Object Oriented Design and Programming
+65
+import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+public class ImageDisplay extends Application
+{
+    //  Displays an image centered in a window.
+    public void start(Stage primaryStage)
+    {
+        Image img = new Image("gull.jpg");
+        ImageView imgView = new ImageView(img);
+        StackPane pane = new StackPane(imgView);
+        pane.setStyle("-fx-background-color: cornsilk");
+        Scene scene = new Scene(pane, 500, 350);
+        primaryStage.setTitle("Image Display");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+}
+
+--- Slide 66 ---
+10/4/2024
+CISC230 Object Oriented Design and Programming
+66
+
+--- Slide 67 ---
+Layout Panes
+This example uses a StackPane instead of a Group as the root node of the scene
+A stack pane is a JavaFX layout pane (one of several), which governs how its contents are presented
+A stack pane stacks its nodes on top of each other
+Since the image view is the only node in the pane, the stack pane simply serves to keep the image centered in the window
+10/4/2024
+CISC230 Object Oriented Design and Programming
+67
+
+--- Slide 68 ---
+Layout Panes
+The background color of a layout pane is set using a call to the setStyle method
+The setStyle method accepts a string that can specify various style properties
+The notation used for JavaFX style properties are similar to cascading style sheets (CSS), used to specify the look of HTML elements on a Web page
+JavaFX style property names begin with the prefix “-fx-”
+10/4/2024
+CISC230 Object Oriented Design and Programming
+68
+
+--- Slide 69 ---
+Images
+The parameter to the Image constructor can include a pathname:
+Image logo = new Image("myPix/smallLogo.png");
+It can also be a URL:
+Image logo = new Image("http://example.com/images/bio.jpg");
+10/4/2024
+CISC230 Object Oriented Design and Programming
+69
+
+--- Slide 70 ---
+Viewports
+A viewport is a rectangular area that restricts the pixels displayed in an ImageView
+It is defined by a Rectangle2D object:
+imgView.setViewport(new Rectangle2D(200, 80, 70, 60));
+10/4/2024
+CISC230 Object Oriented Design and Programming
+70
+
+--- Slide 71 ---
+Outline
+Anatomy of a Class
+Encapsulation
+Anatomy of a Method
+Arcs
+Images
+Graphical User Interfaces
+Text Fields
+10/4/2024
+CISC230 Object Oriented Design and Programming
+71
+
+--- Slide 72 ---
+Graphical User Interfaces
+A Graphical User Interface (GUI) in Java is created with at least three kinds of objects:
+controls, events, and event handlers
+A control is a screen element that displays information or allows the user to interact with the program:
+labels, buttons, text fields, sliders, etc.
+10/4/2024
+CISC230 Object Oriented Design and Programming
+72
+
+--- Slide 73 ---
+Graphical User Interfaces
+An event is an object that represents some activity to which we may want to respond
+For example, we may want our program to perform some action when the following occurs:
+a graphical button is pressed
+a slider is dragged
+the mouse is moved
+the mouse is dragged
+the mouse button is clicked
+a keyboard key is pressed
+10/4/2024
+CISC230 Object Oriented Design and Programming
+73
+
+--- Slide 74 ---
+Graphical User Interfaces
+The Java API contains several classes that represent typical events
+Controls, such as a button, generate (or fire) an event when it occurs
+We set up an event handler object to respond to an event when it occurs
+We design event handlers to take whatever actions are appropriate when an event occurs
+10/4/2024
+CISC230 Object Oriented Design and Programming
+74
+
+--- Slide 75 ---
+Graphical User Interfaces
+10/4/2024
+CISC230 Object Oriented Design and Programming
+75
+When the event occurs, the control calls
+the appropriate method of the listener,
+passing an object that describes the event
+
+--- Slide 76 ---
+Graphical User Interfaces
+A JavaFX button is defined by the Button class
+It generates an action event
+The PushCounter example displays a button that increments a counter each time it is pushed
+See PushCounter.java
+10/4/2024
+CISC230 Object Oriented Design and Programming
+76
+
+--- Slide 77 ---
+10/4/2024
+CISC230 Object Oriented Design and Programming
+77
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.text.Text;
+import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
+public class PushCounter extends Application{
+    private int count;
+    private Text countText;
+    public void start(Stage primaryStage){//  Presents a GUI containing a button and text that displays
+        count = 0;                        // how many times the button is pushed.
+        countText = new Text("Pushes: 0");
+        Button push = new Button("Push Me!");
+        push.setOnAction(this::processButtonPress);
+        FlowPane pane = new FlowPane(push, countText);
+        pane.setAlignment(Pos.CENTER);
+        pane.setHgap(20);           pane.setStyle("-fx-background-color: cyan");
+        Scene scene = new Scene(pane, 300, 100);
+        primaryStage.setTitle("Push Counter");
+        primaryStage.setScene(scene);
+        primaryStage.show();    }
+    public void processButtonPress(ActionEvent event){
+        count++;
+        countText.setText("Pushes: " + count);}
+}
+
+--- Slide 78 ---
+10/4/2024
+CISC230 Object Oriented Design and Programming
+78
+
+--- Slide 79 ---
+Graphical User Interfaces
+A call to the setOnAction method sets up the relationship between the button that generates the event and the event handler that responds to it
+This example uses a method reference (using the :: operator) to specify the event handler method
+The this reference indicates that the event handler method is in the same class
+So the PushCounter class also represents the event handler for this program
+10/4/2024
+CISC230 Object Oriented Design and Programming
+79
+
+--- Slide 80 ---
+Graphical User Interfaces
+The event handler method can be called whatever you want, but must accept an ActionEvent object as a parmeter
+In this example, the event handler method increments the counter and updates the text object
+The counter and Text object are declared at the class level so that both methods can use them
+10/4/2024
+CISC230 Object Oriented Design and Programming
+80
+
+--- Slide 81 ---
+Graphical User Interfaces
+In this example, a FlowPane is used as the root node of the scene
+A flow pane is another layout pane, which displays its contents horizontally in rows or vertically in columns
+A gap of 20 pixels is established between elements on a row using the setHGap method
+10/4/2024
+CISC230 Object Oriented Design and Programming
+81
+
+--- Slide 82 ---
+Alternate Event Handlers
+Instead of using a method reference, the event handler could be specified using a separate class that implements the EventHandler interface:
+10/4/2024
+CISC230 Object Oriented Design and Programming
+82
+public class ButtonHandler implements EventHandler<ActionEvent>
+{
+    public void handle(ActionEvent event)
+    {
+        count++;
+        countText.setText("Pushes: " + count);
+    }
+}
+
+--- Slide 83 ---
+Alternate Event Handlers
+The event handler class could be defined as public in a separate file or as a private inner class in the same file
+Either way, the call to the setOnAction method would specify a new event handler object:
+push.setOnAction(new ButtonHandler());
+10/4/2024
+CISC230 Object Oriented Design and Programming
+83
+
+--- Slide 84 ---
+Alternate Event Handlers
+Another approach would be to define the event handler using a lambda expression in the call to setOnAction:
+    push.setOnAction((event) -> {
+        count++;
+        countText.setText("Pushes: " + count);
+    });
+A lambda expression is defined by a set of parameters, the -> operator and an expression
+10/4/2024
+CISC230 Object Oriented Design and Programming
+84
+
+--- Slide 85 ---
+Alternate Event Handlers
+A lambda expression can be used whenever an object of a functional interface is required
+A functional interface contains a single method
+The EventHandler interface is a functional interface
+The method reference approach is equivalent to a lambda expression
+10/4/2024
+CISC230 Object Oriented Design and Programming
+85
+
+--- Slide 86 ---
+Outline
+Anatomy of a Class
+Encapsulation
+Anatomy of a Method
+Arcs
+Images
+Graphical User Interfaces
+Text Fields
+10/4/2024
+CISC230 Object Oriented Design and Programming
+86
+
+--- Slide 87 ---
+Text Fields
+Let's look at a GUI example that uses another type of control
+A text field allows the user to enter one line of input
+If the cursor is in the text field, the text field object generates an action event when the enter key is pressed
+See FahrenheitConverter.java
+See FahrenheitPane.java
+10/4/2024
+CISC230 Object Oriented Design and Programming
+87
+
+--- Slide 88 ---
+10/4/2024
+CISC230 Object Oriented Design and Programming
+88
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+public class FahrenheitConverter extends Application {
+    //  Launches the temperature converter application.
+    public void start(Stage primaryStage){
+        Scene scene = new Scene(new FahrenheitPane(), 300, 150);
+        primaryStage.setTitle("Fahrenheit Converter");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+}
+
+--- Slide 89 ---
+CISC230 Object Oriented Design and Programming
+import javafx.event.ActionEvent;
+import javafx.geometry.*;
+import javafx.scene.control.*; import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+//  Demonstrates the use of a TextField and a GridPane.
+public class FahrenheitPane extends GridPane {
+    private Label result;                  //  Sets up a GUI containing a labeled text field
+    private TextField fahrenheit;   //  for converting temp in F to C.
+    public FahrenheitPane(){
+        Font font = new Font(18);
+        Label inputLabel = new Label("Fahrenheit:");
+        inputLabel.setFont(font); GridPane.setHalignment(inputLabel, HPos.RIGHT);
+        Label outputLabel = new Label("Celsius:");
+        outputLabel.setFont(font);  GridPane.setHalignment(outputLabel, HPos.RIGHT);
+        result = new Label("---");   result.setFont(font);
+        GridPane.setHalignment(result, HPos.CENTER);
+        fahrenheit = new TextField();
+        fahrenheit.setFont(font); fahrenheit.setPrefWidth(50);
+        fahrenheit.setAlignment(Pos.CENTER);
+        fahrenheit.setOnAction(this::processReturn);
+        setAlignment(Pos.CENTER); setHgap(20); setVgap(10);
+        setStyle("-fx-background-color: yellow");
+        add(inputLabel, 0, 0); add(fahrenheit, 1, 0);
+        add(outputLabel, 0, 1); add(result, 1, 1);
+    } }
+import javafx.event.ActionEvent;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+10/4/2024
+89
+
+--- Slide 90 ---
+10/4/2024
+CISC230 Object Oriented Design and Programming
+90
+continue
+
+    //--------------------------------------------------------------------
+    //  Computes and displays the converted temperature when the user
+    //  presses the return key while in the text field.
+    //--------------------------------------------------------------------
+    public void processReturn(ActionEvent event)
+    {
+        int fahrenheitTemp = Integer.parseInt(fahrenheit.getText());
+        int celsiusTemp = (fahrenheitTemp - 32) * 5 / 9;
+        result.setText(celsiusTemp + "");
+    }
+}
+
+--- Slide 91 ---
+Text Fields
+The details of the user interface are set up in a separate class that extends GridPane
+GridPane is a JavaFX layout pane that displays nodes in a rectangular grid
+The GUI elements are set up in the constructor of FahrenheitPane
+The event handler method is also defined in FahrenheitPane
+10/4/2024
+CISC230 Object Oriented Design and Programming
+91
+
+--- Slide 92 ---
+10/4/2024
+CISC230 Object Oriented Design and Programming
+92
+import javafx.event.ActionEvent;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+//  Demonstrates the use of a TextField and a GridPane.
+public class FahrenheitPane extends GridPane {
+    private Label result;
+    private TextField fahrenheit;
+    public FahrenheitPane() {
+        Font font = new Font(18);
+        Label inputLabel = new Label("Fahrenheit:");
+        inputLabel.setFont(font);
+        GridPane.setHalignment(inputLabel, HPos.RIGHT);
+        Label outputLabel = new Label("Celsius:");
+        outputLabel.setFont(font);
+        GridPane.setHalignment(outputLabel, HPos.RIGHT);
+        result = new Label("---");
+        result.setFont(font);
+        GridPane.setHalignment(result, HPos.CENTER);
+
+--- Slide 93 ---
+10/4/2024
+CISC230 Object Oriented Design and Programming
+93
+continue
+        fahrenheit = new TextField();
+        fahrenheit.setFont(font);
+        fahrenheit.setPrefWidth(50);
+        fahrenheit.setAlignment(Pos.CENTER);
+        fahrenheit.setOnAction(this::processReturn);
+        setAlignment(Pos.CENTER);
+        setHgap(20);
+        setVgap(10);
+        setStyle("-fx-background-color: yellow");
+        add(inputLabel, 0, 0);
+        add(fahrenheit, 1, 0);
+        add(outputLabel, 0, 1);
+        add(result, 1, 1);
+    }
+    //  Computes and displays the converted temperature when the user
+    //  presses the return key while in the text field.
+    public void processReturn(ActionEvent event){
+        int fahrenheitTemp = Integer.parseInt(fahrenheit.getText());
+        int celsiusTemp = (fahrenheitTemp - 32) * 5 / 9;
+        result.setText(celsiusTemp + "");
+    }
+}
+
+--- Slide 94 ---
+Text Fields
+Through inheritance, a FahrenheitPane is a GridPane and inherits the add method
+The parameters to add specify the grid cell to which to add the node
+Row and column numbering in a grid pane start at 0
+When the user presses return, the event handler method is called, which converts the value and updates the text result
+10/4/2024
+CISC230 Object Oriented Design and Programming
+94
+
+--- Slide 95 ---
+Summary
+Chapter 4 focused on:
+class definitions
+instance data
+encapsulation and Java modifiers
+method declaration and parameter passing
+constructors
+arcs and images
+events and event handlers
+buttons and text fields
+10/4/2024
+CISC230 Object Oriented Design and Programming
+95
+
+--- Slide 96 ---
+Copyright
+This work is protected by United States copyright laws and is provided solely for the use of instructors in teaching their courses and assessing student learning. Dissemination or sale of any part of this work (including on the World Wide Web) will destroy the integrity of the work and is not permitted. The work and materials from it should never be made available to students except by instructors using the accompanying text in their classes. All recipients of this work are expected to abide by these restrictions and to honor the intended pedagogical purposes and the needs of other instructors who rely on these materials.
+10/4/2024
+CISC230 Object Oriented Design and Programming
+96

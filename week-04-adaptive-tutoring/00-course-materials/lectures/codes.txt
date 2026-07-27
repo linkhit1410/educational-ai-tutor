@@ -1,0 +1,689 @@
+Source file: Codes.pptx
+
+--- Slide 1 ---
+Example 1
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.io.File;
+public class Error1 {
+  private void openFile (String filenName ) throws FileNotFoundException {
+    new Scanner(new File(filenName) );
+  }
+  private void openFile()   {
+    try {
+        openFile("File.txt");
+    } catch ( FileNotFoundException e  )    {
+        System.out.println("getCasue: " + e.getCause());
+        e.printStackTrace();
+    }
+  }
+  public static void main(String[] args) {
+    new Error1().openFile();
+  }
+}
+5/12/2023
+CISC230 Object Oriented Design and Programming
+1
+
+--- Slide 2 ---
+Example 2
+public class ErrorE {
+  private void thisMethodThrowsAnE(int index) throws Exception, Error {
+    if ( index == 0 )   {
+        System.out.println("thisMethodThrowsAnException() ---> " );
+        throw new Exception("in thisMethodThrowsAnException");
+    } else {
+        System.out.println("thisMethodThrowsAnError() ---> " );
+        throw new Error("in thisMethodThrowsAnException");
+    }
+  }
+  private void caller() {
+    for ( int index = 0; index < 2; index ++ )  {
+        try {
+            thisMethodThrowsAnE(index);
+        } catch (Exception e)   {
+            e.printStackTrace();
+        } catch (Error e)   {
+            e.printStackTrace();
+        } finally   {
+            System.out.println("Finally");
+            System.out.println("Ok, a few things to clean up" );
+        }
+    }
+  }
+  public static void main(String[] args) {
+    new ErrorE().caller();
+  }
+}
+5/12/2023
+CISC230 Object Oriented Design and Programming
+2
+
+--- Slide 3 ---
+Example 3
+import java.util.Vector;
+public class Finally_0 {
+  private void test_1() {
+    try {
+        String aString = "a:";
+        aString = null;
+        aString.length();
+    } catch (NullPointerException e)    {
+        System.out.println("NullPointerException caught");
+    } finally   {
+        System.out.println("finally 1");
+    }
+  }
+  private void test_2()  {
+    try {
+        String aString = "a:";
+        aString = null;
+aString.length();
+
+    } catch (Exception e)   {
+        System.out.println(e);
+    } finally   {
+        System.out.println("finally 2");
+    }
+  }
+5/12/2023
+CISC230 Object Oriented Design and Programming
+3
+private void test_3()  {
+        try {
+                String aString = "a:";
+                aString = null;
+                aString.length();
+        } catch (NullPointerException e)        {
+                System.out.println("NullPointerException caught");
+        System.exit(0);
+        } finally       {
+                System.out.println("finally 1");
+        }
+  }
+  public static void main(String[] args) {
+    new Finally_0().test_1();
+    new Finally_0().test_2();
+    new Finally_0().test_3();
+  }
+}
+
+--- Slide 4 ---
+Example 4
+public class Finally_1 {
+  private int test_1()   {
+        try {
+                String aString = "a:";
+                aString = null;
+                aString.length();
+        } catch (NullPointerException e)        {
+        System.out.println("catch ");
+        return 0;
+    } finally   {
+        System.out.println("finally");
+        return 1;
+    }
+  }
+5/12/2023
+CISC230 Object Oriented Design and Programming
+4
+private int test_2()     {
+        try {
+                String aString = "a:";
+                aString = null;
+                aString.length();
+    } catch (Exception e)   {
+        throw new Exception("3");
+    } finally   {
+        System.out.println("finally");
+        return 1;
+    }
+  }
+  public static void main(String[] args) {
+    System.out.println("Rvalue = " + new Finally_1().test_1());
+    System.out.println("Rvalue = " + new Finally_1().test_2());
+  }
+}
+
+--- Slide 5 ---
+Example 5
+public class RunTime {
+  private void divide(int a, int b) {
+    int result = a / b;
+  }
+  private void callDivider(int a, int b)    {
+    divide(a, b);
+  }
+  public static void main(String[] args) {
+    int a = (int) Math.random();
+    int b = 1;
+    new RunTime().callDivider(a, b);
+    new RunTime().callDivider(b, a);
+  }
+}
+5/12/2023
+CISC230 Object Oriented Design and Programming
+5
+
+--- Slide 6 ---
+Example Code 1
+public class Pigeon extends Flock
+{
+  private String name;
+  public Pigeon()
+  {
+  }
+  public Pigeon(String name)
+  {
+    this.name = name;
+  }
+  private static void test()
+  {
+    int soManyBirdsCreated = 0;
+    String name = "Tippler";
+    Pigeon lastOne = null;  // why?
+    while (  soManyBirdsCreated++ < maxNumberOfBirds )
+          {
+        lastOne = new Pigeon(name += " Pigeon");
+    }
+    System.out.println("Count: " + lastOne.soManyBirds());
+    System.out.println("last name used = " + name );
+  }
+  public static void main(String[] args )   {
+    test();
+  }
+}
+5/12/2023
+CISC230 Object Oriented Design and Programming
+6
+public class Flock {
+  private static int soManyBirds = 0;
+  static final int   maxNumberOfBirds = 3;
+  public Flock()    {
+    soManyBirds ++;
+  }
+  public int soManyBirds()  {
+    return soManyBirds;
+  }
+  public String toString()  {
+    return ""  + soManyBirds;
+  }
+}
+
+--- Slide 7 ---
+Example Code 2
+public class S
+{
+  public int intS;   // what is the value of intS?
+  public S ()
+  {
+    System.out.println("S()");
+  }
+  public S method(int x)
+  {
+    intS = x;
+    System.out.println("S method(int x)");
+    return this;
+  }
+  public String toString()
+  {
+    return "S: " + intS;
+  }
+  public static void main(String args[])
+  {
+    System.out.println("new S():" +  new S());
+  }
+}
+5/12/2023
+CISC230 Object Oriented Design and Programming
+7
+public class SubclassOfS extends S
+{
+  public int intS;
+  public SubclassOfS()
+  {
+    System.out.println("SubclassOfS ()");
+  }
+  public S method(int x)
+  {
+                intS = x;
+    System.out.println("S method(int x)");
+    super.method(9);
+    System.out.println("3. super: " + super.toString() );
+    super.intS = 4;
+    System.out.println("4. super: " + super.toString() );
+    return this;
+  }
+  public String toString()
+  {
+     return "SSubclassOfS: " + intS;
+  }
+  public static void main(String args[])
+  {
+    SubclassOfS aSubclassOfS = new SubclassOfS();
+    S  aS =  aSubclassOfS.method(42);
+    System.out.println(aS);
+    System.out.println(aSubclassOfS);
+    System.out.println("1. SubclassOfS!intS = " + aSubclassOfS.intS);
+    System.out.println("2.((S)SubclassOfS)!intS = " + ((S)aSubclassOfS).intS);
+                //method(3);        // <--- what is the problem here ...
+  }
+}
+
+--- Slide 8 ---
+Example Code 3
+public class DefaultConstructor {
+  final int MINIMUM = 4;
+  int thisNumbershouldAlwyasBeInitializedWithAvalueGreaterThan4;
+  //DefaultConstructor()    {}
+  DefaultConstructor(int aInt)  {
+    aInt = ( aInt <= MINIMUM ) ? MINIMUM : aInt;
+    thisNumbershouldAlwyasBeInitializedWithAvalueGreaterThan4 = aInt;
+  }
+  public static void main(String args[]) {
+    // DefaultConstructor aDefaultConstructor = new DefaultConstructor();
+    DefaultConstructor aDefaultConstructor = new DefaultConstructor(3);
+    System.out.println(aDefaultConstructor.thisNumbershouldAlwaysBeInitializedWithAvalueGreaterThan4);
+  }
+}
+class SubClass extends DefaultConstructor {
+  SubClass()    {
+    System.out.println(" SubClass()" );
+  }
+  public static void main(String args[]) {
+    SubClass aSubClass = new SubClass();
+  }
+}
+5/12/2023
+CISC230 Object Oriented Design and Programming
+8
+
+--- Slide 9 ---
+Example Code 4-5
+public class Player {
+  private String name;
+  Player(String name)   {
+    this.name = name;
+  }
+  public String getName()    {
+        return name;
+  }
+  public static void main(String args[]) {
+    Player aPlayer = new Player("John");
+    //Player bPlayer = new Player();
+    System.out.println("Name of the PLayer is: "
+                                            + aPlayer.getName() );
+  }
+}
+5/12/2023
+CISC230 Object Oriented Design and Programming
+9
+public class Game {
+  private String name;
+  Game(String name) {
+    this.name = name;
+  }
+  public String nameOfTheGame()    {
+        return name;
+  }
+  public static void main(String args[]) {
+    Game aGame = new Game("BackGammon");
+    Player playerOne = new Player("Rose");
+    Player playerTwo = new Player("John");
+    System.out.println(playerOne.getName() + " and “
+                                                  + playerTwo.getName()
+                +  " are playing a game of "
+                                                  + aGame.nameOfTheGame()
+                                                  + ".");
+  }
+}
+
+--- Slide 10 ---
+Example Code 6
+public class Vehicle {
+  String honkSound = "vehicle honk";
+  int wheels       = 4;
+  public void setSound (String honkSound)    {
+        this.honkSound = honkSound;
+  }
+  public String toString ()    {
+        return "v";
+  }
+  public void setSoManyWheels (int wheels)    {
+        this.wheels = wheels;
+  }
+  public int soManyWheels ()    {
+    return wheels;
+  }
+  public void honk()    {
+    System.out.println(honkSound);
+  }
+}
+5/12/2023
+CISC230 Object Oriented Design and Programming
+10
+public class Train extends Vehicle {
+  String honkSound = "choo-choo";
+  int wheels       = 32;
+
+  public void setSound (String honkSound)    {
+        this.honkSound = honkSound;
+  }
+  public int soManyWheels ()    {
+        return wheels;
+  }
+  public void onlyAtrainCanDoThis() {
+             System.out.println("Train do it");
+  }
+  public void honk()    {
+    System.out.println(honkSound);
+  }
+  public void de()  {
+    System.out.println("de");
+  }
+  public static void main(String[] args )   {
+    new Vehicle().honk();
+    new Train().honk();
+    new Train().de();
+    new Train().onlyAtrainCanDoThis();
+    //((Train) new Vehicle()).onlyAtrainCanDoThis();
+    //new Vehicle().onlyAtrainCanDoThis();
+    int a= new Vehicle().soManyWheels();
+    int b= new Train().soManyWheels();
+    System.out.println ("Vehicle Wheels: "+ a + "\nTrain Wheels: " + b);  }
+}
+
+--- Slide 11 ---
+Example 7
+public class TrainEx {
+  String honkSound = "choo-choo";
+  public void honk()    {
+    System.out.println(honkSound);
+  }
+  public static void main(String[] args ) {
+    new Vehicle().honk();
+    new Train().honk();
+    Train   aTrain   = new Train();
+    Vehicle aVehicle = aTrain; // new Vehicle();
+        Vehicle aVehicleOtherReference = aVehicle;
+        System.out.println(aVehicle + " " +aTrain);
+        System.out.println(aVehicle + " " +aVehicle);
+    aVehicle.honk();
+    aTrain.honk();
+    System.out.println("--------------------");
+    aVehicle.setSound("ringADing");
+    aVehicle.honk();
+    aTrain.honk();
+    System.out.println("aVehicle.honkSound: " + aVehicle.honkSound);
+    System.out.println("aTrain.honkSound: " + aTrain.honkSound);
+
+  }
+}
+5/12/2023
+CISC230 Object Oriented Design and Programming
+11
+
+--- Slide 12 ---
+public static void main(String args[] ) {
+    aC = new C();
+    aB = (B)aC;
+    aB.aInstanceIntSet(1);
+    aB.aInstanceInt =  3;
+    print("1: ");
+   }
+}
+
+public class  B {
+  int    aInstanceInt;
+   void  aInstanceIntSet(int aInstanceInt) {
+     this.aInstanceInt =  aInstanceInt;
+}
+   int  aInstanceIntGet() {
+     return aInstanceInt;
+}
+   public String toString(){
+    return "B: " + aInstanceIntGet();
+}
+}
+5/12/2023
+CISC230 Object Oriented Design and Programming
+12
+public class  C extends B {
+int    aInstanceInt;
+static C aC;
+static B aB;
+void  aInstanceIntSet(int aInstanceInt) {
+   this.aInstanceInt =  aInstanceInt;
+}
+int  aInstanceIntGet() {
+   return aInstanceInt;
+}
+public String toString(){
+  return "C: " + aInstanceIntGet();
+}
+public static void print(String location){
+  System.out.println(location);
+  System.out.println("" + aB);
+  System.out.println("" + aC);
+  System.out.println("" + aB.aInstanceInt);
+  System.out.println("" + aC.aInstanceInt);
+}
+
+--- Slide 13 ---
+public class S5 {
+  public int inS6andS5 = 1;
+  public int inS5Only = 1;
+  public String toString(){
+  return "S5: " + "inS6andS5 =  " + inS6andS5 + " inS5Only =  " + inS5Only ;
+  }
+  public void both()    {
+        inS6andS5 = 11;
+  }
+  public static void main(String args[]) {
+    System.out.println(new S5());
+  }
+}
+5/12/2023
+CISC230 Object Oriented Design and Programming
+13
+
+--- Slide 14 ---
+public class S6 extends S5  {
+  public int inS6andS5 = 2;
+  public void both(){
+  inS6andS5 = 22;
+  }
+  public String toStringSuper()      {
+        return super.toString();
+  }
+  public String toString()      {
+     return "S6: " + "inS6andS5 =  "
+   +inS6andS5 + " inS5Only =  " + inS5Only;
+  }
+  public int superA()      {
+    return super.inS6andS5;
+  }
+ public static void main(String args[])    {
+   S6 aS6 = new S6();
+   S5 aS5 = (S5)aS6;
+   aS6.both();
+5/12/2023
+CISC230 Object Oriented Design and Programming
+14
+System.out.println("1. aS6 = " + aS6 );
+System.out.println("1. aS5 = " + aS5 + "\n" );
+aS5.both();
+System.out.println("2. aS6 = " + aS6 );
+System.out.println("2. aS5 = " + aS5 );
+System.out.println("2. aS6.toStringSuper() = "
+ + aS6.toStringSuper() + "\n" );
+aS6.inS6andS5 = 3;
+System.out.println("aS6.inS6andS5 = 3;");
+System.out.println("3. aS6 = " + aS6 );
+System.out.println("3. aS5 = " + aS5 + "\n" );
+aS6.inS5Only = 4;
+System.out.println("aS6.inS5Only = 4;");
+System.out.println("4. aS6 " + aS6);
+System.out.println("4. aS5 " + aS5 + "\n");
+aS5.inS5Only = 5;
+System.out.println("aS5.inS5Only = 5;");
+System.out.println("5. aS6 " + aS6);
+System.out.println("5. aS5 " + aS5);
+  }
+}
+
+--- Slide 15 ---
+Polymorphism Case Study
+5/12/2023
+CISC230 Object Oriented Design and Programming
+15
+
+--- Slide 16 ---
+"Polymorphism mystery"
+5/12/2023
+Computer Science II
+16
+
+--- Slide 17 ---
+Technique 1: diagram
+Diagram the classes from top (superclass) to bottom.
+5/12/2023
+Computer Science II
+17
+
+--- Slide 18 ---
+Technique 2: table
+method | Snow | Rain | Sleet | Fog
+method1
+method2
+method3
+Italic  - inherited behavior
+Bold    - dynamic method call
+method | Snow | Rain | Sleet | Fog
+method1 | Rain 1 | Fog 1
+method2 | Snow 2 | Rain 2 | Sleet 2
+Snow 2
+method3() | Sleet 2
+Snow 2
+method3()
+method3 | Snow 3 | Snow 3 | Sleet 3 | Fog 3
+5/12/2023
+Computer Science II
+18
+
+--- Slide 19 ---
+Mystery problem, no cast
+Snow var3 = new Rain();
+    var3.method2();          // What's the output?
+
+If the problem does not  have any casting, then:
+Look at the variable's type.
+If that type does not have the method: ERROR.
+
+Execute the method, behaving like the object's type.
+(The variable type no longer matters in this step.)
+5/12/2023
+Computer Science II
+19
+
+--- Slide 20 ---
+Example 1
+What is the output of the following call?
+
+  Snow var1 = new Sleet();
+  var1.method2();
+
+Answer:
+
+  Sleet 2
+  Snow 2
+  Sleet 3
+object
+variable
+5/12/2023
+Computer Science II
+20
+
+--- Slide 21 ---
+Example 2
+What is the output of the following call?
+
+  Snow var2 = new Rain();
+  var2.method1();
+
+Answer:
+
+    ERROR
+    (because Snow does not
+    have a method1)
+variable
+object
+5/12/2023
+Computer Science II
+21
+
+--- Slide 22 ---
+Mystery problem with cast
+Snow var2 = new Rain();
+    ((Sleet) var2).method2();   // What's the output?
+
+If the problem does  have a type cast, then:
+Look at the cast type.
+If that type does not have the method: ERROR.
+
+Make sure the object's type is the cast type or is a subclass of the cast type.  If not: ERROR.  (No sideways casts!)
+
+Execute the method, behaving like the object's type.
+(The variable / cast types no longer matter in this step.)
+5/12/2023
+Computer Science II
+22
+
+--- Slide 23 ---
+Example 3
+What is the output of the following call?
+
+  Snow var2 = new Rain();
+  ((Rain) var2).method1();
+
+Answer:
+
+    Rain 1
+variable
+object
+cast
+5/12/2023
+Computer Science II
+23
+
+--- Slide 24 ---
+Example 4
+What is the output of the following call?
+
+  Snow var2 = new Rain();
+  ((Sleet) var2).method2();
+
+Answer:
+
+    ERROR
+    (because the object's
+type, Rain, cannot
+    be cast into Sleet)
+object
+cast
+variable
+5/12/2023
+Computer Science II
+24
+
+--- Slide 25 ---
+Question
+5/12/2023
+Computer Science II
+25
+
+--- Slide 26 ---
+Question 2
+5/12/2023
+Computer Science II
+26

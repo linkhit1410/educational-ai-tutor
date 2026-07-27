@@ -1,0 +1,1148 @@
+Source file: Chapter 1.pptx
+
+--- Slide 1 ---
+Chapter 1
+Introduction
+
+--- Slide 2 ---
+Chapter 1: Introduction
+Chapter 1 focuses on:
+Components of a computer
+How computers store and manipulate information
+Computer networks
+The Internet and the World Wide Web
+Programming and programming languages
+An introduction to Java
+An overview of object-oriented concepts
+1/29/2025
+CISC230 Object-Oriented Design and programming
+2
+
+--- Slide 3 ---
+Outline
+Computer Processing
+Hardware Components
+Networks
+The Java Programming Language
+Program Development
+Object-Oriented Programming
+1/29/2025
+CISC230 Object-Oriented Design and programming
+3
+
+--- Slide 4 ---
+Hardware and Software
+Hardware
+the physical, tangible parts of a computer
+keyboard, monitor, disks, wires, chips, etc.
+Software
+programs and data
+a program is a series of instructions
+A computer requires both hardware and software
+Each is essentially useless without the other
+1/29/2025
+CISC230 Object-Oriented Design and programming
+4
+
+--- Slide 5 ---
+CPU and Main Memory
+Chip that executes program commands
+Primary storage area for programs and data that are in active use
+
+Synonymous with RAM
+1/29/2025
+CISC230 Object-Oriented Design and programming
+5
+
+--- Slide 6 ---
+Input / Output Devices
+Monitor screen
+Keyboard
+Mouse
+Touch screen
+I/O devices facilitate
+user interaction
+1/29/2025
+CISC230 Object-Oriented Design and programming
+6
+
+--- Slide 7 ---
+Secondary Memory Devices
+Information is moved
+between main and
+secondary memory
+as needed
+Secondary memory
+devices provide
+long-term storage
+1/29/2025
+CISC230 Object-Oriented Design and programming
+7
+
+--- Slide 8 ---
+Software Categories
+Operating System
+controls all machine activities
+provides the user interface to the computer
+manages resources such as the CPU and memory
+Windows, Mac OS, Unix, Linux,
+Application program
+generic term for any other kind of software
+word processors, missile control systems, games
+Most operating systems and application programs have a graphical user interface (GUI)
+1/29/2025
+CISC230 Object-Oriented Design and programming
+8
+
+--- Slide 9 ---
+Analog vs. Digital
+There are two basic ways to store and manage data:
+Analog
+continuous, in direct proportion to the data represented
+music on a record album - a needle rides on ridges in the grooves that are directly proportional to the voltages sent to the speaker
+Digital
+the information is broken down into pieces, and each piece is represented separately
+sampling – record discrete values of the analog representation
+music on a compact disc - the disc stores numbers representing specific voltage levels sampled at specific times
+1/29/2025
+CISC230 Object-Oriented Design and programming
+9
+
+--- Slide 10 ---
+Analog Information
+1/29/2025
+CISC230 Object-Oriented Design and programming
+10
+
+--- Slide 11 ---
+Sampling
+1/29/2025
+CISC230 Object-Oriented Design and programming
+11
+
+--- Slide 12 ---
+Digital Information
+Computers store all information digitally:
+numbers
+text
+graphics and images
+audio
+video
+program instructions
+In some way, all information is digitized - broken down into pieces and represented as numbers
+1/29/2025
+CISC230 Object-Oriented Design and programming
+12
+
+--- Slide 13 ---
+Representing Text Digitally
+For example, every character is stored as a number, including spaces, digits, and punctuation
+Corresponding upper-case and lower-case letters are separate characters
+H i ,   H e a t h e r .
+1/29/2025
+CISC230 Object-Oriented Design and programming
+13
+
+--- Slide 14 ---
+Binary Numbers
+Once information has been digitized, it is represented and stored in memory using the binary number system
+A single binary digit (0 or 1) is called a bit
+Devices that store and move information are cheaper and more reliable if they must represent only two states
+A single bit can represent two possible states, like a light bulb that is either on (1) or off (0)
+Permutations of bits are used to store values
+1/29/2025
+CISC230 Object-Oriented Design and programming
+14
+
+--- Slide 15 ---
+Bit Permutations
+Each additional bit doubles the number of possible permutations
+1/29/2025
+CISC230 Object-Oriented Design and programming
+15
+
+--- Slide 16 ---
+Bit Permutations
+Each permutation can represent a particular item
+There are 2N permutations of N bits
+Therefore, N bits are needed to represent 2N unique items
+1/29/2025
+CISC230 Object-Oriented Design and programming
+16
+
+--- Slide 17 ---
+Quick Check
+How many bits would you need to represent each of the 50 United States using a unique permutation of bits?
+1/29/2025
+CISC230 Object-Oriented Design and programming
+17
+
+--- Slide 18 ---
+Quick Check
+How many bits would you need to represent each of the 50 United States using a unique permutation of bits?
+Five bits wouldn't be enough, because 25 is 32.
+Six bits would give us 64 permutations, and some wouldn't be used.
+000000   Alabama
+000001   Alaska
+000010   Arizona
+000011   Arkansas
+000100   California
+000101   Colorado
+etc.
+1/29/2025
+CISC230 Object-Oriented Design and programming
+18
+
+--- Slide 19 ---
+Outline
+Computer Processing
+Hardware Components
+Networks
+The Java Programming Language
+Program Development
+Object-Oriented Programming
+1/29/2025
+CISC230 Object-Oriented Design and programming
+19
+
+--- Slide 20 ---
+A Computer Specification
+Consider the following specification for a personal computer:
+Intel Dual-Core i7 processor
+8 GB RAM
+750 GB Hard Disk
+15” High Definition Display with 1366 x 768 resolution
+802.11 wireless card
+1/29/2025
+CISC230 Object-Oriented Design and programming
+20
+
+--- Slide 21 ---
+Computer Architecture
+1/29/2025
+CISC230 Object-Oriented Design and programming
+21
+
+--- Slide 22 ---
+Memory
+1/29/2025
+CISC230 Object-Oriented Design and programming
+22
+
+--- Slide 23 ---
+Storing Information
+9278
+9279
+9280
+9281
+9282
+9283
+9284
+9285
+9286
+10011010
+1/29/2025
+CISC230 Object-Oriented Design and programming
+23
+
+--- Slide 24 ---
+Storage Capacity
+Every memory device has a storage capacity, indicating the number of bytes it can hold
+Capacities are expressed in various units:
+Unit | Symbol | Number of Bytes
+kilobyte | KB | 210 = 1024
+megabyte | MB | 220 (over one million)
+gigabyte | GB | 230 (over one billion)
+terabyte | TB | 240 (over one trillion)
+petabyte | PB | 250 (a whole bunch)
+1/29/2025
+CISC230 Object-Oriented Design and programming
+24
+
+--- Slide 25 ---
+Memory
+Main memory is volatile  -  stored information is lost if the electric power is removed
+Secondary memory devices are nonvolatile
+Main memory and disks are direct access devices - information can be reached directly
+The terms direct access and random access often are used interchangeably
+A magnetic tape is a sequential access device since its data is arranged in a linear order  -  you must get by the intervening data in order to access other information
+1/29/2025
+CISC230 Object-Oriented Design and programming
+25
+
+--- Slide 26 ---
+Hard Disk Drive
+1/29/2025
+CISC230 Object-Oriented Design and programming
+26
+
+--- Slide 27 ---
+RAM vs. ROM
+RAM  -  Random Access Memory (direct access)
+ROM  -  Read-Only Memory
+The terms RAM and main memory are basically interchangeable
+ROM could be a set of memory chips, or a separate device, such as a CD ROM
+Both RAM and ROM are random (direct) access devices!
+RAM probably should be called Read-Write Memory
+1/29/2025
+CISC230 Object-Oriented Design and programming
+27
+
+--- Slide 28 ---
+Compact Discs
+A CD-ROM is portable read-only memory
+A microscopic pit on a CD represents a binary 1 and a smooth area represents a binary 0
+A low-intensity laser reflects strongly from a smooth area and weakly from a pit
+A CD-Recordable (CD-R) drive can be used to write information to a CD once
+The speed of a CD drive indicates how fast (max) it can read and write information to a CD
+1/29/2025
+CISC230 Object-Oriented Design and programming
+28
+
+--- Slide 29 ---
+DVDs
+A DVD is the same physical size as a CD, but can store much more information
+The format of a DVD stores more bits per square inch
+A CD can store 650 MB, while a standard DVD can store 4.7 GB
+A double-sided DVD can store 9.4 GB
+Other advanced techniques can bring the capacity up to 17.0 GB
+Like CDs, there are DVD-R discs
+1/29/2025
+CISC230 Object-Oriented Design and programming
+29
+
+--- Slide 30 ---
+The Central Processing Unit
+A CPU is on a chip called a microprocessor
+It continuously follows the fetch-decode-execute cycle:
+1/29/2025
+CISC230 Object-Oriented Design and programming
+30
+
+--- Slide 31 ---
+The Central Processing Unit
+Arithmetic / Logic Unit
+Registers
+Control Unit
+Small storage areas
+Performs calculations and makes decisions
+Coordinates processing steps
+1/29/2025
+CISC230 Object-Oriented Design and programming
+31
+
+--- Slide 32 ---
+The Central Processing Unit
+The speed of a CPU is controlled by the system clock
+The system clock generates an electronic pulse at regular intervals
+The pulses coordinate the activities of the CPU
+The speed is usually measured in gigahertz (GHz)
+1/29/2025
+CISC230 Object-Oriented Design and programming
+32
+
+--- Slide 33 ---
+Monitor
+The size of a monitor (15.6") is measured diagonally, like a television screen
+A monitor has a certain maximum resolution , indicating the number of picture elements, called pixels, that it can display (such as 1366 by 768)
+High resolution (more pixels) produces sharper pictures
+1/29/2025
+CISC230 Object-Oriented Design and programming
+33
+
+--- Slide 34 ---
+Outline
+Computer Processing
+Hardware Components
+Networks
+The Java Programming Language
+Program Development
+Object-Oriented Programming
+1/29/2025
+CISC230 Object-Oriented Design and programming
+34
+
+--- Slide 35 ---
+Networks
+A network is two or more computers that are connected so that data and resources can be shared
+Most computers are connected to network
+Each computer has its own network address, which uniquely identifies it among the others
+A file server is a network computer dedicated to storing programs and data that are shared among network users
+1/29/2025
+CISC230 Object-Oriented Design and programming
+35
+
+--- Slide 36 ---
+Network Connections
+Each computer in a network could be directly connected to every other computer in the network
+These are called point-to-point connections
+This technique is not practical for
+more than a few close machines
+Adding a computer requires
+a new communication line
+for each computer already
+in the network
+1/29/2025
+CISC230 Object-Oriented Design and programming
+36
+
+--- Slide 37 ---
+Network Connections
+Most networks share a single communication line
+Adding a new computer to the network is relatively easy
+Network traffic must take
+turns using the line, which
+introduces delays
+Often information is broken
+down in parts, called packets,
+which are sent to the receiving
+machine and then reassembled
+1/29/2025
+CISC230 Object-Oriented Design and programming
+37
+
+--- Slide 38 ---
+A Computer Network
+1/29/2025
+CISC230 Object-Oriented Design and programming
+38
+
+--- Slide 39 ---
+Local-Area Networks
+A Local-Area Network
+(LAN) covers a small
+distance and a small
+number of computers
+A LAN often connects the machines
+in a single room or building
+1/29/2025
+CISC230 Object-Oriented Design and programming
+39
+
+--- Slide 40 ---
+Wide-Area Networks
+1/29/2025
+CISC230 Object-Oriented Design and programming
+40
+A Wide-Area Network (WAN)
+connects two or more LANs,
+often over long distances
+
+--- Slide 41 ---
+The Internet
+The Internet is a WAN which spans the planet
+The word Internet comes from the term internetworking
+It started as a United States government project, sponsored by the Advanced Research Projects Agency (ARPA)
+originally it was called the ARPANET
+The Internet grew quickly throughout the 1980s and 90s
+1/29/2025
+CISC230 Object-Oriented Design and programming
+41
+
+--- Slide 42 ---
+TCP/IP
+A protocol is a set of rules that determine how things communicate with each other
+The software that manages Internet communication follows a suite of protocols called TCP/IP
+The Internet Protocol (IP) determines the format of the information as it is transferred
+The Transmission Control Protocol (TCP) dictates how messages are reassembled and handles lost information
+1/29/2025
+CISC230 Object-Oriented Design and programming
+42
+
+--- Slide 43 ---
+IP and Internet Addresses
+Each computer on the Internet has a unique IP address, such as:
+204.192.116.2
+Most computers also have a unique Internet name, which also is referred to as an Internet address:
+cisc.stthomas.edu
+The first part indicates a particular computer (cisc)
+The rest is the domain name, indicating the organization (stthomas.edu)
+1/29/2025
+CISC230 Object-Oriented Design and programming
+43
+
+--- Slide 44 ---
+Domain Names
+The last part of a domain name, called a top-level domain (TLD), supposedly indicates the type of organization:
+edu educational institution
+com commercial entity
+org non-profit organization
+net network-based organization
+Sometimes the suffix
+indicates the country:
+uk  United Kingdom
+au  Australia
+ca  Canada
+se  Sweden
+Additional TLDs have
+been added, including:
+biz, info, tv, name
+1/29/2025
+CISC230 Object-Oriented Design and programming
+44
+
+--- Slide 45 ---
+Domain Names
+A domain name can have several parts
+Unique domain names mean that multiple sites can have individual computers with the same local name
+When used, an Internet address is translated to an IP address by software called the Domain Name System (DNS)
+There is no one-to-one correspondence between the sections of an IP address and the sections of an Internet address
+1/29/2025
+CISC230 Object-Oriented Design and programming
+45
+
+--- Slide 46 ---
+The World Wide Web
+The World Wide Web allows many different types of information to be accessed using a common interface
+A browser is a program which accesses network resources and presents them
+Popular browsers:  Internet Explorer, Safari, Firefox
+Resources presented include:
+text, graphics, video, sound, audio, executable programs
+A Web document usually contains links to other Web documents, creating a hypermedia environment
+The term Web comes from the fact that information is not organized in a linear fashion
+1/29/2025
+CISC230 Object-Oriented Design and programming
+46
+
+--- Slide 47 ---
+The World Wide Web
+Web documents are often defined using the HyperText Markup Language (HTML)
+Information on the Web is found using a Uniform Resource Locator (URL):
+http://www.google.com
+http://www.whitehouse.gov/issues/education
+A URL specifies a protocol (http), a domain, and possibly specific documents
+You can also use a browser with other protocols, such as ftp
+1/29/2025
+CISC230 Object-Oriented Design and programming
+47
+
+--- Slide 48 ---
+Outline
+Computer Processing
+Hardware Components
+Networks
+The Java Programming Language
+Program Development
+Object-Oriented Programming
+1/29/2025
+CISC230 Object Oriented Design and Programming
+48
+
+--- Slide 49 ---
+Programming language
+A programming language specifies the words and symbols that we can use to write a program
+A programming language employs a set of rules that dictate how the words and symbols can be put together to form valid program statements
+1/29/2025
+CISC230 Object Oriented Design and Programming
+49
+
+--- Slide 50 ---
+Java History
+Java was started as a project called "Oak" by James Gosling in June 1991.
+Gosling's goals
+were to implement a virtual machine
+a language that had a familiar C-like notation but
+ greater uniformity and simplicity than C/C++.
+The first public implementation was Java 1.0 in 1995.
+It made the promise of "Write Once, Run Anywhere"
+It was secure, and its security was configurable, allowing for network and file access to be limited.
+CISC230 Object Oriented Design and Programming
+1/29/2025
+50
+
+--- Slide 51 ---
+Java Program Structure
+Java is a pure object-oriented language
+In the Java programming language:
+A program is made up of one or more classes
+A class contains one or more methods
+A method contains program statements
+These terms will be explored in detail throughout the course
+A Java application always contains a method called main
+See Lincoln.java
+CISC230 Object Oriented Design and Programming
+1/29/2025
+51
+
+--- Slide 52 ---
+1/29/2025
+CISC230 Object Oriented Design and Programming
+52
+//********************************************************************
+//  Lincoln.java       Author: Lewis/Loftus
+//
+//  Demonstrates the basic structure of a Java application.
+//********************************************************************
+
+public class Lincoln
+{
+   //-----------------------------------------------------------------
+   //  Prints a presidential quote.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      System.out.println("A quote by Abraham Lincoln:");
+      System.out.println("Whatever you are, be a good one.");
+   }
+}
+
+--- Slide 53 ---
+1/29/2025
+CISC230 Object Oriented Design and Programming
+53
+//********************************************************************
+//  Lincoln.java       Author: Lewis/Loftus
+//
+//  Demonstrates the basic structure of a Java application.
+//********************************************************************
+
+public class Lincoln
+{
+   //-----------------------------------------------------------------
+   //  Prints a presidential quote.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      System.out.println("A quote by Abraham Lincoln:");
+
+      System.out.println("Whatever you are, be a good one.");
+   }
+}
+Output
+A quote by Abraham Lincoln:
+Whatever you are, be a good one.
+
+--- Slide 54 ---
+1/29/2025
+CISC230 Object Oriented Design and Programming
+54
+Java Program Structure
+public class MyProgram
+{
+
+
+
+
+
+
+
+
+
+}
+//  comments about the class
+class header
+class body
+Comments can be placed almost anywhere
+
+--- Slide 55 ---
+Java Program Structure
+1/29/2025
+CISC230 Object Oriented Design and Programming
+55
+public class MyProgram
+{
+
+
+
+
+
+
+
+
+
+}
+//  comments about the class
+public static void main (String[] args)
+{
+
+
+}
+//  comments about the method
+method header
+method body
+
+--- Slide 56 ---
+Comments
+Comments should be included to explain the purpose of the program and describe processing steps
+They do not affect how a program works
+Java comments can take three forms:
+1/29/2025
+CISC230 Object Oriented Design and Programming
+56
+
+--- Slide 57 ---
+Identifiers
+Identifiers are the "words" in a program
+A Java identifier can be made up of letters, digits, the underscore character ( _ ), and the dollar sign($)
+Identifiers cannot begin with a digit
+Java is case sensitive: Total, total, and TOTAL are different identifiers
+By convention, programmers use different case styles for different types of identifiers, such as
+title case for class names - Lincoln
+upper case for constants – MAXIMUM
+Lower case for variable and others - args
+CISC230 Object Oriented Design and Programming
+1/29/2025
+57
+
+--- Slide 58 ---
+Identifiers
+Sometimes the programmer chooses the identifier (such as Lincoln)
+Sometimes we are using another programmer's code, so we use the identifiers that he or she chose (such as println)
+Often, we use special identifiers called reserved words that already have a predefined meaning in the language
+A reserved word cannot be used in any other way
+CISC230 Object Oriented Design and Programming
+1/29/2025
+58
+
+--- Slide 59 ---
+Reserved Words
+1/29/2025
+CISC230 Object Oriented Design and Programming
+59
+The Java reserved words:
+abstract
+assert
+boolean
+break
+byte
+case
+catch
+char
+class
+const
+continue
+default
+do
+double
+else
+enum
+extends
+false
+final
+finally
+float
+for
+goto
+if
+implements
+import
+instanceof
+int
+interface
+long
+native
+new
+null
+package
+private
+protected
+public
+return
+short
+static
+strictfp
+super
+switch
+synchronized
+this
+throw
+throws
+transient
+true
+try
+void
+volatile
+while
+
+--- Slide 60 ---
+Quick Check
+1/29/2025
+CISC230 Object Oriented Design and Programming
+60
+Which of the following are valid Java identifiers?
+grade
+quizGrade
+NetworkConnection
+frame2
+3rdTestScore
+MAXIMUM
+MIN_CAPACITY
+student#
+Shelves1&2
+$price
+_data
+
+--- Slide 61 ---
+Quick Check
+1/29/2025
+CISC230 Object Oriented Design and Programming
+61
+Which of the following are valid Java identifiers?
+grade
+quizGrade
+NetworkConnection
+frame2
+3rdTestScore
+MAXIMUM
+MIN_CAPACITY
+student#
+Shelves1&2
+Valid
+Valid
+Valid
+Valid
+Invalid – cannot begin with a digit
+Valid
+Valid
+Invalid – cannot contain the '#' character
+Invalid – cannot contain the '&' character
+
+--- Slide 62 ---
+White Space
+Spaces, blank lines, and tabs are called white space
+White space is used to separate words and symbols in a program
+Extra white space is ignored
+A valid Java program can be formatted many ways
+Programs should be formatted to enhance readability, using consistent indentation
+See Lincoln2.java and Lincoln3.java
+1/29/2025
+CISC230 Object Oriented Design and Programming
+62
+
+--- Slide 63 ---
+Which sample code looks readable to you?
+Best practices
+
+--- Slide 64 ---
+Sample 1
+//********************************************************************
+//  Lincoln2.java       Author: Lewis/Loftus
+//
+//  Demonstrates a poorly formatted, though valid, program.
+//********************************************************************
+
+public class Lincoln2{public static void main(String[]args){
+System.out.println("A quote by Abraham Lincoln:");
+System.out.println("Whatever you are, be a good one.");}}
+1/29/2025
+CISC230 Object Oriented Design and Programming
+64
+
+--- Slide 65 ---
+Sample 2
+//********************************************************************
+//  Lincoln3.java       Author: Lewis/Loftus
+//
+//  Demonstrates another valid program that is poorly formatted.
+//********************************************************************
+         public       class
+     Lincoln3
+   {
+                 public
+   static
+        void
+  main
+        (
+String
+            []
+1/29/2025
+CISC230 Object Oriented Design and Programming
+65
+args                       )
+  {
+  System.out.println        (
+"A quote by Abraham Lincoln:"          )
+  ;        System.out.println
+            (
+       "Whatever you are, be a good one."
+      )
+  ;
+}
+          }
+
+--- Slide 66 ---
+Sample 3
+//*************************************************************
+//  Lincoln.java       Author: Lewis/Loftus
+//
+//  Demonstrates the basic structure of a Java application.
+//************************************************************
+
+public class Lincoln
+{
+   //---------------------------------------------------------
+   //  Prints a presidential quote.
+   //---------------------------------------------------------
+   public static void main(String[] args)
+   {
+      System.out.println("A quote by Abraham Lincoln:");
+      System.out.println("Whatever you are, be a good one.");
+   }
+}
+1/29/2025
+CISC230 Object Oriented Design and Programming
+66
+
+--- Slide 67 ---
+Outline
+Computer Processing
+Hardware Components
+Networks
+The Java Programming Language
+Program Development
+Object-Oriented Programming
+1/29/2025
+CISC230 Object Oriented Design and Programming
+67
+
+--- Slide 68 ---
+Program Development
+The mechanics of developing a program include several activities:
+writing the program in a specific programming language (such as Java)
+translating the program into a form that the computer can execute
+investigating and fixing various types of errors that can occur
+Software tools can be used to help with all parts of this process
+CISC230 Object Oriented Design and Programming
+1/29/2025
+68
+
+--- Slide 69 ---
+Language Levels
+There are four programming language levels:
+machine language
+assembly language
+high-level language
+fourth-generation language
+Each type of CPU has its own specific machine language
+The other levels were created to make it easier for a human being to read and write programs
+CISC230 Object Oriented Design and Programming
+1/29/2025
+69
+
+--- Slide 70 ---
+Programming Languages
+Each type of CPU executes only a particular machine language
+A program must be translated into machine language before it can be executed
+A compiler is a software tool which translates source code into a specific target language
+Sometimes, that target language is the machine language for a particular CPU type
+The Java approach is somewhat different
+CISC230 Object Oriented Design and Programming
+1/29/2025
+70
+
+--- Slide 71 ---
+Java Translation
+The Java compiler translates Java source code into a special representation called bytecode
+Java bytecode is not the machine language for any traditional CPU
+Bytecode is executed by the Java Virtual Machine (JVM)
+Therefore, Java bytecode is not tied to any machine
+Java is considered as architecture-neutral
+1/29/2025
+CISC230 Object Oriented Design and Programming
+71
+
+--- Slide 72 ---
+Java Translation
+1/29/2025
+CISC230 Object Oriented Design and Programming
+72
+
+--- Slide 73 ---
+Java Program
+In your lab submission you will submit me .java file not the .class file
+1/29/2025
+CISC230 Object Oriented Design and Programming
+73
+
+--- Slide 74 ---
+Typical Java Development Environment
+Java programs normally undergo five phases
+Edit: Programmer writes program (and stores program on disk)
+Compile: Compiler creates bytecodes from program
+Load: Class loader stores bytecodes in memory
+Verify: Bytecode Verifier confirms bytecodes do not violate security restrictions
+Execute: JVM translates bytecodes into machine language
+1/29/2025
+CISC230 Object Oriented Design and Programming
+74
+
+--- Slide 75 ---
+Development Environments
+There are many programs that support the development of Java software, including:
+Eclipse
+NetBeans
+BlueJ
+jGRASP
+Though the details of these environments differ, the basic compilation and execution process is essentially the same
+1/29/2025
+CISC230 Object Oriented Design and Programming
+75
+
+--- Slide 76 ---
+Syntax and Semantics
+The syntax rules of a language define how we can put together symbols, reserved words, and identifiers to make a valid program
+The semantics of a program statement define what that statement means (its purpose or role in a program)
+A program that is syntactically correct is not necessarily logically (semantically) correct
+A program will always do what we tell it to do, not what we meant to tell it to do
+1/29/2025
+CISC230 Object Oriented Design and Programming
+76
+
+--- Slide 77 ---
+Errors
+A program can have three types of errors
+The compiler will find syntax errors and other basic problems (compile-time errors)
+If compile-time errors exist, an executable version of the program is not created
+A problem can occur during program execution, such as trying to divide by zero, which causes a program to terminate abnormally (run-time errors)
+A program may run, but produce incorrect results, perhaps using an incorrect formula (logical errors)
+CISC230 Object Oriented Design and Programming
+1/29/2025
+77
+
+--- Slide 78 ---
+Basic Program Development
+1/29/2025
+CISC230 Object Oriented Design and Programming
+78
+Edit and
+save program
+Compile program
+Execute program and
+evaluate results
+
+--- Slide 79 ---
+Typical Java Development Environment
+1/29/2025
+CISC230 Object Oriented Design and Programming
+79
+
+--- Slide 80 ---
+Outline
+Computer Processing
+Hardware Components
+Networks
+The Java Programming Language
+Program Development
+Object-Oriented Programming
+1/29/2025
+CISC230 Object Oriented Design and Programming
+80
+
+--- Slide 81 ---
+Problem Solving
+The purpose of writing a program is to solve a problem
+Solving a problem consists of multiple activities:
+Understand the problem
+Design a solution
+Consider alternatives and refine the solution
+Implement the solution
+Test the solution
+These activities are not purely linear – they overlap and interact
+1/29/2025
+CISC230 Object Oriented Design and Programming
+81
+
+--- Slide 82 ---
+Problem Solving
+The key to designing a solution is breaking it down into manageable pieces
+When writing software, we design separate pieces that are responsible for certain parts of the solution
+An object-oriented approach lends itself to this kind of solution decomposition
+We will dissect our solutions into pieces called objects and classes
+1/29/2025
+CISC230 Object Oriented Design and Programming
+82
+
+--- Slide 83 ---
+Object-Oriented Programming
+Java is an object-oriented programming language
+As the term implies, an object is a fundamental entity in a Java program
+Objects can be used effectively to represent real-world entities
+For instance, an object might represent a particular employee in a company
+Each employee object handles the processing and data management related to that employee
+1/29/2025
+CISC230 Object Oriented Design and Programming
+83
+
+--- Slide 84 ---
+Objects
+An object has:
+state  -  descriptive characteristics
+behaviors  -  what it can do (or what can be done to it)
+The state of a bank account includes its account number and its current balance
+The behaviors associated with a bank account include the ability to make deposits and withdrawals
+Note that the behavior of an object might change its state
+1/29/2025
+CISC230 Object Oriented Design and Programming
+84
+
+--- Slide 85 ---
+Classes
+An object is defined by a class
+A class is the blueprint of an object
+The class uses methods to define the behaviors of the object
+The class that contains the main method of a Java program represents the entire program
+A class represents a concept, and an object represents the embodiment of that concept
+Multiple objects can be created from the same class
+1/29/2025
+CISC230 Object Oriented Design and Programming
+85
+
+--- Slide 86 ---
+Class = Blueprint
+One blueprint to create several similar, but different, houses:
+1/29/2025
+CISC230 Object Oriented Design and Programming
+86
+
+--- Slide 87 ---
+Objects and Classes
+1/29/2025
+CISC230 Object Oriented Design and Programming
+87
+
+--- Slide 88 ---
+Inheritance
+One class can be used to derive another via inheritance
+Classes can be organized into hierarchies
+1/29/2025
+CISC230 Object Oriented Design and Programming
+88
+
+--- Slide 89 ---
+Check Point
+What could be the possible properties and methods for these objects?
+1/29/2025
+CISC230 Object-Oriented Design and programming
+89
+
+--- Slide 90 ---
+Check Point
+What could be the possible properties and methods for these objects?
+CISC230 Object Oriented Design and Programming
+90
+1/29/2025
+
+--- Slide 91 ---
+Summary
+Chapter 1 focused on:
+components of a computer
+how those components interact
+how computers store and manipulate information
+computer networks
+the Internet and the World Wide Web
+programming and programming languages
+an introduction to Java
+an overview of object-oriented concepts
+1/29/2025
+CISC230 Object Oriented Design and Programming
+91
+
+--- Slide 92 ---
+Copyright
+This work is protected by United States copyright laws and is provided solely for the use of instructors in teaching their courses and assessing student learning. Dissemination or sale of any part of this work (including on the World Wide Web) will destroy the integrity of the work and is not permitted. The work and materials from it should never be made available to students except by instructors using the accompanying text in their classes. All recipients of this work are expected to abide by these restrictions and to honor the intended pedagogical purposes and the needs of other instructors who rely on these materials.
+1/29/2025
+CISC230 Object Oriented Design and Programming
+92
+
+--- Slide 93 ---
+End of Lecture

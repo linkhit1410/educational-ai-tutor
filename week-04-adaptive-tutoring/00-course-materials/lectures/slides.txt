@@ -1,0 +1,504 @@
+Source file: Slides.pdf
+
+--- Page 1 ---
+Introduction to Java
+
+--- Page 2 ---
+Announcements
+●Programming Assignment #1 Out:
+●Karel the Robot: Due Friday, January 20 at 3:15 PM.
+●Email: Due Sunday, January 22 at 11:59PM.
+●Section Assignments Posted
+●Check online at http://cs198.stanford.edu.
+●Sections and LaIR hours start this week.
+●Feel free to switch sections to an open time if it works better
+for you; your fellow CS106Aers are counting on you!
+●Submitting Assignments:
+●Submitter now open.
+●Verify submissions at
+http://paperless.stanford.edu
+
+--- Page 3 ---
+A Farewell to Karel
+
+--- Page 4 ---
+Welcome to Java
+
+--- Page 5 ---
+But First...
+A Brief History of Computing
+
+--- Page 6 ---
+Image credit: http://en.wikipedia.org/wiki/File:Boulier1.JPG
+
+--- Page 7 ---
+Image: http://upload.wikimedia.org/wikipedia/commons/8/8b/Babbage_Difference_Engine.jpg
+
+--- Page 8 ---
+http://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Analytical_Engine_(2290032530).jpg/200px-Analytical_Engine_(2290032530).jpg
+
+--- Page 9 ---
+Augusta Ada Byron: The First Programmer
+Image Credit: http://upload.wikimedia.org/wikipedia/commons/0/0f/Ada_lovelace.jpg
+
+--- Page 10 ---
+Programming in the 1800s
+Mechanical
+Device
+
+--- Page 11 ---
+Image credit: http://upload.wikimedia.org/wikipedia/commons/4/4e/Eniac.jpg
+
+--- Page 12 ---
+Programming in the 1940s
+Electrical
+Device
+
+--- Page 13 ---
+Image: http://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Grace_Hopper.jpg/300px-Grace_Hopper.jpg
+http://www.nytimes.com/2007/03/20/business/20backus.html
+High-Level Languages
+
+--- Page 14 ---
+Computer
+Computer
+Programming in the 1950s
+DO 5 I = 1, 25
+Compiler
+Source Deck
+Program Deck
+Computer
+Compiler
+
+--- Page 15 ---
+Programming in the 1950s
+DO 5 I = 1, 25
+Compiler
+Source Deck
+Program Deck
+Computer
+Compiler
+Computer
+
+--- Page 16 ---
+Programming Now(ish)
+Compiler
+Machine
+Code
+move();
+turnLeft();
+11011100
+10111011
+Source
+Code
+
+--- Page 17 ---
+Hey!  I wrote a program
+that can draw stick figures!
+That's great!  I wrote a
+program that makes
+speech bubbles!
+
+--- Page 18 ---
+Computer
+Programming Now
+Compiler
+Source Code
+Object File
+move();
+turnLeft();
+11011
+10111
+11011
+10111
+Machine
+Code
+Linker
+Object File
+11011
+10111
+
+--- Page 19 ---
+Computer
+Programming Now
+Compiler
+Source Code
+Object File
+move();
+turnLeft();
+11011
+10111
+Linker
+11011
+10111
+Machine
+Code
+Linker
+Object File
+11011
+10111
+
+--- Page 20 ---
+Programming Now
+Compiler
+Source Code
+Object File
+Computer
+move();
+turnLeft();
+00101
+11000
+Linker
+10010
+10110
+Machine
+Code
+Linker
+Object File
+01100
+11101
+
+--- Page 21 ---
+Image credit: http://upload.wikimedia.org/wikipedia/commons/d/d2/Internet_map_1024.jpg
+
+--- Page 22 ---
+Computer
+The Java Model
+Compiler
+Source Code
+.class File
+Computer
+move();
+turnLeft();
+11011
+10111
+Linker
+11011
+10111
+JAR File
+Java
+Virtual
+Machine
+Linker
+.class File
+11011
+10111
+
+--- Page 23 ---
+Object-Oriented Programming
+
+--- Page 24 ---
+An object is an entity
+that has state and behavior.
+
+--- Page 25 ---
+Has a fur color.
+Has an energy level.
+Has a level of cuteness.
+Can be your friend.
+Can sit.
+Can stay.
+Can bark.
+
+--- Page 26 ---
+A class is a set of features and behavior
+common to a group of objects.
+
+--- Page 27 ---
+Class Dog
+Has a fur color.
+Has an energy level.
+Has a level of cuteness.
+Can sit.
+Can stay.
+Can be your friend.
+Instances of Dog
+
+--- Page 28 ---
+An object is an entity
+that has state and behavior.
+A class is a set of features and behavior
+common to a group of objects.
+An instance of a class is an
+object that belongs to that class.
+
+--- Page 29 ---
+Class Dog
+Has a fur color.
+Has an energy level.
+Has a level of cuteness.
+Can sit.
+Can stay.
+Can be your friend.
+Class Cat
+Has a fur color.
+Has an energy level.
+Has a level of cuteness.
+Can purr.
+Can haz cheezburger?
+
+--- Page 30 ---
+Dog
+Cat
+Has a fur color.
+Has an energy level.
+Has a level of cuteness.
+Can sit.
+Can stay.
+Can be your friend.
+Has a fur color.
+Has an energy level.
+Has a level of cuteness.
+Can purr.
+Can haz cheezburger?
+
+--- Page 31 ---
+Dog
+Cat
+CuteAnimal
+Has a fur color.
+Has an energy level.
+Has a level of cuteness.
+Can sit.
+Can stay.
+Can be your friend.
+Has a fur color.
+Has an energy level.
+Has a level of cuteness.
+Can purr.
+Can haz cheezburger?
+
+--- Page 32 ---
+Dog
+Cat
+CuteAnimal
+Has a fur color.
+Has an energy level.
+Has a level of cuteness.
+Can sit.
+Can stay.
+Can be your friend.
+Has a fur color.
+Has an energy level.
+Has a level of cuteness.
+Can purr.
+Can haz cheezburger?
+Has a fur color.
+Has an energy level.
+Has a level of cuteness.
+
+--- Page 33 ---
+The classes Dog and Cat inherit common
+features and behaviors from CuteAnimal
+The class CuteAnimal is a superclass
+of the Dog and Cat classes.
+The class Dog and Cat classes are
+subclasses of the CuteAnimal class.
+Dog
+Cat
+CuteAnimal
+Can sit.
+Can stay.
+Can be your friend.
+Can purr.
+Can haz cheezburger?
+Has a fur color.
+Has an energy level.
+Has a level of cuteness.
+
+--- Page 34 ---
+Dog
+Cat
+CuteAnimal
+Can sit.
+Can stay.
+Can be your friend.
+Can purr.
+Can haz cheezburger?
+Has a fur color.
+Has an energy level.
+Animal
+Grizzly
+Bear
+Has an amount of grizzle.
+Can keep cubs safe.
+Has a level of cuteness.
+A Class Hierarchy
+
+--- Page 35 ---
+Classes so Far
+SuperKarel
+Karel
+move
+turnLeft
+pickBeeper
+putBeeper
+turnAround
+turnRight
+Superclass
+Subclass
+
+--- Page 36 ---
+/* File: RoombaKarel.java
+ *
+ * A Karel program in which Karel picks up all the beepers in a
+ * square world.
+ */
+import stanford.karel.*;
+public class RoombaKarel extends SuperKarel {
+public void run() {
+while (leftIsClear()) {
+cleanOneRow();
+moveToNextRow();
+}
+cleanOneRow();
+}
+/* Precondition:  Karel is facing East at the start of a row.
+ * Postcondition: Karel is facing East at the start of a row,
+ *                but the row has all beepers cleared from it
+ */
+private void cleanOneRow() {
+sweepRow();
+moveBackToStart();
+}
+/* ... */
+}
+
+--- Page 37 ---
+/* File: RoombaKarel.java
+ *
+ * A Karel program in which Karel picks up all the beepers in a
+ * square world.
+ */
+import stanford.karel.*;
+public class RoombaKarel extends SuperKarel {
+public void run() {
+while (leftIsClear()) {
+cleanOneRow();
+moveToNextRow();
+}
+cleanOneRow();
+}
+/* Precondition:  Karel is facing East at the start of a row.
+ * Postcondition: Karel is facing East at the start of a row,
+ *                but the row has all beepers cleared from it
+ */
+private void cleanOneRow() {
+sweepRow();
+moveBackToStart();
+}
+/* ... */
+}
+
+--- Page 38 ---
+How Does Karel Fit In?
+SuperKarel
+Karel
+StoneMason
+Karel
+Checkerboard
+Karel
+Midpoint
+Karel
+Collect
+Newspaper
+Karel
+
+--- Page 39 ---
+Program
+DialogProgram
+GraphicsProgram
+ConsoleProgram
+JApplet
+Applet
+GraphicsProgram
+ConsoleProgram
+Program
+DialogProgram
+JApplet
+Applet
+acm.program Hierarchy
+Graphic courtesy of Eric Roberts
+
+--- Page 40 ---
+Let's See Some Java!
+
+--- Page 41 ---
+The Add2Integers Program
+Add2Integers
+class Add2Integers extends ConsoleProgram {
+   public void run() {
+      println("This program adds two numbers.");
+      int n1 = readInt("Enter n1: ");
+      int n2 = readInt("Enter n2: ");
+      int total = n1 + n2;
+      println("The total is " + total + ".");
+   }
+}
+n1
+n2
+total
+This program adds two numbers.
+Enter n2:
+The total is 42.
+17
+25
+42
+          25
+class Add2Integers extends ConsoleProgram {
+   public void run() {
+      println("This program adds two numbers.");
+      int n1 = readInt("Enter n1: ");
+      int n2 = readInt("Enter n2: ");
+      int total = n1 + n2;
+      println("The total is " + total + ".");
+   }
+}
+n1
+n2
+total
+17
+25
+42
+Enter n1:
+          17
+Graphic courtesy of Eric Roberts
+
+--- Page 42 ---
+The GObject Hierarchy
+The classes that represent graphical objects form a
+hierarchy, part of which looks like this:
+GObject
+GRect
+GOval
+GLine
+GLabel
+Graphic courtesy of Eric Roberts
+
+--- Page 43 ---
+public class HelloProgram extends GraphicsProgram {
+   public void run() {
+      GLabel label = new GLabel("hello, world", 100, 75);
+      label.setFont("SansSerif-36");
+      label.setColor(Color.RED);
+      add(label);
+   }
+}
+HelloProgram
+Sending Messages to a GLabel
+hello, world
+label
+hello, world
+hello, world
+hello, world
+public class HelloProgram extends GraphicsProgram {
+   public void run() {
+      GLabel label = new GLabel("hello, world", 100, 75);
+      label.setFont("SansSerif-36");
+      label.setColor(Color.RED);
+      add(label);
+   }
+}
+label
+hello, world
+Graphic courtesy of Eric Roberts

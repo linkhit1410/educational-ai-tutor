@@ -1,0 +1,1116 @@
+Source file: Chapter 2.pptx
+
+--- Slide 1 ---
+Chapter 2
+Data and Expressions
+
+--- Slide 2 ---
+Data and Expressions
+Let's explore some other fundamental programming concepts
+Chapter 2 focuses on:
+character strings
+primitive data
+the declaration and use of variables
+expressions and operator precedence
+data conversions
+accepting input from the user
+9/9/2024
+CISC230 Object Oriented Design and Programming
+2
+
+--- Slide 3 ---
+Outline
+Character Strings
+Variables and Assignment
+Primitive Data Types
+Expressions
+Data Conversion
+Interactive Programs
+9/9/2024
+CISC230 Object Oriented Design and Programming
+3
+
+--- Slide 4 ---
+Character Strings
+A string literal is represented by putting double quotes around the text
+Examples:
+"This is a string literal."
+"123 Main Street"
+"X"
+Every character string is an object in Java, defined by the String class
+Every string literal represents a String object
+9/9/2024
+CISC230 Object Oriented Design and Programming
+4
+
+--- Slide 5 ---
+The println Method
+In the Lincoln program from Chapter 1, we invoked the println method to print a character string
+The System.out object represents a destination (the monitor screen) to which we can send output
+9/9/2024
+CISC230 Object Oriented Design and Programming
+5
+System.out.println("Whatever you are, be a good one.");
+
+--- Slide 6 ---
+The print Method
+The System.out object provides another service as well
+The print method is similar to the println method, except that it does not advance to the next line
+Therefore anything printed after a print statement will appear on the same line
+See Countdown.java
+9/9/2024
+CISC230 Object Oriented Design and Programming
+6
+
+--- Slide 7 ---
+9/9/2024
+7
+CISC230 Object Oriented Design and Programming
+//********************************************************************
+//  Countdown.java       Author: Lewis/Loftus
+//
+//  Demonstrates the difference between print and println.
+//********************************************************************
+
+public class Countdown
+{
+   //-----------------------------------------------------------------
+   //  Prints two lines of output representing a rocket countdown.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      System.out.print("Three... ");
+      System.out.print("Two... ");
+      System.out.print("One... ");
+      System.out.print("Zero... ");
+      System.out.println("Liftoff!");  // appears on first output line
+      System.out.println("Houston, we have a problem.");
+   }
+}
+
+--- Slide 8 ---
+9/9/2024
+8
+CISC230 Object Oriented Design and Programming
+//********************************************************************
+//  Countdown.java       Author: Lewis/Loftus
+//
+//  Demonstrates the difference between print and println.
+//********************************************************************
+
+public class Countdown
+{
+   //-----------------------------------------------------------------
+   //  Prints two lines of output representing a rocket countdown.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      System.out.print("Three... ");
+      System.out.print("Two... ");
+      System.out.print  ("One... ");
+      System.out.print("Zero... ");
+      System.out.println("Liftoff!");  // appears on first output line
+      System.out.println("Houston, we have a problem.");
+   }
+}
+Output
+Three... Two... One... Zero... Liftoff!
+Houston, we have a problem.
+
+--- Slide 9 ---
+String Concatenation
+The string concatenation operator (+) is used to append one string to the end of another
+"Peanut butter " + "and jelly"
+It can also be used to append a number to a string
+A string literal cannot be broken across two lines in a program
+See Facts.java
+9/9/2024
+CISC230 Object Oriented Design and Programming
+9
+
+--- Slide 10 ---
+9/9/2024
+CISC230 Object Oriented Design and Programming
+10
+//********************************************************************
+//  Facts.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of the string concatenation operator and the
+//  automatic conversion of an integer to a string.
+//********************************************************************
+public class Facts
+{
+   //-----------------------------------------------------------------
+   //  Prints various facts.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      // Strings can be concatenated into one long string
+      System.out.println("We present the following facts for your "
+                          + "extracurricular edification:");
+      System.out.println();
+      // A string can contain numeric digits
+      System.out.println("Letters in the Hawaiian alphabet: 12");
+      // A numeric value can be concatenated to a string
+      System.out.println("Dialing code for Antarctica: " + 672);
+      System.out.println("Year in which Leonardo da Vinci invented "
+                          + "the parachute: " + 1515);
+      System.out.println("Speed of ketchup: " + 40 + " km per year");
+   }
+}
+
+--- Slide 11 ---
+9/9/2024
+CISC230 Object Oriented Design and Programming
+11
+continue
+
+      // A numeric value can be concatenated to a string
+      System.out.println("Dialing code for Antarctica: " + 672);
+
+      System.out.println("Year in which Leonardo da Vinci invented "
+                          + "the parachute: " + 1515);
+
+      System.out.println("Speed of ketchup: " + 40 + " km per year");
+   }
+}
+Output
+We present the following facts for your extracurricular edification:
+
+Letters in the Hawaiian alphabet: 12
+Dialing code for Antarctica: 672
+Year in which Leonardo da Vinci invented the parachute: 1515
+Speed of ketchup: 40 km per year
+
+--- Slide 12 ---
+String Concatenation
+The + operator is also used for arithmetic addition
+The function that it performs depends on the type of the information on which it operates
+If both operands are strings, or if one is a string and one is a number, it performs string concatenation
+If both operands are numeric, it adds them
+The + operator is evaluated left to right, but parentheses can be used to force the order
+See Addition.java
+9/9/2024
+CISC230 Object Oriented Design and Programming
+12
+
+--- Slide 13 ---
+9/9/2024
+CISC230 Object Oriented Design and Programming
+13
+//********************************************************************
+//  Addition.java       Author: Lewis/Loftus
+//
+//  Demonstrates the difference between the addition and string
+//  concatenation operators.
+//********************************************************************
+public class Addition
+{
+   //-----------------------------------------------------------------
+   //  Concatenates and adds two numbers and prints the results.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      System.out.println("24 and 45 concatenated: " + 24 + 45);
+      System.out.println("24 and 45 added: " + (24 + 45));
+   }
+}
+
+--- Slide 14 ---
+9/9/2024
+CISC230 Object Oriented Design and Programming
+14
+//********************************************************************
+//  Addition.java       Author: Lewis/Loftus
+//
+//  Demonstrates the difference between the addition and string
+//  concatenation operators.
+//********************************************************************
+
+public class Addition
+{
+   //-----------------------------------------------------------------
+   //  Concatenates and adds two numbers and prints the results.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      System.out.println("24 and 45 concatenated: " + 24 + 45);
+
+      System.out.println("24 and 45 added: " + (24 + 45));
+   }
+}
+Output
+24 and 45 concatenated: 2445
+24 and 45 added: 69
+
+--- Slide 15 ---
+Quick Check
+9/9/2024
+CISC230 Object Oriented Design and Programming
+15
+What output is produced by the following?
+System.out.println("X: " + 25);
+System.out.println("Y: " + (15 + 50));
+System.out.println("Z: " + 300 + 50);
+
+--- Slide 16 ---
+Quick Check
+9/9/2024
+CISC230 Object Oriented Design and Programming
+16
+What output is produced by the following?
+System.out.println("X: " + 25);
+System.out.println("Y: " + (15 + 50));
+System.out.println("Z: " + 300 + 50);
+X: 25
+Y: 65
+Z: 30050
+
+--- Slide 17 ---
+Escape Sequences
+What if we wanted to print the quote character?
+The following line would confuse the compiler because it would interpret the second quote as the end of the string
+
+System.out.println("I said "Hello" to you.");
+
+An escape sequence is a series of characters that represents a special character
+An escape sequence begins with a backslash character (\)
+
+System.out.println("I said \"Hello\" to you.");
+9/9/2024
+CISC230 Object Oriented Design and Programming
+17
+
+--- Slide 18 ---
+Escape Sequences
+9/9/2024
+CISC230 Object Oriented Design and Programming
+18
+Some Java escape sequences:
+See Roses.java
+
+--- Slide 19 ---
+9/9/2024
+CISC230 Object Oriented Design and Programming
+19
+//********************************************************************
+//  Roses.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of escape sequences.
+//********************************************************************
+public class Roses
+{
+   //-----------------------------------------------------------------
+   //  Prints a poem (of sorts) on multiple lines.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      System.out.println("Roses are red,\n\tViolets are blue,\n" +
+         "Sugar is sweet,\n\tBut I have \"commitment issues\",\n\t" +
+         "So I'd rather just be friends\n\tAt this point in our " +
+         "relationship.");
+   }
+}
+
+--- Slide 20 ---
+9/9/2024
+CISC230 Object Oriented Design and Programming
+20
+//********************************************************************
+//  Roses.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of escape sequences.
+//********************************************************************
+
+public class Roses
+{
+   //-----------------------------------------------------------------
+   //  Prints a poem (of sorts) on multiple lines.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      System.out.println("Roses are red,\n\tViolets are blue,\n" +
+         "Sugar is sweet,\n\tBut I have \"commitment issues\",\n\t" +
+         "So I'd rather just be friends\n\tAt this point in our " +
+         "relationship.");
+   }
+}
+Output
+Roses are red,
+    Violets are blue,
+Sugar is sweet,
+    But I have "commitment issues",
+    So I'd rather just be friends
+    At this point in our relationship.
+
+--- Slide 21 ---
+Quick Check
+9/9/2024
+CISC230 Object Oriented Design and Programming
+21
+Write a single println statement that produces the following output:
+"Thank you all for coming to my home
+tonight," he said mysteriously.
+
+--- Slide 22 ---
+Quick Check
+9/9/2024
+CISC230 Object Oriented Design and Programming
+22
+Write a single println statement that produces the following output:
+"Thank you all for coming to my home
+tonight," he said mysteriously.
+System.out.println("\"Thank you all for " +
+   "coming to my home\ntonight,\" he said " +
+   "mysteriously.");
+
+--- Slide 23 ---
+Outline
+Character Strings
+Variables and Assignment
+Primitive Data Types
+Expressions
+Data Conversion
+Interactive Programs
+9/9/2024
+CISC230 Object Oriented Design and Programming
+23
+
+--- Slide 24 ---
+Variables
+9/9/2024
+CISC230 Object Oriented Design and Programming
+24
+A variable is a name for a location in memory that holds a value
+A variable declaration specifies the variable's name and the type of information that it will hold
+int total;
+int count, temp, result;
+Multiple variables can be created in one declaration
+
+--- Slide 25 ---
+Variable Initialization
+9/9/2024
+CISC230 Object Oriented Design and Programming
+25
+A variable can be given an initial value in the declaration
+int sum = 0;
+int base = 32, max = 149;
+When a variable is referenced in a program, its current value is used
+See PianoKeys.java
+
+--- Slide 26 ---
+9/9/2024
+CISC230 Object Oriented Design and Programming
+26
+//********************************************************************
+//  PianoKeys.java       Author: Lewis/Loftus
+//
+//  Demonstrates the declaration, initialization, and use of an
+//  integer variable.
+//********************************************************************
+public class PianoKeys
+{
+   //-----------------------------------------------------------------
+   //  Prints the number of keys on a piano.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      int keys = 88;
+      System.out.println("A piano has " + keys + " keys.");
+   }
+}
+
+--- Slide 27 ---
+9/9/2024
+CISC230 Object Oriented Design and Programming
+27
+//********************************************************************
+//  PianoKeys.java       Author: Lewis/Loftus
+//
+//  Demonstrates the declaration, initialization, and use of an
+//  integer variable.
+//********************************************************************
+
+public class PianoKeys
+{
+   //-----------------------------------------------------------------
+   //  Prints the number of keys on a piano.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      int keys = 88;
+      System.out.println("A piano has " + keys + " keys.");
+   }
+}
+Output
+A piano has 88 keys.
+
+--- Slide 28 ---
+Assignment
+9/9/2024
+CISC230 Object Oriented Design and Programming
+28
+An assignment statement changes the value of a variable
+The assignment operator is the = sign
+total = 55;
+The value that was in total is overwritten
+You can only assign a value to a variable that is consistent with the variable's declared type
+See Geometry.java
+
+--- Slide 29 ---
+9/9/2024
+CISC230 Object Oriented Design and Programming
+29
+//********************************************************************
+//  Geometry.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of an assignment statement to change the
+//  value stored in a variable.
+//********************************************************************
+public class Geometry
+{
+   //-----------------------------------------------------------------
+   //  Prints the number of sides of several geometric shapes.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      int sides = 7;  // declaration with initialization
+      System.out.println("A heptagon has " + sides + " sides.");
+      sides = 10;  // assignment statement
+      System.out.println("A decagon has " + sides + " sides.");
+      sides = 12;
+      System.out.println("A dodecagon has " + sides + " sides.");
+   }
+}
+
+--- Slide 30 ---
+9/9/2024
+CISC230 Object Oriented Design and Programming
+30
+//********************************************************************
+//  Geometry.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of an assignment statement to change the
+//  value stored in a variable.
+//********************************************************************
+
+public class Geometry
+{
+   //-----------------------------------------------------------------
+   //  Prints the number of sides of several geometric shapes.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      int sides = 7;  // declaration with initialization
+      System.out.println("A heptagon has " + sides + " sides.");
+
+      sides = 10;  // assignment statement
+      System.out.println("A decagon has " + sides + " sides.");
+
+      sides = 12;
+      System.out.println("A dodecagon has " + sides + " sides.");
+   }
+}
+Output
+A heptagon has 7 sides.
+A decagon has 10 sides.
+a dodecagon has 12 sides.
+
+--- Slide 31 ---
+Constants
+A constant is an identifier that is similar to a variable except that it holds the same value during its entire existence
+As the name implies, it is constant, not variable
+The compiler will issue an error if you try to change the value of a constant
+In Java, we use the final modifier to declare a constant
+final int MIN_HEIGHT = 69;
+9/9/2024
+CISC230 Object Oriented Design and Programming
+31
+
+--- Slide 32 ---
+Constants
+Constants are useful for three important reasons
+First, they give meaning to otherwise unclear literal values
+Example: MAX_LOAD means more than the literal 250
+Second, they facilitate program maintenance
+If a constant is used in multiple places, its value need only be set in one place
+Third, they formally establish that a value should not change, avoiding inadvertent errors by other programmers
+9/9/2024
+32
+CISC230 Object Oriented Design and Programming
+
+--- Slide 33 ---
+Outline
+Character Strings
+Variables and Assignment
+Primitive Data Types
+Expressions
+Data Conversion
+Interactive Programs
+9/9/2024
+CISC230 Object Oriented Design and Programming
+33
+
+--- Slide 34 ---
+Primitive Data
+There are eight primitive data types in Java
+Four of them represent integers:
+byte, short, int, long
+Two of them represent floating point numbers:
+float, double
+One of them represents characters:
+char
+And one of them represents boolean values:
+boolean
+9/9/2024
+CISC230 Object Oriented Design and Programming
+34
+
+--- Slide 35 ---
+Numeric Primitive Data
+The difference between the numeric primitive types is their size and the values they can store:
+9/9/2024
+CISC230 Object Oriented Design and Programming
+35
+
+--- Slide 36 ---
+Characters
+A char variable stores a single character
+Character literals are delimited by single quotes:
+'a'   'X'    '7'    '$'    ','    '\n'
+Example declarations:
+char topGrade = 'A';
+char terminator = ';', separator = ' ';
+Note the difference between a primitive character variable, which holds only one character, and a String object, which can hold multiple characters
+9/9/2024
+CISC230 Object Oriented Design and Programming
+36
+
+--- Slide 37 ---
+Character Sets
+A character set is an ordered list of characters, with each character corresponding to a unique number
+A char variable in Java can store any character from the Unicode character set
+The Unicode character set uses sixteen bits per character, allowing for 65,536 unique characters
+It is an international character set, containing symbols and characters from many world languages
+9/9/2024
+CISC230 Object Oriented Design and Programming
+37
+
+--- Slide 38 ---
+Characters
+The ASCII character set is older and smaller than Unicode, but is still quite popular
+The ASCII characters are a subset of the Unicode character set, including:
+9/9/2024
+CISC230 Object Oriented Design and Programming
+38
+
+--- Slide 39 ---
+Boolean
+A boolean value represents a true or false condition
+The reserved words true and false are the only valid values for a boolean type
+boolean done = false;
+A boolean variable can also be used to represent any two states, such as a light bulb being on or off
+9/9/2024
+CISC230 Object Oriented Design and Programming
+39
+
+--- Slide 40 ---
+Outline
+Character Strings
+Variables and Assignment
+Primitive Data Types
+Expressions
+Data Conversion
+Interactive Programs
+9/9/2024
+CISC230 Object Oriented Design and Programming
+40
+
+--- Slide 41 ---
+Expressions
+An expression is a combination of one or more operators and operands
+Arithmetic expressions compute numeric results and make use of the arithmetic operators:
+9/9/2024
+CISC230 Object Oriented Design and Programming
+41
+If either or both operands are floating point values, then the result is a floating point value
+
+--- Slide 42 ---
+Division and Remainder
+If both operands to the division operator (/) are integers, the result is an integer (the fractional part is discarded)
+9/9/2024
+CISC230 Object Oriented Design and Programming
+42
+14 / 3     equals     4
+8 / 12     equals     0
+The remainder operator (%) returns the remainder after dividing the first operand by the second
+14 % 3     equals     2
+8 % 12     equals     8
+
+--- Slide 43 ---
+Quick Check
+9/9/2024
+CISC230 Object Oriented Design and Programming
+43
+What are the results of the following expressions?
+12 / 2
+12.0 / 2.0
+10 / 4
+10 / 4.0
+4 / 10
+4.0 / 10
+12 % 3
+10 % 3
+3 % 10
+3.0 % 10
+10 % 3.0
+
+--- Slide 44 ---
+Quick Check
+9/9/2024
+CISC230 Object Oriented Design and Programming
+44
+What are the results of the following expressions?
+12 / 2
+12.0 / 2.0
+10 / 4
+10 / 4.0
+4 / 10
+4.0 / 10
+12 % 3
+10 % 3
+3 % 10
+3.0 % 10
+10 % 3.0
+=  6
+=  6.0
+=  2
+=  2.5
+=  0
+=  0.4
+=  0
+=  1
+=  3
+= 3.0
+= 1.0
+
+--- Slide 45 ---
+Operator Precedence
+Operators can be combined into larger expressions
+result  =  total + count / max - offset;
+Operators have a well-defined precedence which determines the order in which they are evaluated
+Multiplication, division, and remainder are evaluated before addition, subtraction, and string concatenation
+Arithmetic operators with the same precedence are evaluated from left to right, but parentheses can be used to force the evaluation order
+9/9/2024
+CISC230 Object Oriented Design and Programming
+45
+
+--- Slide 46 ---
+Quick Check
+9/9/2024
+CISC230 Object Oriented Design and Programming
+46
+a + b + c + d + e
+a + b * c - d / e
+a / (b + c) - d % e
+a / (b * (c + (d - e)))
+In what order are the operators evaluated in the following expressions?
+
+--- Slide 47 ---
+Quick Check
+9/9/2024
+CISC230 Object Oriented Design and Programming
+47
+a + b + c + d + e
+a + b * c - d / e
+a / (b + c) - d % e
+a / (b * (c + (d - e)))
+In what order are the operators evaluated in the following expressions?
+
+--- Slide 48 ---
+Expression Trees
+The evaluation of a particular expression can be shown using an expression tree
+The operators lower in the tree have higher precedence for that expression
+9/9/2024
+CISC230 Object Oriented Design and Programming
+48
+a + (b – c) / d
+
+--- Slide 49 ---
+Assignment Revisited
+The assignment operator has a lower precedence than the arithmetic operators
+9/9/2024
+CISC230 Object Oriented Design and Programming
+49
+First the expression on the right hand
+side of the = operator is evaluated
+Then the result is stored in the
+variable on the left hand side
+answer  =  sum / 4 + MAX * lowest;
+1
+4
+3
+2
+
+--- Slide 50 ---
+Assignment Revisited
+The right- and left-hand sides of an assignment statement can contain the same variable
+9/9/2024
+CISC230 Object Oriented Design and Programming
+50
+First, one is added to the
+original value of count
+Then the result is stored back into count
+(overwriting the original value)
+count  =  count + 1;
+
+--- Slide 51 ---
+Increment and Decrement
+The increment (++) and decrement (--) operators use only one operand
+The statement
+            count++;
+    is functionally equivalent to
+            count = count + 1;
+9/9/2024
+CISC230 Object Oriented Design and Programming
+51
+
+--- Slide 52 ---
+Increment and Decrement
+The increment and decrement operators can be applied in postfix form:
+count++
+or prefix form:
+++count
+When used as part of a larger expression, the two forms can have different effects
+Because of their subtleties, the increment and decrement operators should be used with care
+9/9/2024
+CISC230 Object Oriented Design and Programming
+52
+
+--- Slide 53 ---
+Assignment Operators
+Often, we perform an operation on a variable, and then store the result back into that variable
+Java provides assignment operators to simplify that process
+For example, the statement
+            num += count;
+    is equivalent to
+            num = num + count;
+9/9/2024
+CISC230 Object Oriented Design and Programming
+53
+
+--- Slide 54 ---
+Assignment Operators
+There are many assignment operators in Java, including the following:
+9/9/2024
+CISC230 Object Oriented Design and Programming
+54
+
+--- Slide 55 ---
+Assignment Operators
+The right-hand side of an assignment operator can be a complex expression
+The entire right-hand expression is evaluated first, then the result is combined with the original variable
+Therefore
+        result /= (total-MIN) % num;
+    is equivalent to
+        result = result / ((total-MIN) % num);
+9/9/2024
+CISC230 Object Oriented Design and Programming
+55
+
+--- Slide 56 ---
+Assignment Operators
+The behavior of some assignment operators depends on the types of the operands
+If the operands to the += operator are strings, the assignment operator performs string concatenation
+The behavior of an assignment operator (+=) is always consistent with the behavior of the corresponding operator (+)
+9/9/2024
+CISC230 Object Oriented Design and Programming
+56
+
+--- Slide 57 ---
+Code 1
+public class UnaryOperator {
+    public static void main(String[] args) {
+        int result = +1;
+        System.out.println(result);
+        result--;
+        System.out.println(result);
+        result++;
+        System.out.println(result);
+        result = -result;
+        System.out.println(result);
+        boolean success = false;
+        System.out.println(success);
+        System.out.println(!success);
+    }
+}
+9/9/2024
+CISC230 Object Oriented Design and Programming
+57
+
+--- Slide 58 ---
+Code 2
+public class PrePostClass {
+public static void main(String[] args){
+        int i = 3;
+        i++;
+        System.out.println(i);
+        ++i;
+        System.out.println(i);
+        System.out.println(++i);
+        System.out.println(i++);
+        System.out.println(i);
+        i++;
+        System.out.println(i);
+        System.out.println(i++);
+        System.out.println(i++);
+          System.out.println(i);
+    }
+}
+9/9/2024
+CISC230 Object Oriented Design and Programming
+58
+
+--- Slide 59 ---
+Outline
+Character Strings
+Variables and Assignment
+Primitive Data Types
+Expressions
+Data Conversion
+Interactive Programs
+9/9/2024
+CISC230 Object Oriented Design and Programming
+59
+
+--- Slide 60 ---
+Data Conversion
+Sometimes it is convenient to convert data from one type to another
+For example, in a particular situation we may want to treat an integer as a floating point value
+These conversions do not change the type of a variable or the value that's stored in it – they only convert a value as part of a computation
+9/9/2024
+CISC230 Object Oriented Design and Programming
+60
+
+--- Slide 61 ---
+Data Conversion
+Widening conversions are safest because they tend to go from a small data type to a larger one (such as a short to an int)
+Narrowing conversions can lose information because they tend to go from a large data type to a smaller one (such as an int to a short)
+In Java, data conversions can occur in three ways:
+assignment conversion
+promotion
+casting
+9/9/2024
+CISC230 Object Oriented Design and Programming
+61
+
+--- Slide 62 ---
+Data Conversion
+9/9/2024
+CISC230 Object Oriented Design and Programming
+62
+Widening Conversions
+Narrowing Conversions
+
+--- Slide 63 ---
+Assignment Conversion
+Assignment conversion occurs when a value of one type is assigned to a variable of another
+Example:
+int dollars = 20;
+double money = dollars;
+Only widening conversions can happen via assignment
+Note that the value or type of dollars did not change
+9/9/2024
+CISC230 Object Oriented Design and Programming
+63
+
+--- Slide 64 ---
+Promotion
+Promotion happens automatically when operators in expressions convert their operands
+Example:
+            int count = 12;
+            double sum = 490.27;
+            result = sum / count;
+The value of count is converted to a floating point value to perform the division calculation
+9/9/2024
+CISC230 Object Oriented Design and Programming
+64
+
+--- Slide 65 ---
+Casting
+Casting is the most powerful, and dangerous, technique for conversion
+Both widening and narrowing conversions can be accomplished by explicitly casting a value
+To cast, the type is put in parentheses in front of the value being converted
+        int total = 50;
+        float result = (float) total / 6;
+Without the cast, the fractional part of the answer would be lost
+9/9/2024
+CISC230 Object Oriented Design and Programming
+65
+
+--- Slide 66 ---
+Code 3
+public class Casting {
+public static void main (String args []) {  // main program
+        final int WIDTH  =  158;
+        final int HEIGHT =  140;
+        final int DELTA =  4;
+          int i = 100;
+        int x = (int)((double)WIDTH  * ((double)i / 100.0 ) );
+        int y = (int)((double)HEIGHT * ((double)i / 100.0 ) );
+        System.out.println(x + "/" + y );
+        //int p = (double)HEIGHT * ((double) i / 100.0 );
+        double z = (double)HEIGHT * (i / 100.0 );
+  }
+}
+9/9/2024
+CISC230 Object Oriented Design and Programming
+66
+
+--- Slide 67 ---
+Outline
+Character Strings
+Variables and Assignment
+Primitive Data Types
+Expressions
+Data Conversion
+Interactive Programs
+9/9/2024
+CISC230 Object Oriented Design and Programming
+67
+
+--- Slide 68 ---
+Interactive Programs
+Programs generally need input on which to operate
+The Scanner class provides convenient methods for reading input values of various types
+A Scanner object can be set up to read input from various sources, including the user typing values on the keyboard
+Keyboard input is represented by the System.in object
+9/9/2024
+CISC230 Object Oriented Design and Programming
+68
+
+--- Slide 69 ---
+Reading Input
+The following line creates a Scanner object that reads from the keyboard:
+Scanner scan = new Scanner(System.in);
+The new operator creates the Scanner object
+Once created, the Scanner object can be used to invoke various input methods, such as:
+answer = scan.nextLine();
+9/9/2024
+CISC230 Object Oriented Design and Programming
+69
+
+--- Slide 70 ---
+Reading Input
+The Scanner class is part of the java.util class library, and must be imported into a program to be used
+The nextLine method reads all the input until the end of the line is found
+See Echo.java
+The details of object creation and class libraries are discussed further in Chapter 3
+9/9/2024
+CISC230 Object Oriented Design and Programming
+70
+
+--- Slide 71 ---
+9/9/2024
+CISC230 Object Oriented Design and Programming
+71
+//********************************************************************
+//  Echo.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of the nextLine method of the Scanner class
+//  to read a string from the user.
+//********************************************************************
+import java.util.Scanner;
+public class Echo
+{
+   //-----------------------------------------------------------------
+   //  Reads a character string from the user and prints it.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      String message;
+      Scanner scan = new Scanner(System.in);
+      System.out.println("Enter a line of text:");
+      message = scan.nextLine();
+      System.out.println("You entered: \"" + message + "\"");
+   }
+}
+
+--- Slide 72 ---
+9/9/2024
+CISC230 Object Oriented Design and Programming
+72
+Sample Run
+Enter a line of text:
+You want fries with that?
+You entered: "You want fries with that?"
+
+--- Slide 73 ---
+Input Tokens
+Unless specified otherwise, white space is used to separate the elements (called tokens) of the input
+White space includes space characters, tabs, new line characters
+The next() method of the Scanner class reads the next input token and returns it as a string
+Methods such as nextInt() and nextDouble() read data of particular types
+See GasMileage.java
+9/9/2024
+CISC230 Object Oriented Design and Programming
+73
+
+--- Slide 74 ---
+9/9/2024
+CISC230 Object Oriented Design and Programming
+74
+//********************************************************************
+//  GasMileage.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of the Scanner class to read numeric data.
+//********************************************************************
+import java.util.Scanner;
+public class GasMileage
+{
+   //-----------------------------------------------------------------
+   //  Calculates fuel efficiency based on values entered by the
+   //  user.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      int miles;
+      double gallons, mpg;
+      Scanner scan = new Scanner(System.in);
+      System.out.print("Enter the number of miles: ");
+      miles = scan.nextInt();
+      System.out.print("Enter the gallons of fuel used: ");
+      gallons = scan.nextDouble();
+      mpg = miles / gallons;
+      System.out.println("Miles Per Gallon: " + mpg);
+   }
+}
+
+--- Slide 75 ---
+9/9/2024
+CISC230 Object Oriented Design and Programming
+75
+Sample Run
+Enter the number of miles: 328
+Enter the gallons of fuel used: 11.2
+Miles Per Gallon: 29.28571428571429
+
+--- Slide 76 ---
+Summary
+Chapter 2 focused on:
+character strings
+primitive data
+the declaration and use of variables
+expressions and operator precedence
+data conversions
+accepting input from the user
+9/9/2024
+CISC230 Object Oriented Design and Programming
+76
+
+--- Slide 77 ---
+Copyright
+This work is protected by United States copyright laws and is provided solely for the use of instructors in teaching their courses and assessing student learning. Dissemination or sale of any part of this work (including on the World Wide Web) will destroy the integrity of the work and is not permitted. The work and materials from it should never be made available to students except by instructors using the accompanying text in their classes. All recipients of this work are expected to abide by these restrictions and to honor the intended pedagogical purposes and the needs of other instructors who rely on these materials.
+9/9/2024
+CISC230 Object Oriented Design and Programming
+77

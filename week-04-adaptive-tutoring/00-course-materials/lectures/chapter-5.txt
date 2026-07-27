@@ -1,0 +1,1796 @@
+Source file: Chapter 5.pptx
+
+--- Slide 1 ---
+Chapter 5
+Conditionals and Loops
+
+--- Slide 2 ---
+Conditionals and Loops
+Now we will examine programming statements that allow us to:
+make decisions
+repeat processing steps in a loop
+Chapter 5 focuses on:
+boolean expressions
+the if and if-else statements
+comparing data
+while loops
+iterators
+the ArrayList class
+more GUI controls
+3/10/2023
+CISC230 Object Oriented Design and Programming
+2
+
+--- Slide 3 ---
+Outline
+Boolean Expressions
+The if Statement
+Comparing Data
+The while Statement
+Iterators
+The ArrayList Class
+Determining Event Sources
+Managing Fonts
+Check Boxes and Radio Buttons
+3/10/2023
+CISC230 Object Oriented Design and Programming
+3
+
+--- Slide 4 ---
+Flow of Control
+Unless specified otherwise, the order of statement execution through a method is linear: one after another
+Some programming statements allow us to make decisions and perform repetitions
+These decisions are based on boolean expressions (also called conditions) that evaluate to true or false
+The order of statement execution is called the flow of control
+3/10/2023
+CISC230 Object Oriented Design and Programming
+4
+
+--- Slide 5 ---
+Conditional Statements
+A conditional statement lets us choose which statement will be executed next
+They are sometimes called selection statements
+Conditional statements give us the power to make basic decisions
+The Java conditional statements are the:
+if and if-else statement
+switch statement
+We'll explore the switch statement in Chapter 6
+3/10/2023
+CISC230 Object Oriented Design and Programming
+5
+
+--- Slide 6 ---
+Boolean Expressions
+A condition often uses one of Java's equality operators or relational operators, which all return boolean results:
+==  equal to
+!=  not equal to
+<   less than
+>   greater than
+<=  less than or equal to
+>=  greater than or equal to
+Note the difference between the equality operator (==) and the assignment operator (=)
+3/10/2023
+CISC230 Object Oriented Design and Programming
+6
+
+--- Slide 7 ---
+Boolean Expressions
+An if statement with its boolean condition:
+            if (sum > MAX)
+               delta = sum – MAX;
+First, the condition is evaluated: the value of sum is either greater than the value of MAX, or it is not
+If the condition is true, the assignment statement is executed; if it isn't, it is skipped
+See Age.java
+3/10/2023
+CISC230 Object Oriented Design and Programming
+7
+
+--- Slide 8 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+8
+//********************************************************************
+//  Demonstrates the use of an if statement.
+//********************************************************************
+import java.util.Scanner;
+public class Age
+{
+   //-----------------------------------------------------------------
+   //  Reads the user's age and prints comments accordingly.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      final int MINOR = 21;
+      Scanner scan = new Scanner(System.in);
+      System.out.print("Enter your age: ");
+      int age = scan.nextInt();
+      System.out.println("You entered: " + age);
+      if (age < MINOR)
+         System.out.println("Youth is a wonderful thing. Enjoy.");
+      System.out.println("Age is a state of mind.");
+   }
+}
+
+--- Slide 9 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+9
+Sample Run
+Enter your age: 47
+You entered: 47
+Age is a state of mind.
+Another Sample Run
+Enter your age: 12
+You entered: 12
+Youth is a wonderful thing. Enjoy.
+Age is a state of mind.
+
+--- Slide 10 ---
+Logical Operators
+Boolean expressions can also use the following logical operators:
+            !   Logical NOT
+            &&  Logical AND
+            ||  Logical OR
+They all take boolean operands and produce boolean results
+Logical NOT is a unary operator (it operates on one operand)
+Logical AND and logical OR are binary operators (each operates on two operands)
+3/10/2023
+CISC230 Object Oriented Design and Programming
+10
+
+--- Slide 11 ---
+Logical NOT
+The logical NOT operation is also called logical negation or logical complement
+If some boolean condition a is true, then !a is false;  if a is false, then !a is true
+Logical expressions can be shown using a truth table:
+3/10/2023
+CISC230 Object Oriented Design and Programming
+11
+a | !a
+true | false
+false | true
+
+--- Slide 12 ---
+Logical AND and Logical OR
+The logical AND expression
+a && b
+    is true if both a and b are true, and false otherwise
+The logical OR expression
+a || b
+    is true if a or b or both are true, and false otherwise
+3/10/2023
+CISC230 Object Oriented Design and Programming
+12
+
+--- Slide 13 ---
+Logical AND and Logical OR
+A truth table shows all possible true-false combinations of the terms
+Since && and || each have two operands, there are four possible combinations of a and b
+3/10/2023
+CISC230 Object Oriented Design and Programming
+13
+a | b | a && b | a || b
+true | true | true | true
+true | false | false | true
+false | true | false | true
+false | false | false | false
+
+--- Slide 14 ---
+Logical Operators
+Expressions that use logical operators can form complex conditions
+        if (total < MAX+5 && !found)
+           System.out.println("Processing…");
+All logical operators have lower precedence than the relational operators
+The ! operator has higher precedence than && and ||
+3/10/2023
+CISC230 Object Oriented Design and Programming
+14
+
+--- Slide 15 ---
+Boolean Expressions
+Specific expressions can be evaluated using truth tables
+3/10/2023
+CISC230 Object Oriented Design and Programming
+15
+total < MAX | found | !found | total < MAX && !found
+false | false | true | false
+false | true | false | false
+true | false | true | true
+true | true | false | false
+
+--- Slide 16 ---
+Questions
+Write a Boolean expression that evaluates to true if a number stored in variable num is between 1 and 100
+Write a Boolean expression for
+                        |x - 5| < 4.5
+3/10/2023
+CISC230 Object Oriented Design and Programming
+16
+
+--- Slide 17 ---
+Outline
+Boolean Expressions
+The if Statement
+Comparing Data
+The while Statement
+Iterators
+The ArrayList Class
+Determining Event Sources
+Managing Fonts
+Check Boxes and Radio Buttons
+3/10/2023
+CISC230 Object Oriented Design and Programming
+17
+
+--- Slide 18 ---
+The if Statement
+Let's now look at the if statement in more detail
+The if statement has the following syntax:
+3/10/2023
+CISC230 Object Oriented Design and Programming
+18
+if ( condition )
+   statement;
+
+--- Slide 19 ---
+Logic of an if statement
+3/10/2023
+CISC230 Object Oriented Design and Programming
+19
+
+--- Slide 20 ---
+Indentation
+The statement controlled by the if statement is indented to indicate that relationship
+The use of a consistent indentation style makes a program easier to read and understand
+The compiler ignores indentation, which can lead to errors if the indentation is not correct
+3/10/2023
+CISC230 Object Oriented Design and Programming
+20
+"Always code as if the person who ends up maintaining your code will be a violent psychopath who knows where you live."
+    -- Martin Golding
+
+--- Slide 21 ---
+Quick Check
+3/10/2023
+CISC230 Object Oriented Design and Programming
+21
+What do the following statements do?
+if (total != stock + warehouse)
+   inventoryError = true;
+if (found || !done)
+   System.out.println("Ok");
+
+--- Slide 22 ---
+Quick Check
+3/10/2023
+CISC230 Object Oriented Design and Programming
+22
+What do the following statements do?
+if (total != stock + warehouse)
+   inventoryError = true;
+if (found || !done)
+   System.out.println("Ok");
+Sets the boolean variable to true if the value of total
+is not equal to the sum of stock and warehouse
+Prints "Ok" if found or done is true
+
+--- Slide 23 ---
+The if-else Statement
+An else clause can be added to an if statement to make an if-else statement
+                if ( condition )
+                   statement1;
+                else
+                   statement2;
+If the condition is true, statement1 is executed;  if the condition is false, statement2 is executed
+One or the other will be executed, but not both
+See Wages.java
+3/10/2023
+CISC230 Object Oriented Design and Programming
+23
+
+--- Slide 24 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+24
+//  Demonstrates the use of an if-else statement.
+import java.text.NumberFormat;
+import java.util.Scanner;
+public class Wages
+{
+   //  Reads the number of hours worked and calculates wages.
+   public static void main(String[] args)
+   {
+      final double RATE = 8.25;  // regular pay rate
+      final int STANDARD = 40;   // standard hours in a work week
+      Scanner scan = new Scanner(System.in);
+      double pay = 0.0;
+      System.out.print("Enter the number of hours worked: ");
+      int hours = scan.nextInt();
+      System.out.println();
+      // Pay overtime at "time and a half"
+      if (hours > STANDARD)
+         pay = STANDARD * RATE + (hours-STANDARD) * (RATE * 1.5);
+      else
+         pay = hours * RATE;
+      NumberFormat fmt = NumberFormat.getCurrencyInstance();
+      System.out.println("Gross earnings: " + fmt.format(pay));
+   }
+}
+
+--- Slide 25 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+25
+Sample Run
+Enter the number of hours worked: 46
+
+Gross earnings: $404.25
+
+--- Slide 26 ---
+Logic of an if-else statement
+3/10/2023
+CISC230 Object Oriented Design and Programming
+26
+
+--- Slide 27 ---
+The Coin Class
+Let's look at an example that uses a class that represents a coin that can be flipped
+Instance data is used to indicate which face (heads or tails) is currently showing
+See CoinFlip.java
+See Coin.java
+3/10/2023
+CISC230 Object Oriented Design and Programming
+27
+
+--- Slide 28 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+28
+//  Demonstrates the use of an if-else statement.
+public class CoinFlip
+{
+   //  Creates a Coin object, flips it, and prints the results.
+   public static void main(String[] args)
+   {
+      Coin myCoin = new Coin();
+      myCoin.flip();
+      System.out.println(myCoin);
+      if (myCoin.isHeads())
+         System.out.println("You win.");
+      else
+         System.out.println("Better luck next time.");
+   }
+}
+Sample Run
+Tails
+Better luck next time.
+
+--- Slide 29 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+29
+//  Represents a coin with two sides that can be flipped.
+public class Coin
+{
+   private final int HEADS = 0;
+   private final int TAILS = 1;
+   private int face;
+   public Coin()
+   {
+      flip();
+   }
+   public void flip()
+   {
+      face = (int) (Math.random() * 2);
+   }
+   public boolean isHeads()
+   {
+      return (face == HEADS);
+   }
+   public String toString()
+   {
+      String faceName;
+      if (face == HEADS)
+         faceName = "Heads";
+      else
+         faceName = "Tails";
+      return faceName;
+   }
+}
+
+--- Slide 30 ---
+Indentation Revisited
+Remember that indentation is for the human reader, and is ignored by the compiler
+        if (depth >= UPPER_LIMIT)
+           delta = 100;
+        else
+           System.out.println("Reseting Delta");
+           delta = 0;
+Despite what the indentation implies, delta will be set to 0 no matter what
+3/10/2023
+CISC230 Object Oriented Design and Programming
+30
+
+--- Slide 31 ---
+Block Statements
+Several statements can be grouped together into a block statement delimited by braces
+A block statement can be used wherever a statement is called for in the Java syntax rules
+3/10/2023
+CISC230 Object Oriented Design and Programming
+31
+if (total > MAX)
+{
+   System.out.println("Error!!");
+   errorCount++;
+}
+
+--- Slide 32 ---
+Block Statements
+The if clause, or the else clause, or both, could govern block statements
+
+
+
+
+
+
+See Guessing.java
+3/10/2023
+CISC230 Object Oriented Design and Programming
+32
+if (total > MAX)
+{
+   System.out.println("Error!!");
+   errorCount++;
+}
+else
+{
+   System.out.println("Total: " + total);
+   current = total*2;
+}
+
+--- Slide 33 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+33
+//  Demonstrates the use of a block statement in an if-else.
+import java.util.*;
+public class Guessing
+{
+   //  Plays a simple guessing game with the user.
+   public static void main(String[] args)
+   {
+      final int MAX = 10;
+      int answer, guess;
+      Scanner scan = new Scanner(System.in);
+      Random generator = new Random();
+      answer = generator.nextInt(MAX) + 1;
+      System.out.print("I'm thinking of a number between 1 and "
+                        + MAX + ". Guess what it is: ");
+      guess = scan.nextInt();
+      if (guess == answer)
+         System.out.println("You got it! Good guessing!");
+      else
+      {
+         System.out.println("That is not correct, sorry.");
+         System.out.println("The number was " + answer);
+      }
+   }
+}
+
+--- Slide 34 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+34
+Sample Run
+I'm thinking of a number between 1 and 10. Guess what it is: 6
+That is not correct, sorry.
+The number was 9
+
+--- Slide 35 ---
+Nested if Statements
+The statement executed as a result of an if or else clause could be another if statement
+These are called nested if statements
+An else clause is matched to the last unmatched if (no matter what the indentation implies)
+Braces can be used to specify the if statement to which an else clause belongs
+See MinOfThree.java
+3/10/2023
+CISC230 Object Oriented Design and Programming
+35
+
+--- Slide 36 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+36
+//  Demonstrates the use of nested if statements.
+import java.util.Scanner;
+public class MinOfThree
+{
+   //  Reads three integers from the user and determines the smallest value.
+   public static void main(String[] args)
+   {
+      int num1, num2, num3, min = 0;
+      Scanner scan = new Scanner(System.in);
+      System.out.println("Enter three integers: ");
+      num1 = scan.nextInt();
+      num2 = scan.nextInt();
+      num3 = scan.nextInt();
+      if (num1 < num2)
+         if (num1 < num3)
+            min = num1;
+         else
+            min = num3;
+      else
+         if (num2 < num3)
+            min = num2;
+         else
+            min = num3;
+      System.out.println("Minimum value: " + min);
+   }
+}
+Sample Run
+Enter three integers:
+84  69  90
+Minimum value: 69
+
+--- Slide 37 ---
+Short-Circuited Operators
+The processing of && and || is “short-circuited”
+If the left operand is sufficient to determine the result, the right operand is not evaluated
+        if (count != 0 && total/count > MAX)
+           System.out.println("Testing.");
+This type of processing should be used carefully
+3/10/2023
+CISC230 Object Oriented Design and Programming
+37
+
+--- Slide 38 ---
+class ShortCircuitAND {
+    public static void main(String arg[])
+    {
+        // Since first operand is false  and operator is &&, Evaluation stops and false is returned.
+        if (false && true && true)
+                   System.out.println("This output will not be printed");
+        else
+                               System.out.println("This output got printed actually, due to short circuit");
+
+        // Whole expression will be evaluated,  as no false is encountered before last condition
+        // Therefore no Short circuit
+        if (true && true && true)
+                      System.out.println("This output gets print“ + " as there will beno Short circuit");
+        else
+                     System.out.println("This output will not be printed");
+    }
+}
+3/10/2023
+CISC230 Object Oriented Design and Programming
+38
+
+--- Slide 39 ---
+class ShortCircuitOR {
+    public static void main(String arg[])
+    {
+        // Since first operand is false  and operator is &&, Evaluation stops and false is returned.
+        if (true || false || false)
+                        System.out.println("This output will be printed due to short circuit");
+        else
+                                 System.out.println("This output will not be printed");
+        // Whole expression will be evaluated,  as no false is encountered before last condition
+        // Therefore no Short circuit
+        if (false || false || true)
+                      System.out.println("This output gets print as there will be no Short circuit");
+        else
+                     System.out.println("This output will not be printed");
+    }
+}
+3/10/2023
+CISC230 Object Oriented Design and Programming
+39
+
+--- Slide 40 ---
+Question
+3/10/2023
+CISC230 Object Oriented Design and Programming
+40
+What is x after the following if-else statement is executed?
+int x = 14, a = 3;
+if (a == 1)
+  x += 5;
+else if (a == 2)
+  x += 10;
+else if (a == 3)
+  x += 16;
+else if (a == 4)
+  x += 34;
+
+--- Slide 41 ---
+What is wrong in the following code?
+if (score >= 60.0)
+  System.out.println("D");
+else if (score >= 70.0)
+  System.out.println("C");
+else if (score >= 80.0)
+  System.out.println("B");
+else if (score >= 90.0)
+  System.out.println("A");
+else
+  System.out.println("F");
+3/10/2023
+CISC230 Object Oriented Design and Programming
+41
+
+--- Slide 42 ---
+Output when x=1
+(true) && (3 > 4)
+!(x > 0) && (x > 0)
+(x > 0) || (x < 0)
+(x != 0) || (x == 0)
+(x >= 0) || (x < 0)
+(x != 1) == !(x == 1)
+3/10/2023
+CISC230 Object Oriented Design and Programming
+42
+
+--- Slide 43 ---
+Outline
+Boolean Expressions
+The if Statement
+Comparing Data
+The while Statement
+Iterators
+The ArrayList Class
+Determining Event Sources
+Managing Fonts
+Check Boxes and Radio Buttons
+3/10/2023
+CISC230 Object Oriented Design and Programming
+43
+
+--- Slide 44 ---
+Comparing Data
+When comparing data using boolean expressions, it's important to understand the nuances of certain data types
+Let's examine some key situations:
+Comparing floating point values for equality
+Comparing characters
+Comparing strings (alphabetical order)
+Comparing object vs. comparing object references
+3/10/2023
+CISC230 Object Oriented Design and Programming
+44
+
+--- Slide 45 ---
+Comparing Float Values
+You should rarely use the equality operator (==) when comparing two floating point values (float or double)
+Two floating point values are equal only if their underlying binary representations match exactly
+Computations often result in slight differences that may be irrelevant
+In many situations, you might consider two floating point numbers to be "close enough" even if they aren't exactly equal
+3/10/2023
+CISC230 Object Oriented Design and Programming
+45
+
+--- Slide 46 ---
+Comparing Float Values
+To determine the equality of two floats, use the following technique:
+     if (Math.abs(f1 - f2) < TOLERANCE)
+        System.out.println("Essentially equal");
+If the difference between the two floating point values is less than the tolerance, they are considered to be equal
+The tolerance could be set to any appropriate level, such as 0.000001
+3/10/2023
+CISC230 Object Oriented Design and Programming
+46
+
+--- Slide 47 ---
+Comparing Characters
+As we've discussed, Java character data is based on the Unicode character set
+Unicode establishes a particular numeric value for each character, and therefore an ordering
+We can use relational operators on character data based on this ordering
+For example, the character '+' is less than the character 'J' because it comes before it in the Unicode character set
+Book Appendix C provides an overview of Unicode or use link
+3/10/2023
+CISC230 Object Oriented Design and Programming
+47
+
+--- Slide 48 ---
+Comparing Characters
+In Unicode, the digit characters (0-9) are contiguous and in order
+Likewise, the uppercase letters (A-Z) and lowercase letters (a-z) are contiguous and in order
+3/10/2023
+CISC230 Object Oriented Design and Programming
+48
+Characters | Unicode Values
+0 – 9 | 48 through 57
+A – Z | 65 through 90
+a – z | 97 through 122
+
+--- Slide 49 ---
+Comparing Strings
+Remember that in Java a character string is an object
+The equals method can be called with strings to determine if two strings contain exactly the same characters in the same order
+The equals method returns a boolean result
+3/10/2023
+CISC230 Object Oriented Design and Programming
+49
+if (name1.equals(name2))
+   System.out.println("Same name");
+
+--- Slide 50 ---
+Comparing Strings
+We cannot use the relational operators to compare strings
+The String class contains the compareTo method for determining if one string comes before another
+A call to name1.compareTo(name2)
+returns zero if name1 and name2 are equal (contain the same characters)
+returns a negative value if name1 is less than name2
+returns a positive value if name1 is greater than name2
+3/10/2023
+CISC230 Object Oriented Design and Programming
+50
+
+--- Slide 51 ---
+Comparing Strings
+Because comparing characters and strings is based on a character set, it is called a lexicographic ordering
+3/10/2023
+CISC230 Object Oriented Design and Programming
+51
+int result = name1.compareTo(name2);
+if (result < 0)
+   System.out.println(name1 + "comes first");
+else
+   if (result == 0)
+      System.out.println("Same name");
+   else
+      System.out.println(name2 + "comes first");
+
+--- Slide 52 ---
+Example
+int compareTo(String anotherString) {
+    int length1 = value.length;
+    int length2 = anotherString.value.length;
+    int limit = Math.min(length1, length2);
+    char v1[] = value;
+    char v2[] = anotherString.value;
+    int i = 0;
+    while (i < limit) {
+        char ch1 = v1[i];
+        char ch2 = v2[i];
+        if (ch1 != ch2) {
+            return ch1 - ch2;
+        }
+        i++;
+    }
+    return length1 - length2;
+}
+public class CompareToExample{
+                 public static void main(String args[]){
+                              String s1="hello";
+                              String s2="hello";
+                              String s3="meklo";
+                              String s4="hemlo";
+                              String s5="flag";
+                              System.out.println(s1.compareTo(s2));//0 because both are equal
+                              System.out.println(s1.compareTo(s3));//-5 because "h" is 5 times lower  than "m"
+                              System.out.println(s1.compareTo(s4));//-1 because "l" is 1 times lower than "m"
+                              System.out.println(s1.compareTo(s5));//2 because "h" is 2 times greater than "f"
+               }
+}
+3/10/2023
+CISC230 Object Oriented Design and Programming
+52
+
+--- Slide 53 ---
+Lexicographic Ordering
+Lexicographic ordering is not strictly alphabetical when uppercase and lowercase characters are mixed
+For example, the string "Great" comes before the string "fantastic" because all of the uppercase letters come before all of the lowercase letters in Unicode
+Also, short strings come before longer strings with the same prefix (lexicographically)
+Therefore "book" comes before "bookcase"
+3/10/2023
+CISC230 Object Oriented Design and Programming
+53
+
+--- Slide 54 ---
+Comparing Objects
+The == operator can be applied to objects – it returns true if the two references are aliases of each other
+The equals method is defined for all objects, but unless we redefine it when we write a class, it has the same semantics as the == operator
+It has been redefined in the String class to compare the characters in the two strings
+When you write a class, you can redefine the equals method to return true under whatever conditions are appropriate
+3/10/2023
+CISC230 Object Oriented Design and Programming
+54
+
+--- Slide 55 ---
+Output?
+public class StringWork {
+   public static void main(String argv[]) {
+       String right = new String(10 * 1 - 10 + "");
+       String middle  = "00".substring(0, 1);
+       String zero  = "0";
+       String left  = "1";
+       String s= new String("0");
+       int    aInt  = 3;
+       System.out.println("c_0: " +     ( "0" == zero )   );
+       System.out.println("c_1: " +     ( "0" == left )   );
+       System.out.println("c_2: " +     ( "0" == middle   ) );
+       System.out.println("c_3: " +     (  aInt + aInt ) );
+       System.out.println("c_4: " +     (  left + aInt + aInt ));
+       System.out.println("c_5: " +     ( ( "1" + ""  ) == "1" ) );
+       System.out.println("c_6: " +     ( ( aInt  + "1" ) == ( left + "1" ) ) );
+       System.out.println("c_7:"+ 1 + "1" );
+       System.out.println("c_8:"+ ( 1 + 1 ) + "1" );
+       System.out.println("c_9:"+right);
+       System.out.println("c_10:"+ s.equals(zero));
+       System.out.println("c_11:"+ (s == zero) );
+   }
+}
+3/10/2023
+CISC230 Object Oriented Design and Programming
+55
+
+--- Slide 56 ---
+Outline
+Boolean Expressions
+The if Statement
+Comparing Data
+The while Statement
+Iterators
+The ArrayList Class
+Determining Event Sources
+Managing Fonts
+Check Boxes and Radio Buttons
+3/10/2023
+CISC230 Object Oriented Design and Programming
+56
+
+--- Slide 57 ---
+Repetition Statements
+Repetition statements allow us to execute a statement multiple times
+Often they are referred to as loops
+Like conditional statements, they are controlled by boolean expressions
+Java has three kinds of repetition statements: while, do, and for loops
+The do and for loops are discussed in Chapter 6
+3/10/2023
+CISC230 Object Oriented Design and Programming
+57
+
+--- Slide 58 ---
+The while Statement
+A while statement has the following syntax:
+            while ( condition )
+               statement;
+If the condition is true, the statement is executed
+Then the condition is evaluated again, and if it is still true, the statement is executed again
+The statement is executed repeatedly until the condition becomes false
+3/10/2023
+CISC230 Object Oriented Design and Programming
+58
+
+--- Slide 59 ---
+Logic of a while Loop
+3/10/2023
+CISC230 Object Oriented Design and Programming
+59
+
+--- Slide 60 ---
+The while Statement
+An example of a while statement:
+
+
+
+
+
+If the condition of a while loop is false initially, the statement is never executed
+Therefore, the body of a while loop will execute zero or more times
+3/10/2023
+CISC230 Object Oriented Design and Programming
+60
+int count = 1;
+while (count <= 5)
+{
+   System.out.println(count);
+   count++;
+}
+
+--- Slide 61 ---
+Sentinel Values
+Let's look at some examples of loop processing
+A loop can be used to maintain a running sum
+A sentinel value is a special input value that represents the end of input
+See Average.java
+3/10/2023
+CISC230 Object Oriented Design and Programming
+61
+
+--- Slide 62 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+62
+//  Demonstrates the use of a while loop, a sentinel value, and a running sum.
+import java.text.DecimalFormat;
+import java.util.Scanner;
+public class Average {
+   //  Computes the average of a set of values entered by the user.
+   //  The running sum is printed as the numbers are entered.
+   public static void main(String[] args) {
+      int sum = 0, value, count = 0;
+      double average;
+      Scanner scan = new Scanner(System.in);
+      System.out.print("Enter an integer (0 to quit): ");
+      value = scan.nextInt();
+      while (value != 0) { // sentinel value of 0 to terminate loop
+         count++;
+         sum += value;
+         System.out.println("The sum so far is " + sum);
+         System.out.print("Enter an integer (0 to quit): ");
+         value = scan.nextInt();
+      }
+      System.out.println();
+      if (count == 0)
+         System.out.println("No values were entered.");
+      else {
+         average = (double)sum / count;
+         DecimalFormat fmt = new DecimalFormat("0.###");
+         System.out.println("The average is " + fmt.format(average));
+      }
+   }
+}
+
+--- Slide 63 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+63
+Sample Run
+Enter an integer (0 to quit): 25
+The sum so far is 25
+Enter an integer (0 to quit): 164
+The sum so far is 189
+Enter an integer (0 to quit): -14
+The sum so far is 175
+Enter an integer (0 to quit): 84
+The sum so far is 259
+Enter an integer (0 to quit): 12
+The sum so far is 271
+Enter an integer (0 to quit): -35
+The sum so far is 236
+Enter an integer (0 to quit): 0
+
+The average is 39.333
+
+--- Slide 64 ---
+Input Validation
+A loop can also be used for input validation, making a program more robust
+It's generally a good idea to verify that input is valid (in whatever sense) when possible
+See WinPercentage.java
+3/10/2023
+CISC230 Object Oriented Design and Programming
+64
+
+--- Slide 65 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+65
+//  Demonstrates the use of a while loop for input validation.
+import java.text.NumberFormat;
+import java.util.Scanner;
+public class WinPercentage
+{
+   //  Computes the percentage of games won by a team.
+   public static void main(String[] args)
+   {
+      final int NUM_GAMES = 12;
+      int won;
+      double ratio;
+      Scanner scan = new Scanner(System.in);
+      System.out.print("Enter the number of games won (0 to "
+                        + NUM_GAMES + "): ");
+      won = scan.nextInt();
+      while (won < 0 || won > NUM_GAMES)
+      {
+         System.out.print("Invalid input. Please reenter: ");
+         won = scan.nextInt();
+      }
+      ratio = (double)won / NUM_GAMES;
+      NumberFormat fmt = NumberFormat.getPercentInstance();
+      System.out.println();
+      System.out.println("Winning percentage: " + fmt.format(ratio));
+   }
+}
+
+--- Slide 66 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+66
+Sample Run
+Enter the number of games won (0 to 12): -5
+Invalid input. Please reenter: 13
+Invalid input. Please reenter: 7
+
+Winning percentage: 58%
+
+--- Slide 67 ---
+Infinite Loops
+The body of a while loop eventually must make the condition false
+If not, it is called an infinite loop, which will execute until the user interrupts the program
+This is a common logical error
+You should always double check the logic of a program to ensure that your loops will terminate normally
+3/10/2023
+CISC230 Object Oriented Design and Programming
+67
+
+--- Slide 68 ---
+Infinite Loops
+An example of an infinite loop:
+
+
+
+
+
+This loop will continue executing until interrupted (Control-C) or until an underflow error occurs
+3/10/2023
+CISC230 Object Oriented Design and Programming
+68
+int count = 1;
+while (count <= 25)
+{
+   System.out.println(count);
+   count = count - 1;
+}
+
+--- Slide 69 ---
+Nested Loops
+Similar to nested if statements, loops can be nested as well
+That is, the body of a loop can contain another loop
+For each iteration of the outer loop, the inner loop iterates completely
+See PalindromeTester.java
+3/10/2023
+CISC230 Object Oriented Design and Programming
+69
+
+--- Slide 70 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+70
+//  Demonstrates the use of nested while loops.
+import java.util.Scanner;
+public class PalindromeTester {
+   //  Tests strings to see if they are palindromes.
+   public static void main(String[] args) {
+      String str, another = "y";
+      int left, right;
+      Scanner scan = new Scanner(System.in);
+      while (another.equalsIgnoreCase("y")) { // allows y or Y
+         System.out.println("Enter a potential palindrome:");
+         str = scan.nextLine();
+         left = 0;
+         right = str.length() - 1;
+         while (str.charAt(left) == str.charAt(right) && left < right) {
+            left++;
+            right--;
+         }
+         System.out.println();
+         if (left < right)
+            System.out.println("That string is NOT a palindrome.");
+         else
+            System.out.println("That string IS a palindrome.");
+         System.out.println();
+         System.out.print("Test another palindrome (y/n)? ");
+         another = scan.nextLine();
+      }
+   }
+}
+
+--- Slide 71 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+71
+Sample Run
+Enter a potential palindrome:
+radar
+
+That string IS a palindrome.
+
+Test another palindrome (y/n)? y
+Enter a potential palindrome:
+able was I ere I saw elba
+
+That string IS a palindrome.
+
+Test another palindrome (y/n)? y
+Enter a potential palindrome:
+abracadabra
+
+That string is NOT a palindrome.
+
+Test another palindrome (y/n)? n
+
+--- Slide 72 ---
+Quick Check
+3/10/2023
+CISC230 Object Oriented Design and Programming
+72
+How many times will the string "Here" be printed?
+count1 = 1;
+while (count1 <= 10)
+{
+   count2 = 1;
+   while (count2 < 20)
+   {
+      System.out.println("Here");
+      count2++;
+   }
+   count1++;
+}
+
+--- Slide 73 ---
+Quick Check
+3/10/2023
+CISC230 Object Oriented Design and Programming
+73
+How many times will the string "Here" be printed?
+count1 = 1;
+while (count1 <= 10)
+{
+   count2 = 1;
+   while (count2 < 20)
+   {
+      System.out.println("Here");
+      count2++;
+   }
+   count1++;
+}
+10 * 19 = 190
+
+--- Slide 74 ---
+Code
+public class StringCheck {
+  public static void main( String args[] ) {
+    String aString = "helloo".substring(0,5);
+    //substring--> Returns a new string that is a substring of this string.
+    String bString = "hello";
+    String cString = "helloo".substring(0,5);
+    String dString = new String("hello");
+    if ("hello"== "hello")
+        System.out.println("1. equal");
+    if ("hello"== "helloo".substring(0,5))
+        System.out.println("2. equal");
+    if ("hello" == aString)
+        System.out.println("3. equal");
+    if("helloo".substring(0,5)== aString)
+        System.out.println("4. equal");
+    if ("hello" == bString)
+        System.out.println("5. equal");
+    if (cString == bString)
+        System.out.println("6. equal");
+  }
+}
+3/10/2023
+CISC230 Object Oriented Design and Programming
+74
+
+--- Slide 75 ---
+Outline
+Boolean Expressions
+The if Statement
+Comparing Data
+The while Statement
+Iterators
+The ArrayList Class
+Determining Event Sources
+Managing Fonts
+Check Boxes and Radio Buttons
+3/10/2023
+CISC230 Object Oriented Design and Programming
+75
+
+--- Slide 76 ---
+Iterators
+An iterator is an object that allows you to process a collection of items one at a time
+It lets you step through each item in turn and process it as needed
+An iterator has a hasNext method that returns true if there is at least one more item to process
+The next method returns the next item
+Iterator objects are defined using the Iterator interface, which is discussed further in Chapter 7
+3/10/2023
+CISC230 Object Oriented Design and Programming
+76
+
+--- Slide 77 ---
+Iterators
+Several classes in the Java standard class library are iterators
+The Scanner class is an iterator
+the hasNext method returns true if there is more data to be scanned
+the next method returns the next scanned token as a string
+The Scanner class also has variations on the hasNext method for specific data types (such as hasNextInt)
+3/10/2023
+CISC230 Object Oriented Design and Programming
+77
+
+--- Slide 78 ---
+Iterators
+The fact that a Scanner is an iterator is particularly helpful when reading input from a file
+Suppose we wanted to read and process a list of URLs stored in a file
+One scanner can be set up to read each line of the input until the end of the file is encountered
+Another scanner can be set up for each URL to process each part of the path
+See URLDissector.java
+3/10/2023
+CISC230 Object Oriented Design and Programming
+78
+
+--- Slide 79 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+79
+//  Demonstrates the use of Scanner to read file input and parse it
+//  using alternative delimiters.
+import java.util.Scanner;
+import java.io.*;
+public class URLDissector
+{
+   //  Reads urls from a file and prints their path components.
+   public static void main(String[] args) throws IOException
+   {
+      String url;
+      Scanner fileScan, urlScan;
+      fileScan = new Scanner(new File("urls.inp"));
+      // Read and process each line of the file
+      while (fileScan.hasNext())
+      {
+         url = fileScan.nextLine();
+         System.out.println("URL: " + url);
+         urlScan = new Scanner(url);
+         urlScan.useDelimiter("/");
+         //  Print each part of the url
+         while (urlScan.hasNext())
+            System.out.println("   " + urlScan.next());
+         System.out.println();
+      }
+   }
+}
+
+--- Slide 80 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+80
+Sample Run
+URL: www.google.com
+   www.google.com
+
+URL: www.linux.org/info/gnu.html
+   www.linux.org
+   info
+   gnu.html
+
+URL: thelyric.com/calendar/
+   thelyric.com
+   calendar
+
+URL: www.cs.vt.edu/undergraduate/about
+   www.cs.vt.edu
+   undergraduate
+   about
+
+URL: youtube.com/watch?v=EHCRimwRGLs
+   youtube.com
+   watch?v=EHCRimwRGLs
+
+--- Slide 81 ---
+Outline
+Boolean Expressions
+The if Statement
+Comparing Data
+The while Statement
+Iterators
+The ArrayList Class
+Determining Event Sources
+Managing Fonts
+Check Boxes and Radio Buttons
+3/10/2023
+CISC230 Object Oriented Design and Programming
+81
+
+--- Slide 82 ---
+The ArrayList Class
+An ArrayList object stores a list of objects, and is often processed using a loop
+The ArrayList class is part of the java.util package
+You can reference each object in the list using a numeric index
+An ArrayList object grows and shrinks as needed, adjusting its capacity as necessary
+3/10/2023
+CISC230 Object Oriented Design and Programming
+82
+
+--- Slide 83 ---
+The ArrayList Class
+Index values of an ArrayList begin at 0 (not 1):
+                0   "Bashful"
+                1   "Sleepy"
+                2   "Happy"
+                3   "Dopey"
+                4   "Doc"
+Elements can be inserted and removed
+The indexes of the elements adjust accordingly
+3/10/2023
+CISC230 Object Oriented Design and Programming
+83
+
+--- Slide 84 ---
+ArrayList Methods
+Some ArrayList methods:
+            boolean add(E obj)
+            void add(int index, E obj)
+            Object remove(int index)
+            Object get(int index)
+            boolean isEmpty()
+            int size()
+3/10/2023
+CISC230 Object Oriented Design and Programming
+84
+
+--- Slide 85 ---
+The ArrayList Class
+The type of object stored in the list is established when the ArrayList object is created:
+        ArrayList<String> names = new ArrayList<String>();
+        ArrayList<Book> list = new ArrayList<Book>();
+This makes use of Java generics, which provide additional type checking at compile time
+An ArrayList object cannot store primitive types, but that's what wrapper classes are for
+See Beatles.java
+3/10/2023
+CISC230 Object Oriented Design and Programming
+85
+
+--- Slide 86 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+86
+//  Demonstrates the use of a ArrayList object.
+import java.util.ArrayList;
+public class Beatles
+{
+   //  Stores and modifies a list of band members.
+   public static void main(String[] args)
+   {
+      ArrayList<String> band = new ArrayList<String>();
+      band.add("Paul");
+      band.add("Pete");
+      band.add("John");
+      band.add("George");
+      System.out.println(band);
+      int location = band.indexOf("Pete");
+      band.remove(location);
+      System.out.println(band);
+      System.out.println("At index 1: " + band.get(1));
+      band.add(2, "Ringo");
+      System.out.println("Size of the band: " + band.size());
+      int index = 0;
+      while (index < band.size())
+      {
+         System.out.println(band.get(index));
+         index++;
+      }
+   }
+}
+Output
+[Paul, Pete, John, George]
+[Paul, John, George]
+At index 1: John
+Size of the band: 4
+Paul
+John
+Ringo
+George
+
+--- Slide 87 ---
+Outline
+Boolean Expressions
+The if Statement
+Comparing Data
+The while Statement
+Iterators
+The ArrayList Class
+Determining Event Sources
+Managing Fonts
+Check Boxes and Radio Buttons
+3/10/2023
+CISC230 Object Oriented Design and Programming
+87
+
+--- Slide 88 ---
+Determining Event Sources
+Recall that you must establish a relationship between controls and the event handlers that respond to events
+When appropriate, one event handler object can be used to listen to multiple controls
+The source of the event can be determined by using the getSource method of the event passed to the event handler
+See RedOrBlue.java
+3/10/2023
+CISC230 Object Oriented Design and Programming
+88
+
+--- Slide 89 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+89
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
+//  Demonstrates the use of one handler for multiple buttons.
+public class RedOrBlue extends Application
+{
+    private Button redButton, blueButton;
+    private FlowPane pane;
+    //  Presents a GUI with two buttons that control the color of the
+    //  pane background.
+    public void start(Stage primaryStage)
+    {
+        redButton = new Button("Red!");
+        redButton.setOnAction(this::processColorButton);
+        blueButton = new Button("Blue!");
+        blueButton.setOnAction(this::processColorButton);
+        pane = new FlowPane(redButton, blueButton);
+        pane.setAlignment(Pos.CENTER);
+        pane.setHgap(20);
+        pane.setStyle("-fx-background-color: white");
+        Scene scene = new Scene(pane, 300, 100);
+        primaryStage.setTitle("Red or Blue?");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+continue
+
+--- Slide 90 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+90
+continue
+
+    //  Determines which button was pressed and sets the pane color
+    //  accordingly.
+    public void processColorButton(ActionEvent event)
+    {
+        if (event.getSource() == redButton)
+            pane.setStyle("-fx-background-color: crimson");
+        else
+            pane.setStyle("-fx-background-color: deepskyblue");
+    }
+}
+
+--- Slide 91 ---
+Outline
+Boolean Expressions
+The if Statement
+Comparing Data
+The while Statement
+Iterators
+The ArrayList Class
+Determining Event Sources
+Managing Fonts
+Check Boxes and Radio Buttons
+3/10/2023
+CISC230 Object Oriented Design and Programming
+91
+
+--- Slide 92 ---
+Managing Fonts
+The Font class represents a character font, which specify what characters look like when displayed
+A font can be applied to a Text object or any control that displays text (such as a Button or Label)
+A font is specifies:
+font family (Arial, Courier, Helvetica)
+font size (in units called points)
+font weight (boldness)
+font posture (italic or normal)
+3/10/2023
+CISC230 Object Oriented Design and Programming
+92
+
+--- Slide 93 ---
+Managing Fonts
+A Font object is created using either the Font constructor or by calling the static font method
+The Font constructor can only take a font size, or a font family and size
+To set the font weight or font posture, use the font method, which can specify various combinations of font characteristics
+See FontDemo.java
+3/10/2023
+CISC230 Object Oriented Design and Programming
+93
+
+--- Slide 94 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+94
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.Group;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+//  Demonstrates the creation and use of fonts.
+public class FontDemo extends Application
+{
+    //  Displays three Text objects using various font styles.
+    public void start(Stage primaryStage)
+    {
+        Font font1 = new Font("Courier", 36);
+        Font font2 = Font.font("Times", FontWeight.BOLD,
+                                   FontPosture.ITALIC, 28);
+        Font font3 = Font.font("Arial", FontPosture.ITALIC, 14);
+        Text text1 = new Text(30, 55, "Dream Big");
+        text1.setFont(font1);
+        text1.setUnderline(true);
+
+
+continue
+
+--- Slide 95 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+95
+continue
+
+        Text text2 = new Text(150, 110, "Know thyself!");
+        text2.setFont(font2);
+        text2.setFill(Color.GREEN);
+        Text text3 = new Text(50, 150, "In theory, there is no difference " +
+            "between theory\nand practice, but in practice there is.");
+        text3.setFont(font3);
+        Group root = new Group(text1, text2, text3);
+        Scene scene = new Scene(root, 400, 200, Color.LIGHTCYAN);
+        primaryStage.setTitle("Font Demo");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+}
+
+--- Slide 96 ---
+Managing Fonts
+Note that setting the text color is not a function of the font applied
+It's set through the Text object directly
+The same is true for underlined text (or a "strike through" effect)
+3/10/2023
+CISC230 Object Oriented Design and Programming
+96
+
+--- Slide 97 ---
+Outline
+Boolean Expressions
+The if Statement
+Comparing Data
+The while Statement
+Iterators
+The ArrayList Class
+Determining Event Sources
+Managing Fonts
+Check Boxes and Radio Buttons
+3/10/2023
+CISC230 Object Oriented Design and Programming
+97
+
+--- Slide 98 ---
+Check Boxes
+A check box is a button that can be toggled on or off
+It is represented by the JavaFX CheckBox class
+Checking or unchecking a check box produces an action event
+See StyleOptions.java
+See StyleOptionsPane.java
+3/10/2023
+CISC230 Object Oriented Design and Programming
+98
+
+--- Slide 99 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+99
+import javafx.application.Application;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+//  Demonstrates the use of check boxes.
+public class StyleOptions extends Application
+{
+    //  Creates and presents the program window.
+    public void start(Stage primaryStage)
+    {
+        StyleOptionsPane pane = new StyleOptionsPane();
+        pane.setAlignment(Pos.CENTER);
+        pane.setStyle("-fx-background-color: skyblue");
+        Scene scene = new Scene(pane, 400, 150);
+        primaryStage.setTitle("Style Options");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+}
+
+--- Slide 100 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+100
+import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
+import javafx.scene.control.CheckBox;
+import javafx.scene.layout.*;
+import javafx.scene.text.*;
+//  Demonstrates the use of check boxes.
+public class StyleOptionsPane extends VBox
+{
+    private Text phrase;
+    private CheckBox boldCheckBox, italicCheckBox;
+    //  Sets up this pane with a Text object and check boxes that
+    //  determine the style of the text font.
+    public StyleOptionsPane()
+    {
+        phrase = new Text("Say it with style!");
+        phrase.setFont(new Font("Helvetica", 36));
+        boldCheckBox = new CheckBox("Bold");
+        boldCheckBox.setOnAction(this::processCheckBoxAction);
+        italicCheckBox = new CheckBox("Italic");
+        italicCheckBox.setOnAction(this::processCheckBoxAction);
+        HBox options = new HBox(boldCheckBox, italicCheckBox);
+        options.setAlignment(Pos.CENTER);
+        options.setSpacing(20);  // between the check boxes
+        setSpacing(20);  // between the text and the check boxes
+        getChildren().addAll(phrase, options);
+    }
+continue
+
+--- Slide 101 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+101
+//  Updates the font style of the displayed text.
+    public void processCheckBoxAction(ActionEvent event)
+    {
+        FontWeight weight = FontWeight.NORMAL;
+        FontPosture posture = FontPosture.REGULAR;
+        if (boldCheckBox.isSelected())
+            weight = FontWeight.BOLD;
+        if (italicCheckBox.isSelected())
+            posture = FontPosture.ITALIC;
+        phrase.setFont(Font.font("Helvetica", weight, posture, 36));
+    }
+}
+continue
+
+--- Slide 102 ---
+Check Boxes
+The StyleOptionsPane class uses two layout panes: HBox and VBox
+The HBox pane arranges its nodes into a single row horizontally
+The VBox pane arranges its nodes into a single column vertically
+StyleOptionsPane extends VBox, and is used to put the text above the check boxes
+The HBox puts the check boxes side by side
+3/10/2023
+CISC230 Object Oriented Design and Programming
+102
+
+--- Slide 103 ---
+Check Boxes
+The event handler method is called when either check box is toggled
+Instead of tracking which box was changed, the method just checks the current status of both boxes and sets the font accordingly
+3/10/2023
+CISC230 Object Oriented Design and Programming
+103
+
+--- Slide 104 ---
+Radio Buttons
+Let's look at a similar example that uses radio buttons
+A group of radio buttons represents a set of mutually exclusive options – only one button can be selected at any given time
+When a radio button from a group is selected, the button that is currently "on" in the group is automatically toggled off
+See QuoteOptions.java
+See QuoteOptionsPane.java
+3/10/2023
+CISC230 Object Oriented Design and Programming
+104
+
+--- Slide 105 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+105
+import javafx.application.Application;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+//  Demonstrates the use of radio buttons.
+public class QuoteOptions extends Application
+{
+    //  Creates and presents the program window.
+    public void start(Stage primaryStage)
+    {
+        QuoteOptionsPane pane = new QuoteOptionsPane();
+        pane.setAlignment(Pos.CENTER);
+        pane.setStyle("-fx-background-color: lightgreen");
+        Scene scene = new Scene(pane, 500, 150);
+        primaryStage.setTitle("Quote Options");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+}
+
+--- Slide 106 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+106
+import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.scene.text.*;
+//  Demonstrates the use of radio buttons.
+public class QuoteOptionsPane extends HBox
+{
+    private Text quote;
+    private String philosophyQuote, carpentryQuote, comedyQuote;
+    private RadioButton philosophyButton, carpentryButton, comedyButton;
+    //  Sets up this pane with a Text object and radio buttons that
+    //  determine which phrase is displayed.
+    public QuoteOptionsPane()
+    {
+        philosophyQuote = "I think, therefore I am.";
+        carpentryQuote = "Measure twice. Cut once.";
+        comedyQuote = "Take my wife, please.";
+        quote = new Text(philosophyQuote);
+        quote.setFont(new Font("Helvetica", 24));
+        StackPane quotePane = new StackPane(quote);
+        quotePane.setPrefSize(300, 100);
+        ToggleGroup group = new ToggleGroup();
+        philosophyButton = new RadioButton("Philosophy");
+        philosophyButton.setSelected(true);
+        philosophyButton.setToggleGroup(group);
+        philosophyButton.setOnAction(this::processRadioButtonAction);
+continue
+
+--- Slide 107 ---
+3/10/2023
+CISC230 Object Oriented Design and Programming
+107
+carpentryButton = new RadioButton("Carpentry");
+        carpentryButton.setToggleGroup(group);
+        carpentryButton.setOnAction(this::processRadioButtonAction);
+        comedyButton = new RadioButton("Comedy");
+        comedyButton.setToggleGroup(group);
+        comedyButton.setOnAction(this::processRadioButtonAction);
+        VBox options = new VBox(philosophyButton, carpentryButton,
+            comedyButton);
+        options.setAlignment(Pos.CENTER_LEFT);
+        options.setSpacing(10);
+        setSpacing(20);
+        getChildren().addAll(options, quotePane);
+    }
+    //--------------------------------------------------------------------
+    //  Updates the content of the displayed text.
+    //--------------------------------------------------------------------
+    public void processRadioButtonAction(ActionEvent event)
+    {
+        if (philosophyButton.isSelected())
+            quote.setText(philosophyQuote);
+        else if (carpentryButton.isSelected())
+            quote.setText(carpentryQuote);
+        else
+            quote.setText(comedyQuote);
+    }
+}
+
+--- Slide 108 ---
+Radio Buttons
+To establish a set of mutually exclusive options, the radio buttons that work together as a group are added to a ToggleGroup object
+The setToggleGroup method is used to specify which toggle group a button belongs to
+The isSelected method of a radio button returns true if that button is currently "on"
+3/10/2023
+CISC230 Object Oriented Design and Programming
+108
+
+--- Slide 109 ---
+Summary
+Chapter 5 focused on:
+boolean expressions
+the if and if-else statements
+comparing data
+while loops
+iterators
+the ArrayList class
+more GUI controls
+3/10/2023
+CISC230 Object Oriented Design and Programming
+109
+
+--- Slide 110 ---
+Copyright
+This work is protected by United States copyright laws and is provided solely for the use of instructors in teaching their courses and assessing student learning. Dissemination or sale of any part of this work (including on the World Wide Web) will destroy the integrity of the work and is not permitted. The work and materials from it should never be made available to students except by instructors using the accompanying text in their classes. All recipients of this work are expected to abide by these restrictions and to honor the intended pedagogical purposes and the needs of other instructors who rely on these materials.
+3/10/2023
+CISC230 Object Oriented Design and Programming
+110

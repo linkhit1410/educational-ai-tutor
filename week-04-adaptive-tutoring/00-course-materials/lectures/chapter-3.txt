@@ -1,0 +1,1335 @@
+Source file: Chapter 3.pptx
+
+--- Slide 1 ---
+Chapter 3
+Using Classes and Objects
+
+--- Slide 2 ---
+Using Classes and Objects
+We can create more interesting programs using predefined classes and related objects
+Chapter 3 focuses on:
+object creation and object references
+the String class and its methods
+the Java API class library
+the Random and Math classes
+formatting output
+enumerated types
+wrapper classes
+JavaFX graphics API
+shape classes
+2
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 3 ---
+Outline
+Creating Objects
+The String Class
+The Random and Math Classes
+Formatting Output
+Enumerated Types
+Wrapper Classes
+Introduction to JavaFX
+Shapes and Color
+3
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 4 ---
+Creating Objects
+A variable holds either a primitive value or a reference to an object
+A class name can be used as a type to declare an object
+            String title;
+No object is created with this declaration
+An object reference holds the address of an object
+The object itself must be created separately
+4
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 5 ---
+Creating Objects
+Generally, we use the new operator to create an object
+Creating an object is called instantiation
+An object is an instance of a particular class
+5
+title = new String("Java Software Solutions");
+This calls the String constructor, which is
+a special method that sets up the object
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 6 ---
+Invoking Methods
+We've seen that once an object has been instantiated, we can use the dot operator to invoke its methods
+numChars = title.length()
+A method may return a value, which can be used in an assignment or expression
+A method invocation can be thought of as asking an object to perform a service
+6
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 7 ---
+References
+Note that a primitive variable contains the value itself, but an object reference contains the address of the object
+An object reference can be thought of as a pointer to the location of the object
+Rather than dealing with arbitrary addresses, we often depict a reference graphically
+7
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 8 ---
+Object and Variable stored in memory
+8
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 9 ---
+Assignment Revisited
+The act of assignment takes a copy of a value and stores it in a variable
+For primitive types:
+9
+num2 = num1;
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 10 ---
+Reference Assignment
+For object references, assignment copies the address:
+10
+name2 = name1;
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 11 ---
+Aliases
+Two or more references that refer to the same object are called aliases of each other
+That creates an interesting situation: one object can be accessed using multiple reference variables
+Aliases can be useful, but should be managed carefully
+Changing an object through one reference changes it for all of its aliases, because there is really only one object
+11
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 12 ---
+Garbage Collection
+When an object no longer has any valid references to it, it can no longer be accessed by the program
+The object is useless, and therefore is called garbage
+Java performs automatic garbage collection periodically, returning an object's memory to the system for future use
+In other languages, the programmer is responsible for performing garbage collection
+12
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 13 ---
+Outline
+Creating Objects
+The String Class
+The Random and Math Classes
+Formatting Output
+Enumerated Types
+Wrapper Classes
+Introduction to JavaFX
+Shapes and Color
+13
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 14 ---
+The String Class
+Because strings are so common, we don't have to use the new operator to create a String object
+String title = "Java Software Solutions";
+This is special syntax that works only for strings
+Each string literal (enclosed in double quotes) represents a String object
+14
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 15 ---
+String Methods
+Once a String object has been created, neither its value nor its length can be changed
+Therefore, we say that an object of the String class is immutable
+However, several methods of the String class return new String objects that are modified versions of the original
+15
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 16 ---
+String Indexes
+It is occasionally helpful to refer to a particular character within a string
+This can be done by specifying the character's numeric index
+The indexes begin at zero in each string
+In the string "Hello", the character 'H' is at index 0 and the 'o' is at index 4
+See StringMutation.java
+16
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 17 ---
+17
+//********************************************************************
+//  StringMutation.java       Author: Lewis/Loftus
+//
+//  Demonstrates the use of the String class and its methods.
+//********************************************************************
+public class StringMutation
+{
+   //-----------------------------------------------------------------
+   //  Prints a string and various mutations of it.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      String phrase = "Change is inevitable";
+      String mutation1, mutation2, mutation3, mutation4;
+      System.out.println("Original string: \"" + phrase + "\"");
+      System.out.println("Length of string: " + phrase.length());
+      mutation1 = phrase.concat(", except from vending machines.");
+      mutation2 = mutation1.toUpperCase();
+      mutation3 = mutation2.replace('E', 'X');
+      mutation4 = mutation3.substring(3, 30);
+      // Print each mutated string
+      System.out.println("Mutation #1: " + mutation1);
+      System.out.println("Mutation #2: " + mutation2);
+      System.out.println("Mutation #3: " + mutation3);
+      System.out.println("Mutation #4: " + mutation4);
+      System.out.println("Mutated length: " + mutation4.length());
+   }
+}
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 18 ---
+18
+Output
+Original string: "Change is inevitable"
+Length of string: 20
+Mutation #1: Change is inevitable, except from vending machines.
+Mutation #2: CHANGE IS INEVITABLE, EXCEPT FROM VENDING MACHINES.
+Mutation #3: CHANGX IS INXVITABLX, XXCXPT FROM VXNDING MACHINXS.
+Mutation #4: NGX IS INXVITABLX, XXCXPT F
+Mutated length: 27
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 19 ---
+Quick Check
+19
+What output is produced by the following?
+String str = "Space, the final frontier.";
+System.out.println(str.length());
+System.out.println(str.substring(7));
+System.out.println(str.toUpperCase());
+System.out.println(str.length());
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 20 ---
+Quick Check
+20
+What output is produced by the following?
+String str = "Space, the final frontier.";
+System.out.println(str.length());
+System.out.println(str.substring(7));
+System.out.println(str.toUpperCase());
+System.out.println(str.length());
+26
+the final frontier.
+SPACE, THE FINAL FRONTIER.
+26
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 21 ---
+String Understanding
+String s1 = “Hello";
+String s2 = new String(“Hello");
+String s3 = “Hello";
+String s4 = new String (“Hello”)
+String s5= “Hell” +”o”;
+String s6= “Hell”;
+String s7 = s6 + “o”;
+21
+9/17/2025
+CISC230 Object Oriented Design and Programming
+1400
+1500
+1400
+1600
+s5
+1400
+s6
+1700
+“Hell"
+s7
+1800
+“Hello"
+
+--- Slide 22 ---
+Output?
+public class StringExamples {
+    public static void main(String[] args) {
+                String s1 = "Hello";
+                String s2 = new String("Hello");
+                String s3 = "Hello";
+                String s4 = new String ("Hello");
+                String s5= "Hell" +"o";
+                String s6= "Hell";
+                String s7 = s6 + "o";
+                System.out.println(s1 == s2);
+                System.out.println(s1 == s3);
+                System.out.println(s2 == s4);
+                System.out.println(s1 == s5);
+                System.out.println(s6 == s7);
+    }
+}
+9/17/2025
+CISC230 Object Oriented Design and Programming
+22
+
+--- Slide 23 ---
+Will this work?
+public class Java
+{
+         public static void main(String args[])
+        {
+                 String aString;
+                 aString.length();
+         }
+}
+9/17/2025
+CISC230 Object Oriented Design and Programming
+23
+
+--- Slide 24 ---
+Output?
+public class Java
+{
+   public static void main(String args[])
+   {
+      String aString = new String();
+      aString = null;
+      aString.length();
+   }
+}
+9/17/2025
+CISC230 Object Oriented Design and Programming
+24
+
+--- Slide 25 ---
+Output?
+class StringThing
+{
+   public static void main(String args[])
+   {
+      String aString;
+      aString = new String("Last Stop!");
+      System.out.println( aString.length() );
+      System.out.println( aString.toUpperCase() );
+      System.out.println( aString.toUpperCase() + ".");
+      System.out.println( aString.length() + 1 );
+      System.out.println( 1 + aString.length()  );
+      System.out.println( 1 + aString + 1 );
+      System.out.println( aString + ( 1 + 1 )  );
+   }
+}
+9/17/2025
+CISC230 Object Oriented Design and Programming
+25
+
+--- Slide 26 ---
+Output?
+public class StringWork {
+   public static void main(String argv[]) {
+       String right = new String(10 * 1 - 10 + "");
+       String middle  = "00".substring(0, 1);
+       String zero  = "0";
+       String left  = "1";
+       String s= new String("0");
+       int    aInt  = 3;
+       System.out.println("c_0: " +     ( "0" == zero )   );
+       System.out.println("c_1: " +     ( "0" == left )   );
+       System.out.println("c_2: " +     ( "0" == middle   ) );
+       System.out.println("c_3: " +     (  aInt + aInt ) );
+       System.out.println("c_4: " +     (  left + aInt + aInt ));
+       System.out.println("c_5: " +     ( ( "1" + ""  ) == "1" ) );
+       System.out.println("c_6: " +     ( ( aInt  + "1" ) == ( left + "1" ) ) );
+       System.out.println("c_7:"+ 1 + "1" );
+       System.out.println("c_8:"+ ( 1 + 1 ) + "1" );
+       System.out.println("c_9:"+right);
+       System.out.println("c_10:"+ s.equals(zero));
+       System.out.println("c_11:"+ (s == zero) );
+   }
+}
+9/17/2025
+CISC230 Object Oriented Design and Programming
+26
+
+--- Slide 27 ---
+Outline
+Creating Objects
+The String Class
+The Random and Math Classes
+Formatting Output
+Enumerated Types
+Wrapper Classes
+Introduction to JavaFX
+Shapes and Color
+27
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 28 ---
+Class Libraries
+A class library is a collection of classes that we can use when developing programs
+The Java standard class library is part of any Java development environment
+Its classes are not part of the Java language per se, but we rely on them heavily
+Various classes we've already used (System , Scanner, String) are part of the Java standard class library
+28
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 29 ---
+The Java API
+The Java class library is sometimes referred to as the Java API
+API stands for Application Programming Interface
+Clusters of related classes are sometimes referred to as specific APIs:
+The JavaFX API
+The Database API
+29
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 30 ---
+The Java API
+Get comfortable using the online Java API documentation
+30
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 31 ---
+Packages
+For purposes of accessing them, classes in the Java API are organized into packages
+These often overlap with specific APIs
+Examples:
+31
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 32 ---
+The import Declaration
+When you want to use a class from a package, you could use its fully qualified name
+java.util.Scanner
+Or you can import the class, and then use just the class name
+import java.util.Scanner;
+To import all classes in a particular package, you can use the * wildcard character
+import java.util.*;
+32
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 33 ---
+The import Declaration
+All classes of the java.lang package are imported automatically into all programs
+It's as if all programs contain the following line:
+import java.lang.*;
+That's why we didn't have to import the System or String classes explicitly in earlier programs
+The Scanner class, on the other hand, is part of the java.util package, and therefore must be imported
+33
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 34 ---
+The Random Class
+The Random class is part of the java.util package
+It provides methods that generate pseudorandom numbers
+A Random object performs complicated calculations based on a seed value to produce a stream of seemingly random values
+See RandomNumbers.java
+34
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 35 ---
+35
+import java.util.Random;
+public class RandomNumbers
+{
+   //-------------------------------------------------------------
+   //  Generates random numbers in various ranges.
+   //-------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      Random generator = new Random();
+      int num1;
+      float num2;
+      num1 = generator.nextInt();
+      System.out.println("A random integer: " + num1);
+      num1 = generator.nextInt(10);
+      System.out.println("From 0 to 9: " + num1);
+      num1 = generator.nextInt(10) + 1;
+      System.out.println("From 1 to 10: " + num1);
+      num1 = generator.nextInt(15) + 20;
+      System.out.println("From 20 to 34: " + num1);
+      num1 = generator.nextInt(20) - 10;
+      System.out.println("From -10 to 9: " + num1);
+      num2 = generator.nextFloat();
+      System.out.println("A random float (between 0-1): " + num2);
+      num2 = generator.nextFloat() * 6;  // 0.0 to 5.999999
+      num1 = (int)num2 + 1;
+      System.out.println("From 1 to 6: " + num1);
+   }
+}
+9/17/2025
+CISC230 Object Oriented Design and Programming
+Sample Run
+A random integer: 672981683
+From 0 to 9: 0
+From 1 to 10: 3
+From 20 to 34: 30
+From -10 to 9: -4
+A random float (between 0-1): 0.18538326
+From 1 to 6: 3
+
+--- Slide 36 ---
+36
+9/17/2025
+CISC230 Object Oriented Design and Programming
+Sample Run
+A random integer: 672981683
+From 0 to 9: 0
+From 1 to 10: 3
+From 20 to 34: 30
+From -10 to 9: -4
+A random float (between 0-1): 0.18538326
+From 1 to 6: 3
+
+--- Slide 37 ---
+Quick Check
+37
+Given a Random object named gen, what range of values are produced by the following expressions?
+gen.nextInt(25)
+gen.nextInt(6) + 1
+gen.nextInt(100) + 10
+gen.nextInt(50) + 100
+gen.nextInt(10) – 5
+gen.nextInt(22) + 12
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 38 ---
+Quick Check
+38
+Given a Random object named gen, what range of values are produced by the following expressions?
+gen.nextInt(25)
+gen.nextInt(6) + 1
+gen.nextInt(100) + 10
+gen.nextInt(50) + 100
+gen.nextInt(10) – 5
+gen.nextInt(22) + 12
+Range
+0 to 24
+1 to 6
+10 to 109
+100 to 149
+-5 to 4
+12 to 33
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 39 ---
+Quick Check
+39
+Write an expression that produces a random integer in the following ranges:
+Range
+0 to 12
+1 to 20
+15 to 20
+-10 to 0
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 40 ---
+Quick Check
+40
+Write an expression that produces a random integer in the following ranges:
+gen.nextInt(13)
+gen.nextInt(20) + 1
+gen.nextInt(6) + 15
+gen.nextInt(11) – 10
+Range
+0 to 12
+1 to 20
+15 to 20
+-10 to 0
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 41 ---
+Outline
+Creating Objects
+The String Class
+The Random and Math Classes
+Formatting Output
+Enumerated Types
+Wrapper Classes
+Introduction to JavaFX
+Shapes and Color
+41
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 42 ---
+The Math Class
+The Math class is part of the java.lang package
+The Math class contains methods that perform various mathematical functions
+These include:
+absolute value
+square root
+exponentiation
+trigonometric functions
+42
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 43 ---
+The Math Class
+The methods of the Math class are static methods (also called class methods)
+Static methods are invoked through the class name – no object of the Math class is needed
+value = Math.cos(90) + Math.sqrt(delta);
+We discuss static methods further in Chapter 7
+See Quadratic.java
+43
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 44 ---
+44
+import java.util.Scanner;
+public class Quadratic
+{
+   //--------------------------------------------------------------
+   //  Determines the roots of a quadratic equation.
+   //--------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      int a, b, c;  // ax^2 + bx + c
+      double discriminant, root1, root2;
+      Scanner scan = new Scanner(System.in);
+      System.out.print("Enter the coefficient of x squared: ");
+      a = scan.nextInt();
+      System.out.print("Enter the coefficient of x: ");
+      b = scan.nextInt();
+      System.out.print("Enter the constant: ");
+      c = scan.nextInt();
+      // Use the quadratic formula to compute the roots.
+      // Assumes a positive discriminant.
+      discriminant = Math.pow(b, 2) - (4 * a * c);
+      root1 = ((-1 * b) + Math.sqrt(discriminant)) / (2 * a);
+      root2 = ((-1 * b) - Math.sqrt(discriminant)) / (2 * a);
+      System.out.println("Root #1: " + root1);
+      System.out.println("Root #2: " + root2);
+   }
+}
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 45 ---
+45
+Sample Run
+Enter the coefficient of x squared: 3
+Enter the coefficient of x: 8
+Enter the constant: 4
+Root #1: -0.6666666666666666
+Root #2: -2.0
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 46 ---
+Outline
+Creating Objects
+The String Class
+The Random and Math Classes
+Formatting Output
+Enumerated Types
+Wrapper Classes
+Introduction to JavaFX
+Shapes and Color
+46
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 47 ---
+Formatting Output
+It is often necessary to format output values in certain ways so that they can be presented properly
+The Java standard class library contains classes that provide formatting capabilities
+The NumberFormat class allows you to format values as currency or percentages
+The DecimalFormat class allows you to format values based on a pattern
+Both are part of the java.text package
+47
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 48 ---
+Formatting Output
+The NumberFormat class has static methods that return a formatter object
+getCurrencyInstance()
+getPercentInstance()
+Each formatter object has a method called format that returns a string with the specified information in the appropriate format
+See Purchase.java
+48
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 49 ---
+49
+import java.util.Scanner;
+import java.text.NumberFormat;
+public class Purchase
+{
+   //-----------------------------------------------------------------
+   //  Calculates the final price of a purchased item using values entered by the user.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      final double TAX_RATE = 0.06;  // 6% sales tax
+      int quantity;
+      double subtotal, tax, totalCost, unitPrice;
+      Scanner scan = new Scanner(System.in);
+      NumberFormat fmt1 = NumberFormat.getCurrencyInstance();
+      NumberFormat fmt2 = NumberFormat.getPercentInstance();
+      System.out.print("Enter the quantity: ");
+      quantity = scan.nextInt();
+      System.out.print("Enter the unit price: ");
+      unitPrice = scan.nextDouble();
+      subtotal = quantity * unitPrice;
+      tax = subtotal * TAX_RATE;
+      totalCost = subtotal + tax;
+      // Print output with appropriate formatting
+      System.out.println("Subtotal: " + fmt1.format(subtotal));
+      System.out.println("Tax: " + fmt1.format(tax) + " at “ + fmt2.format(TAX_RATE));
+      System.out.println("Total: " + fmt1.format(totalCost));
+   }
+}
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 50 ---
+50
+Sample Run
+Enter the quantity: 5
+Enter the unit price: 3.87
+Subtotal: $19.35
+Tax: $1.16 at 6%
+Total: $20.51
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 51 ---
+51
+import java.util.Locale;
+import java.text.NumberFormat;
+public class Currency {
+// Demonstrates the use of the NumberFormat class display currency.
+  public static void main (String[] args) {
+         Locale locale;
+         double currencyAmount = 1000000.00;
+         // Yen: Japan currency
+         locale = new Locale("jp", "JP");
+         NumberFormat numberFormat =
+               NumberFormat.getCurrencyInstance(locale);
+         System.out.println(numberFormat.format(currencyAmount));
+         // Euro: Germany currency
+         locale = new Locale("de", "DE");
+         numberFormat = NumberFormat.getCurrencyInstance(locale);
+         System.out.println(numberFormat.format(currencyAmount));
+         // Dollars: USA currency
+         locale = new Locale("en", "US");
+         numberFormat = NumberFormat.getCurrencyInstance(locale);
+         System.out.println(numberFormat.format(currencyAmount));
+  }
+}
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 52 ---
+52
+Sample Run
+JP¥ 1,000,000
+1.000.000,00 €
+$1,000,000.00
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 53 ---
+Formatting Output
+The DecimalFormat class can be used to format a floating-point value in various ways
+For example, you can specify that the number should be truncated to three decimal places
+The constructor of the DecimalFormat class takes a string that represents a pattern for the formatted number
+See CircleStats.java
+53
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 54 ---
+54
+import java.util.Scanner;
+import java.text.DecimalFormat;
+public class CircleStats
+{
+   //-----------------------------------------------------------------
+   //  Calculates the area and circumference of a circle given its
+   //  radius.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      int radius;
+      double area, circumference;
+      Scanner scan = new Scanner(System.in);
+      System.out.print("Enter the circle's radius: ");
+      radius = scan.nextInt();
+      area = Math.PI * Math.pow(radius, 2);
+      circumference = 2 * Math.PI * radius;
+      // Round the output to three decimal places
+      DecimalFormat fmt = new DecimalFormat("0.###");
+      System.out.println("The circle's area: " + fmt.format(area));
+      System.out.println("The circle's circumference: "
+                          + fmt.format(circumference));
+   }
+}
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 55 ---
+55
+Sample Run
+Enter the circle's radius: 5
+The circle's area: 78.54
+The circle's circumference: 31.416
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 56 ---
+Outline
+Creating Objects
+The String Class
+The Random and Math Classes
+Formatting Output
+Enumerated Types
+Wrapper Classes
+Introduction to JavaFX
+Shapes and Color
+56
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 57 ---
+Enumerated Types
+Java allows you to define an enumerated type, which can then be used to declare variables
+An enumerated type declaration lists all possible values for a variable of that type
+The values are identifiers of your own choosing
+The following declaration creates an enumerated type called Season
+           enum Season {winter, spring, summer, fall};
+Any number of values can be listed
+57
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 58 ---
+Enumerated Types
+Once a type is defined, a variable of that type can be declared:
+Season time;
+And it can be assigned a value:
+time = Season.fall;
+The values are referenced through the name of the type
+Enumerated types are type-safe – you cannot assign any value other than those listed
+58
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 59 ---
+Ordinal Values
+Internally, each value of an enumerated type is stored as an integer, called its ordinal value
+The first value in an enumerated type has an ordinal value of zero, the second one, and so on
+However, you cannot assign a numeric value to an enumerated type, even if it corresponds to a valid ordinal value
+59
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 60 ---
+Enumerated Types
+The declaration of an enumerated type is a special type of class, and each variable of that type is an object
+The ordinal method returns the ordinal value of the object
+The name method returns the name of the identifier corresponding to the object's value
+See IceCream.java
+60
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 61 ---
+61
+public class IceCream
+{
+   enum Flavor {vanilla, chocolate, strawberry, fudgeRipple, coffee,
+                rockyRoad, mintChocolateChip, cookieDough}
+   //enum Numeric {1, 2, 3};
+   //-----------------------------------------------------------------
+   //  Creates and uses variables of the Flavor type.
+   //-----------------------------------------------------------------
+   public static void main(String[] args)
+   {
+      Flavor cone1, cone2, cone3;
+      cone1 = Flavor.rockyRoad;
+      cone2 = Flavor.chocolate;
+      System.out.println("cone1 value: " + cone1);
+      System.out.println("cone1 ordinal: " + cone1.ordinal());
+      System.out.println("cone1 name: " + cone1.name());
+      System.out.println();
+      System.out.println("cone2 value: " + cone2);
+      System.out.println("cone2 ordinal: " + cone2.ordinal());
+      System.out.println("cone2 name: " + cone2.name());
+      cone3 = cone1;
+      System.out.println();
+      System.out.println("cone3 value: " + cone3);
+      System.out.println("cone3 ordinal: " + cone3.ordinal());
+      System.out.println("cone3 name: " + cone3.name());
+   }
+}
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 62 ---
+62
+Output
+cone1 value: rockyRoad
+cone1 ordinal: 5
+cone1 name: rockyRoad
+cone2 value: chocolate
+cone2 ordinal: 1
+cone2 name: chocolate
+cone3 value: rockyRoad
+cone3 ordinal: 5
+cone3 name: rockyRoad
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 63 ---
+Outline
+Creating Objects
+The String Class
+The Random and Math Classes
+Formatting Output
+Enumerated Types
+Wrapper Classes
+Introduction to JavaFX
+Shapes and Color
+63
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 64 ---
+Wrapper Classes
+Primitive Type | Wrapper Class
+byte | Byte
+short | Short
+int | Integer
+long | Long
+float | Float
+double | Double
+char | Character
+boolean | Boolean
+64
+The java.lang package contains wrapper classes that correspond to each primitive type:
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 65 ---
+Wrapper Classes
+The following declaration creates an Integer object which represents the integer 40 as an object
+    Integer age = new Integer(40);
+An object of a wrapper class can be used in any situation where a primitive value will not suffice
+For example, some objects serve as containers of other objects
+Primitive values could not be stored in such containers, but wrapper objects could be
+9/17/2025
+CISC230 Object Oriented Design and Programming
+65
+
+--- Slide 66 ---
+Wrapper Classes
+Wrapper classes also contain static methods that help manage the associated type
+For example, the Integer class contains a method to convert an integer stored in a String to an int value:
+num = Integer.parseInt(str);
+They often contain useful constants as well
+For example, the Integer class contains MIN_VALUE and MAX_VALUE which hold the smallest and largest int values
+9/17/2025
+CISC230 Object Oriented Design and Programming
+66
+
+--- Slide 67 ---
+Autoboxing
+Autoboxing is the automatic conversion of a primitive value to a corresponding wrapper object:
+            Integer obj;
+            int num = 42;
+            obj = num;
+The assignment creates the appropriate Integer object
+The reverse conversion (called unboxing) also occurs automatically as needed
+9/17/2025
+CISC230 Object Oriented Design and Programming
+67
+
+--- Slide 68 ---
+Quick Check
+9/17/2025
+CISC230 Object Oriented Design and Programming
+68
+Are the following assignments valid? Explain.
+Double value = 15.75;
+
+
+Character ch = new Character('T');
+char myChar = ch;
+
+--- Slide 69 ---
+Quick Check
+9/17/2025
+CISC230 Object Oriented Design and Programming
+69
+Are the following assignments valid? Explain.
+Double value = 15.75;
+
+
+Character ch = new Character('T');
+char myChar = ch;
+Yes. The double literal is autoboxed into a Double object.
+
+
+
+Yes, the char in the object is unboxed before the assignment.
+
+--- Slide 70 ---
+Outline
+Creating Objects
+The String Class
+The Random and Math Classes
+Formatting Output
+Enumerated Types
+Wrapper Classes
+Introduction to JavaFX
+Shapes and Color
+9/17/2025
+CISC230 Object Oriented Design and Programming
+70
+
+--- Slide 71 ---
+Intro to JavaFX
+The programs we've explored thus far have been text-based
+They are called command-line applications, which interact with the user using simple text prompts
+We’ll now begin to explore programs that use graphics and graphical user interfaces (GUIs)
+Support for these programs will come from the JavaFX API
+JavaFX has replaced older approaches (AWT and Swing)
+9/17/2025
+CISC230 Object Oriented Design and Programming
+71
+
+--- Slide 72 ---
+Intro to JavaFX
+JavaFX programs extend the Application class, inheriting core graphical functionality
+A JavaFX program has a start method
+The main method is only needed to launch the JavaFX application
+The start method accepts the primary stage (window) used by the program as a parameter
+JavaFX embraces a theatre analogy
+See HelloJavaFX.java
+9/17/2025
+CISC230 Object Oriented Design and Programming
+72
+
+--- Slide 73 ---
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+public class HelloJavaFX extends Application
+{
+    //  Creates and displays two Text objects in a JavaFX window.
+    public void start(Stage primaryStage)
+    {
+        Text hello = new Text(50, 50, "Hello, JavaFX!");
+        Text question = new Text(120, 80, "How's it going?");
+        Group root = new Group(hello, question);
+        Scene scene = new Scene(root, 300, 120, Color.LIGHTGREEN);
+        primaryStage.setTitle("A JavaFX Program");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+    //  Launches the JavaFX application. This method is not required
+    //  in IDEs that launch JavaFX applications automatically.
+    public static void main(String[] args)
+    {
+        launch(args);
+    }
+}
+73
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 74 ---
+74
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 75 ---
+Intro to JavaFX
+In this example, two Text objects are added to a Group
+The group serves as the root node of a Scene
+The scene is displayed on the primary Stage (window)
+The size and background color of the scene can be set when the Scene object is created
+The position of each Text object is specified explicitly (in this case)
+9/17/2025
+CISC230 Object Oriented Design and Programming
+75
+
+--- Slide 76 ---
+Intro to JavaFX
+The origin of the Java coordinate system is in the upper left corner
+All visible points have positive coordinates
+9/17/2025
+CISC230 Object Oriented Design and Programming
+76
+(112, 40)
+112
+40
+
+--- Slide 77 ---
+Outline
+Creating Objects
+The String Class
+The Random and Math Classes
+Formatting Output
+Enumerated Types
+Wrapper Classes
+Introduction to JavaFX
+Shapes and Color
+9/17/2025
+CISC230 Object Oriented Design and Programming
+77
+
+--- Slide 78 ---
+Basic Shapes
+JavaFX shapes are represented by classes in the javafx.scene.shape package
+A line segment is defined by the Line class, whose constructor accepts the coordinates of the two endpoints:
+Line(startX, startY, endX, endY)
+For example:
+Line myLine = new Line(10, 20, 300, 80);
+9/17/2025
+CISC230 Object Oriented Design and Programming
+78
+
+--- Slide 79 ---
+Basic Shapes
+A rectangle is specified by its upper left corner and its width and height:
+Rectangle(x, y, width, height)
+Rectangle r = new Rectangle(30, 50, 200, 70);
+A circle is specified by its center point and radius:
+Circle(centerX, centerY, radius)
+Circle c = new Circle(100, 150, 40);
+9/17/2025
+CISC230 Object Oriented Design and Programming
+79
+
+--- Slide 80 ---
+Basic Shapes
+An ellipse is specified by its center point and its radius along the x and y axis:
+Ellipse(centerX, centerY, radiusX, radiusY)
+Ellipse e = new Ellipse(100, 50, 80, 30);
+Shapes are drawn in the order in which they are added to the group
+The stroke and fill of each shape can be set
+See Einstein.java
+9/17/2025
+CISC230 Object Oriented Design and Programming
+80
+
+--- Slide 81 ---
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.*;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+public class Einstein extends Application
+{
+    //  Creates and displays several shapes.
+    public void start(Stage primaryStage)
+    {
+        Line line = new Line(35, 60, 150, 170);
+        Circle circle = new Circle(100, 65, 20);
+        circle.setFill(Color.BLUE);
+        Rectangle rect = new Rectangle(60, 70, 250, 60);
+        rect.setStroke(Color.RED);
+        rect.setStrokeWidth(2);
+        rect.setFill(null);
+        Ellipse ellipse = new Ellipse(200, 100, 150, 50);
+        ellipse.setFill(Color.PALEGREEN);
+        Text quote = new Text(120, 100, "Out of clutter, find " + "simplicity.\n-- Albert Einstein");
+        Group root = new Group(ellipse, rect, circle, line, quote);
+        Scene scene = new Scene(root, 400, 200);
+        primaryStage.setTitle("Einstein");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+    //  We will typically exclude the main method. Use it to launch the application if needed.
+}
+9/17/2025
+CISC230 Object Oriented Design and Programming
+81
+
+--- Slide 82 ---
+82
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 83 ---
+Basic Shapes
+Groups can be nested within groups
+Translating a shape or group shifts its position along the x or y axis
+A shape or group can be rotated using the setRotate method
+See Snowman.java
+9/17/2025
+CISC230 Object Oriented Design and Programming
+83
+
+--- Slide 84 ---
+import javafx.application.Application;
+import javafx.stage.Stage;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.*;
+public class Snowman extends Application
+{
+    //  Presents a snowman scene.
+    public void start(Stage primaryStage)
+    {
+        Ellipse base = new Ellipse(80, 210, 80, 60);
+        base.setFill(Color.WHITE);
+        Ellipse middle = new Ellipse(80, 130, 50, 40);
+        middle.setFill(Color.WHITE);
+        Circle head = new Circle(80, 70, 30);
+        head.setFill(Color.WHITE);
+        Circle rightEye = new Circle(70, 60, 5);
+        Circle leftEye = new Circle(90, 60, 5);
+        Line mouth = new Line(70, 80, 90, 80);
+        Circle topButton = new Circle(80, 120, 6);
+        topButton.setFill(Color.RED);
+        Circle bottomButton = new Circle(80, 140, 6);
+        bottomButton.setFill(Color.RED);
+        Line leftArm = new Line(110, 130, 160, 130);
+        leftArm.setStrokeWidth(3);
+        Line rightArm = new Line(50, 130, 0, 100);
+continued
+84
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 85 ---
+Continued
+
+        rightArm.setStrokeWidth(3);
+        Rectangle stovepipe = new Rectangle(60, 0, 40, 50);
+        Rectangle brim = new Rectangle(50, 45, 60, 5);
+        Group hat = new Group(stovepipe, brim);
+        hat.setTranslateX(10);
+        hat.setRotate(15);
+        Group snowman = new Group(base, middle, head, leftEye, rightEye,
+            mouth, topButton, bottomButton, leftArm, rightArm, hat);
+        snowman.setTranslateX(170);
+        snowman.setTranslateY(50);
+        Circle sun = new Circle(50, 50, 30);
+        sun.setFill(Color.GOLD);
+        Rectangle ground = new Rectangle(0, 250, 500, 100);
+        ground.setFill(Color.STEELBLUE);
+        Group root = new Group(ground, sun, snowman);
+        Scene scene = new Scene(root, 500, 350, Color.LIGHTBLUE);
+        primaryStage.setTitle("Snowman");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+}
+85
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 86 ---
+86
+9/17/2025
+CISC230 Object Oriented Design and Programming
+
+--- Slide 87 ---
+9/17/2025
+CISC230 Object Oriented Design and Programming
+87
+
+--- Slide 88 ---
+Basic Shapes
+Without translating (shifting) the snowman’s position:
+9/17/2025
+CISC230 Object Oriented Design and Programming
+88
+
+--- Slide 89 ---
+Representing Color
+A color in Java is represented by a Color object
+A color object holds three numbers called an RGB value, which stands for Red-Green-Blue
+Each number represents the contribution of that color
+This is how the human eye works
+Each number in an RGB value is in the range 0 to 255
+9/17/2025
+CISC230 Object Oriented Design and Programming
+89
+
+--- Slide 90 ---
+Representing Color
+A color with an RGB value of 255, 255, 0 has a full contribution of red and green, but no blue, which is a shade of yellow
+The static rgb method in the Color class returns a Color object with a specific RGB value:
+Color purple = Color.rgb(183, 44, 150);
+The color method uses percentages:
+Color maroon = Color.color(0.6, 0.1, 0.0);
+9/17/2025
+CISC230 Object Oriented Design and Programming
+90
+
+--- Slide 91 ---
+Representing Color
+For convenience, several Color objects have been predefined, such as:
+Color.BLACK 0, 0, 0
+Color.WHITE 255, 255, 255
+Color.CYAN  0, 255, 255
+Color.PINK  255, 192, 203
+Color.GRAY  128, 128, 128
+See the online documentation of the Color class for a full list of predefined colors
+9/17/2025
+CISC230 Object Oriented Design and Programming
+91
+
+--- Slide 92 ---
+Summary
+Chapter 3 focused on:
+object creation and object references
+the String class and its methods
+the Java standard class library
+the Random and Math classes
+formatting output
+enumerated types
+wrapper classes
+JavaFX graphics API
+shape classes
+9/17/2025
+CISC230 Object Oriented Design and Programming
+92
+
+--- Slide 93 ---
+Copyright
+This work is protected by United States copyright laws and is provided solely for the use of instructors in teaching their courses and assessing student learning. Dissemination or sale of any part of this work (including on the World Wide Web) will destroy the integrity of the work and is not permitted. The work and materials from it should never be made available to students except by instructors using the accompanying text in their classes. All recipients of this work are expected to abide by these restrictions and to honor the intended pedagogical purposes and the needs of other instructors who rely on these materials.
+9/17/2025
+CISC230 Object Oriented Design and Programming
+93
