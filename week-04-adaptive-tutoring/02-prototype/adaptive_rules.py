@@ -23,29 +23,44 @@ class AdaptiveDecision:
 
 
 def classify_intent(question: str) -> str:
-    """Classify what the student appears to be trying to accomplish."""
+    """
+    Classify what the student appears to be trying to accomplish.
+
+    Classification uses ordered rules so that direct-solution requests
+    are detected before ordinary assignment questions.
+    """
     q = question.lower()
 
     direct_solution_terms = [
         "write my homework",
         "write my assignment",
-        "solve this",
+        "write the complete",
+        "complete my homework",
+        "complete my assignment",
+        "complete this for me",
         "give me the answer",
         "give me the full code",
+        "give me complete code",
+        "solve this for me",
         "do this for me",
-        "complete my assignment",
         "answer key",
+        "ready to submit",
+        "so i can submit it",
+        "submit it for me",
     ]
 
-    assignment_terms = [
-        "homework",
-        "assignment",
-        "lab",
-        "project",
-        "require",
-        "requirements",
-        "what does",
-        "supposed to",
+    assignment_clarification_terms = [
+        "what does the assignment mean",
+        "what does the homework mean",
+        "what does the lab mean",
+        "what does the project mean",
+        "assignment requirement",
+        "assignment instructions",
+        "homework requirement",
+        "lab requirement",
+        "project requirement",
+        "supposed to do",
+        "required to use",
     ]
 
     debugging_terms = [
@@ -55,21 +70,22 @@ def classify_intent(question: str) -> str:
         "arrayindexoutofbounds",
         "cannot find symbol",
         "not working",
+        "doesn't work",
+        "does not work",
         "bug",
         "debug",
         "crash",
-        "line",
         "stack trace",
-    ]
-
-    reflection_terms = [
-        "am i on the right track",
-        "does this make sense",
-        "should i use",
-        "is this a good design",
-        "i think",
-        "not sure whether",
-        "belongs in",
+        "compiler error",
+        "runtime error",
+        "expected",
+        "actual",
+        "prints",
+        "returns",
+        "output",
+        "stops when",
+        "i traced",
+        "fix it",
     ]
 
     concept_terms = [
@@ -79,73 +95,82 @@ def classify_intent(question: str) -> str:
         "how does",
         "why does",
         "define",
+        "is that correct",
+        "am i correct",
+        "does that mean",
+        "i think",
     ]
 
-    high_effort_terms = [
-        "i created",
-        "i wrote",
-        "i tried",
-        "my code",
+    reflection_terms = [
+        "am i on the right track",
+        "does this design make sense",
+        "should i use inheritance",
+        "should i use composition",
+        "is this a good design",
+        "which design is better",
+        "where should this method belong",
+        "belongs in",
+        "design choice",
+        "tradeoff",
+    ]
+
+    technical_help_terms = [
         "my method",
         "my class",
         "my constructor",
-        "overridden",
-        "superclass",
-        "subclass",
+        "overridden method",
+        "superclass reference",
+        "subclass object",
+        "here is my code",
+        "code snippet",
     ]
 
+    # Direct requests for completed work receive the highest priority.
     if any(term in q for term in direct_solution_terms):
         return "direct_solution_request"
 
+    # Assignment clarification is distinct from asking for completed work.
+    if any(term in q for term in assignment_clarification_terms):
+        return "assignment_clarification"
+
+    # Debugging is based on evidence of incorrect behavior or errors.
     if any(term in q for term in debugging_terms):
-        if any(term in q for term in high_effort_terms):
-            return "high_effort_technical_help"
         return "debugging_support"
 
+    # Design reflection is narrower than simply saying "I think."
     if any(term in q for term in reflection_terms):
         return "reflection_or_design_reasoning"
 
-    if any(term in q for term in assignment_terms):
-        return "assignment_clarification"
-
+    # Misconception checks and explanatory questions are concept learning.
     if any(term in q for term in concept_terms):
         return "concept_learning"
 
-    if any(term in q for term in high_effort_terms):
+    if any(term in q for term in technical_help_terms):
         return "high_effort_technical_help"
 
     return "general_tutoring"
 
-
 def estimate_effort(question: str) -> str:
-    """Estimate how much effort the student has shown."""
+    """
+    Estimate demonstrated student effort.
+
+    Effort is based on evidence of work, not merely phrases such as
+    "my code" or "my assignment."
+    """
     q = question.lower()
 
-    low_effort_terms = [
+    direct_solution_terms = [
         "solve this",
         "give me the answer",
         "write my homework",
         "write my assignment",
+        "write the complete",
+        "complete this for me",
         "do this for me",
         "full code",
-    ]
-
-    high_effort_terms = [
-        "i created",
-        "i wrote",
-        "i tried",
-        "i tested",
-        "my code",
-        "my method",
-        "my class",
-        "my constructor",
-        "error message",
-        "line",
-        "expected",
-        "actual",
-        "overridden",
-        "superclass",
-        "subclass",
+        "fix it",
+        "so i can submit it",
+        "ready to submit",
     ]
 
     non_graded_terms = [
@@ -154,22 +179,84 @@ def estimate_effort(question: str) -> str:
         "small example",
         "made-up example",
         "not for homework",
+        "not graded",
     ]
 
-    if any(term in q for term in low_effort_terms):
+    # Requests for complete work do not demonstrate meaningful effort.
+    if any(term in q for term in direct_solution_terms):
         return "low_effort"
 
     if any(term in q for term in non_graded_terms):
         return "non_graded_learning_request"
 
-    if any(term in q for term in high_effort_terms):
+    evidence_groups = [
+        # Evidence of an attempted action
+        [
+            "i tried",
+            "i tested",
+            "i traced",
+            "i changed",
+            "i wrote",
+            "i created",
+            "i implemented",
+        ],
+
+        # Comparison between expected and observed behavior
+        [
+            "expected",
+            "actual",
+            "instead",
+            "but it",
+            "prints",
+            "returns",
+            "output",
+        ],
+
+        # Concrete debugging evidence
+        [
+            "error message",
+            "stack trace",
+            "exception",
+            "compiler error",
+            "runtime error",
+            "line number",
+        ],
+
+        # Student reasoning or a hypothesis
+        [
+            "i think",
+            "i suspect",
+            "my hypothesis",
+            "i noticed",
+            "because",
+        ],
+
+        # Evidence that relevant code was supplied
+        [
+            "here is my code",
+            "code snippet",
+            "relevant code",
+            "method below",
+            "class below",
+        ],
+    ]
+
+    evidence_score = sum(
+        1
+        for group in evidence_groups
+        if any(term in q for term in group)
+    )
+
+    if evidence_score >= 2:
         return "high_effort"
+
+    if evidence_score == 1:
+        return "moderate_effort"
 
     if len(question.split()) <= 4:
         return "low_effort"
 
     return "moderate_effort"
-
 
 def select_support_level(intent: str, effort_level: str) -> tuple[str, str]:
     """Choose a support level and rationale."""
@@ -222,18 +309,32 @@ def select_support_level(intent: str, effort_level: str) -> tuple[str, str]:
 
 
 def assess_integrity_risk(intent: str, effort_level: str) -> str:
-    """Assess academic-integrity risk."""
+    """
+    Assess academic-integrity risk using both intent and effort.
+
+    A short concept question is not automatically risky. Risk increases
+    when the student requests completed work or assignment-specific help.
+    """
     if intent == "direct_solution_request":
         return "high"
-
-    if effort_level == "low_effort":
-        return "medium"
 
     if intent == "assignment_clarification":
         return "medium"
 
-    return "low"
+    if intent == "debugging_support" and effort_level == "low_effort":
+        return "medium"
 
+    if intent == "high_effort_technical_help":
+        return "low"
+
+    if intent in [
+        "concept_learning",
+        "reflection_or_design_reasoning",
+        "general_tutoring",
+    ]:
+        return "low"
+
+    return "low"
 
 def make_adaptive_decision(question: str) -> AdaptiveDecision:
     """Return the full adaptive decision for a student question."""

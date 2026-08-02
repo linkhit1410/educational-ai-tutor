@@ -15,6 +15,10 @@ def call_ollama(messages, model="llama3.2"):
         "model": model,
         "messages": messages,
         "stream": False,
+        "options": {
+            "temperature": 0,
+            "seed": 42,
+        },
     }
 
     response = requests.post(OLLAMA_URL, json=payload, timeout=120)
@@ -42,6 +46,7 @@ def call_openai(messages, model="gpt-4o-mini"):
     response = client.chat.completions.create(
         model=model,
         messages=messages,
+        temperature=0,
     )
 
     return response.choices[0].message.content

@@ -6,7 +6,6 @@ import streamlit as st
 from adaptive_rules import make_adaptive_decision
 from model_client import get_model_response
 from retrieval import format_retrieved_context, retrieve_course_context
-from tutor_behavior import detect_scenario
 
 
 COURSE_MATERIALS_DIR = Path(__file__).resolve().parents[1] / "00-course-materials"
@@ -513,11 +512,12 @@ if st.button("Ask Tutor"):
         st.warning("Please enter a question first.")
 
     else:
-        scenario = detect_scenario(student_question)
-
         adaptive_decision = make_adaptive_decision(
             student_question
         )
+
+        # Use the adaptive classifier as the single source of truth.
+        scenario = adaptive_decision.intent
 
         is_high_risk_request = (
             adaptive_decision.intent == "direct_solution_request"

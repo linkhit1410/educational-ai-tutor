@@ -92,9 +92,19 @@ def split_into_chunks(source, text):
             cleaned,
         ).strip()
 
+        # Remove common slide footer text before deciding whether a slide
+        # contains enough instructional content.
+        content_for_quality_check = re.sub(
+            r"\b\d{1,2}/\d{1,2}/\d{4}\b\s+"
+            r"CISC230 Object Oriented Design and Programming\s+\d+\s*$",
+            "",
+            content_without_slide_marker,
+            flags=re.IGNORECASE,
+        ).strip()
+
         # Skip title slides and short section-heading slides.
-        # These often contain only a presentation title, date, and page number.
-        if slide_match and len(content_without_slide_marker.split()) < 12:
+        # Footer text should not make a weak slide appear informative.
+        if slide_match and len(content_for_quality_check.split()) < 12:
             continue
         if slide_match:
             chunk_source = f"{source} :: Slide {slide_match.group(1)}"
@@ -117,7 +127,10 @@ def load_course_chunks():
     if not COURSE_MATERIALS_DIR.exists():
         return chunks
 
-    for path in COURSE_MATERIALS_DIR.rglob("*.txt"):
+    for path in sorted(
+        COURSE_MATERIALS_DIR.rglob("*.txt"),
+        key=lambda item: str(item).lower(),
+    ):
         if path.name.lower() == "readme.txt":
             continue
 
@@ -172,7 +185,13 @@ def retrieve_course_context(question, max_results=4):
             }
         )
 
-    scored_chunks.sort(key=lambda item: item["score"], reverse=True)
+    scored_chunks.sort(
+        key=lambda item: (
+            -item["score"],
+            item["source"].lower(),
+            item["content"].lower(),
+        )
+    )
 
     return scored_chunks[:max_results]
 
